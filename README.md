@@ -5,16 +5,13 @@ This app is using node, mongodb (mongoose), react, browserify, babel, sass and g
 
 ## Running the app:
 
-1. Ensure mongodb is installed and mongodb is running
-
+	//Ensure mongodb is installed and mongodb is running
 	mongod
 
-2. Install dependencies
-
+	//Install dependencies
 	npm install
 
-3. Start gulp
-
+	// Start gulp
 	gulp
 
 4. visit http://localhost:3000
