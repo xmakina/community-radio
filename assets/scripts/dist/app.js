@@ -7,6 +7,12 @@ Parser.register({
 
 Parser.parse($('body')[0]);
 
+var socket = io();
+//socket.emit('chat message', $('#m').val());
+  // socket.on('chat message', function(msg){
+  //   $('#messages').append($('<li>').text(msg));
+  // });
+
 },{"./classes/input.jsx":2,"react-dom-parser":4}],2:[function(require,module,exports){
 var React = require('react'),
     ReactDOM = require('react-dom');

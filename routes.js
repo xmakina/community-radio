@@ -1,21 +1,25 @@
-var nunjucks = require('nunjucks');
+var isAuthenticated = function (req, res, next) {
+	if (req.isAuthenticated()) return next();
+	res.redirect('/');
+}
 
 module.exports = function(app){
 
-	app.get('/', function (req, res) {
-		res.render('login.html', {title: 'twogether radio'});
-	});
+	app
+		.get('/register', function(req, res) {
+			res.render('register.html', {
+				message: req.flash('message'),
+				avatars: require('fs').readdirSync('./assets/images/avatars')
+			});
+		})
+		.get('/', function(req, res) {
+			if(req.isAuthenticated()){
+				res.render('login.html', {title: 'twogether radio', message: req.flash('message')});
+			} else {
+				res.render('home.html', {title: 'twogether radio', message: req.flash('message')});
+			}
+		})
 
-	app.post('/', function (req, res) {
-		res.send('Got a POST request');
-	});
-
-	app.put('/user', function (req, res) {
-		res.send('Got a PUT request at /user');
-	});
-
-	app.delete('/user', function (req, res) {
-		res.send('Got a DELETE request at /user');
-	});
+	return app;
 
 };

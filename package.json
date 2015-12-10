@@ -8,7 +8,12 @@
     "url": "git@gitlab.second2digital.com:studio/twogether-radio.git"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
     "express": "^4.13.3",
+    "express-flash": "0.0.2",
+    "express-session": "^1.12.1",
     "mongoose": "^4.2.10",
     "nunjucks": "^2.2.0",
     "passport": "^0.3.2",
@@ -24,6 +29,7 @@
     "gulp-sass": "^2.1.0",
     "gulp-uglify": "^1.5.1",
     "jshint": "^2.8.0",
+    "passport-local": "^1.0.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-dom-parser": "^0.1.6",

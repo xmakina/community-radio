@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<h1>Login</h1>
+{% endblock %}
+
+{% block content %}
+	
+	{% if message %}
+		{{ message }}
+	{% endif %}
+
+	<form action="/register" method="post">
+
+		<input type="text" name="username" />
+		<input type="password" name="password" />
+		<input type="text" name="email" />
+
+		<select name="avatar">
+			<option disabled selected>Select an avatar</option>
+			{% for avatar in avatars %}
+				<option value="{{avatar|replace('.gif','')}}">{{avatar|replace('.gif','')}}</option>
+			{% endfor %}
+		</select>
+	
+		<button>Register</button>
+
+	</form>
+
+{% endblock %}

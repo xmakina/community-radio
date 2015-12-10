@@ -5,3 +5,9 @@ Parser.register({
 });
 
 Parser.parse($('body')[0]);
+
+var socket = io();
+//socket.emit('chat message', $('#m').val());
+  // socket.on('chat message', function(msg){
+  //   $('#messages').append($('<li>').text(msg));
+  // });
