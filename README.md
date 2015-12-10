@@ -29,10 +29,16 @@ Stuff to think about
 - Ability for multiple playlists with names
 - Need to have some functionality for adding the video to the playlist from youtube urls or ids
 - (Phase 2) use the youtube api to search for videos while on the app
+- Need to check song length
 
 ### 3. Registered users can start djing one of their playlists
 - we need to track what there last song was, can they choose which song plays next?
 - how does this work, where does it go when they click button?
 
-Users can upvote or downvote tracks 
-- How does this work?
+### 4. User avatars will appear on screen, users that are currently in the room or just the one djing?
+
+### 5. Alerts will appear each time someone tunes in, each time a registerd user tunes in and each time someone queues up to dj
+
+### 6. Users can upvote or downvote songs, upvotes will go to a user leaderboard and downvote percentage will skip the current song
+
+### 7. Twogether audio adverts, every x amount of songs, only if audio advert is there
