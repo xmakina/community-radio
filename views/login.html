@@ -5,12 +5,21 @@
 {% endblock %}
 
 {% block content %}
+	
+	{{message|dump}}
 
-	{% if message %}
-		{{ message }}
-	{% endif %}
+	{% for message in message %}
+		<span class="notify-{{message.type}}">{{ message.message }}</span>
+	{% endfor %}
 
-	<form>
+	<form action="/login" method="post">
+
+		<input type="text" name="email" />
+		<input type="password" name="password" />
+	
+		<button>Login</button>
+
+		<a href="/forgot-password">Forgot password?</a>
 
 	</form>
 

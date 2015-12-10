@@ -2,38 +2,49 @@ var express = require('express'),
 	nunjucks = require('nunjucks'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	session = require('express-session'),
+	cookieSession = require('cookie-session'),
 	flash = require('express-flash'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
-	database = require('./database'),
+	database = require('./app/database'),
 	app = express();
 	//io = require('socket.io')(app);
 
 app
 	.use(express.static(__dirname + '/assets'))
-	.use(session({
-		secret: 'everybodyLovesAGoodSecret',
-		resave: true,
-		saveUninitialized: true
+	.use(cookieSession({
+		name: 'session',
+		secret: 'itsAMassiveSecret'
 	}))
 	.use(cookieParser())
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(bodyParser.json())
 	.use(passport.initialize())
 	.use(passport.session())
-	.use(flash());
+	.use(flash())
+	.use(function (req, res, next) {
+		res.locals = {
+			loggedIn: req.isAuthenticated()
+		};
+		if(res.locals.loggedIn) res.locals.user = req.user;
+		next();
+	});
 
 nunjucks.configure(['./views'], {
 	autoescape: true,
     express: app
 });
 
+var env = new nunjucks.Environment();
+env.addFilter('dump', function(str, count){
+	return JSON.stringify(str, null, "\t");
+});
+
 mongoose.connect(database.url);
 
-require('./routes')(app);
-require('./api')(app);
-require('./passport')(passport);
+require('./app/routes')(app);
+require('./app/api')(app);
+require('./app/passport')(passport);
 
 var server = app.listen(3000, 'localhost', function () {
 	console.log('http://%s:%s', server.address().address, server.address().port);

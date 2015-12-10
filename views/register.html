@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 {% block header %}
-	<h1>Login</h1>
+	<h1>Register</h1>
 {% endblock %}
 
 {% block content %}
-	
-	{% if message %}
-		{{ message }}
-	{% endif %}
+
+	{% for message in message %}
+		<span class="notify-{{message.type}}">{{ message.message }}</span>
+	{% endfor %}
 
 	<form action="/register" method="post">
 
 		<input type="text" name="username" />
 		<input type="password" name="password" />
 		<input type="text" name="email" />
-
+		
 		<select name="avatar">
 			<option disabled selected>Select an avatar</option>
 			{% for avatar in avatars %}
