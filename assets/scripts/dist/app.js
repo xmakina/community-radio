@@ -8,10 +8,13 @@ Parser.register({
 Parser.parse($('body')[0]);
 
 var socket = io();
-//socket.emit('chat message', $('#m').val());
-  // socket.on('chat message', function(msg){
-  //   $('#messages').append($('<li>').text(msg));
-  // });
+socket.on('message', function(msg){
+	console.log(msg);
+});
+
+setTimeout(function(){
+	socket.emit('chat message', 'hi');
+}, 1000);
 
 },{"./classes/input.jsx":2,"react-dom-parser":4}],2:[function(require,module,exports){
 var React = require('react'),

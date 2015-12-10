@@ -7,8 +7,9 @@ var express = require('express'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
 	database = require('./app/database'),
-	app = express();
-	//io = require('socket.io')(app);
+	app = express(),
+	http = require('http').Server(app),
+	io = require('socket.io')(http);
 
 app
 	.use(express.static(__dirname + '/assets'))
@@ -46,20 +47,20 @@ require('./app/routes')(app);
 require('./app/api')(app);
 require('./app/passport')(passport);
 
-var server = app.listen(3000, 'localhost', function () {
+var server = http.listen(3000, 'localhost', function () {
 	console.log('http://%s:%s', server.address().address, server.address().port);
 });
 
-// var io = require('socket.io')(server);
+io.on('connection', function(socket){
 
-// io.on('connection', function(socket){
-//   console.log('a user connected');
-// });
+	//socket.emit //send-client only
+	//io.emit //all clients including sender
+	//socket.broadcast.emit //send to all clients except sender
+	
+	// socket.on('message', function(msg){
+		
+	// });
 
-
-// Anonymous listening
-// Register/Login system checking for @wearetwogether email
-
-// users collection
-// playlists collection
-// leaderboards collection
+	//socket.broadcast.emit('message', 'hello'); //Send to all but current user
+	//socket.emit('message', 'hello'); //Send to all users
+});

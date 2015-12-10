@@ -7,7 +7,10 @@ Parser.register({
 Parser.parse($('body')[0]);
 
 var socket = io();
-//socket.emit('chat message', $('#m').val());
-  // socket.on('chat message', function(msg){
-  //   $('#messages').append($('<li>').text(msg));
-  // });
+socket.on('message', function(msg){
+	console.log(msg);
+});
+
+setTimeout(function(){
+	socket.emit('chat message', 'hi');
+}, 1000);
