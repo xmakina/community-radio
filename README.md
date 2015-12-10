@@ -1,13 +1,23 @@
 # Twogether Radio
-This app is using node, mongodb (mongoose), react, browserfy, babel, sass and gulp, the project will auto reload sass and javascript when changes are made and the server will auto reload when node src is changed.
+A live music lobby that rotates between peoples song suggestions, anyone can listen anonymously but internally people can register, listen, create playlists and click ‘start djing’ to queue up their songs.
+
+This app is using node, mongodb (mongoose), react, browserify, babel, sass and gulp, the project will auto reload sass and javascript when changes are made and the server will auto reload when node src is changed.
 
 ## Running the app:
 
+1. Ensure mongodb is installed and mongodb is running
+
 	mongod
+
+2. Install dependencies
+
 	npm install
+
+3. Start gulp
+
 	gulp
 
-visit http://localhost:3000
+4. visit http://localhost:3000
 
 ## Core functionality/things to do
 
