@@ -1,20 +1,18 @@
 import Parser from 'react-dom-parser';
 import Input from './classes/input';
+import Player from './classes/player';
 
-Parser.register({
-	Input: Input
-});
+Parser.register({Input, Player});
 
 Parser.parse($('body')[0]);
 
 var socket = io();
-socket.on('message', function(msg){
+socket.on('message', (msg) => {
 	console.log(msg);
 });
 
-setTimeout(function(){
+setTimeout(() => {
 	socket.emit('chat message', 'hi');
 }, 1000);
 
 const test = 'test';
-console.log(test);
