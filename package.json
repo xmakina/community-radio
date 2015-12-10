@@ -8,6 +8,8 @@
     "url": "git@gitlab.second2digital.com:studio/twogether-radio.git"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
@@ -20,7 +22,8 @@
     "socket.io": "^1.3.7"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
+    "babelify": "^7.2.0",
+    "browserify": "*",
     "envify": "^3.4.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^2.0.0",
@@ -33,7 +36,6 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-dom-parser": "^0.1.6",
-    "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

@@ -1,21 +1,21 @@
 // Build tools
-var gulp = require('gulp'),
+const gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	livereload = require('gulp-livereload'),
 	uglify = require('gulp-uglify'),
-	jshint = require('gulp-jshint');
+	jshint = require('gulp-jshint'),
+	babel = require('gulp-babel');
 
 // Compilers
-var browserify = require('browserify'),
-	reactify = require('reactify'),
+const browserify = require('browserify'),
 	source = require('vinyl-source-stream'),
 	buffer = require('vinyl-buffer');
 
 // Package Object
-var pkg = require('./package.json');
+const pkg = require('./package.json');
 
 // Nodemon
-var nodemon = require('gulp-nodemon');
+const nodemon = require('gulp-nodemon');
 
 // Build SASS
 gulp.task('sass', function() {
@@ -30,7 +30,9 @@ gulp.task('sass', function() {
 // Build JS
 gulp.task('js', function() {
 	return browserify()
-		.transform(reactify)
+		.transform("babelify", {
+			presets: ["es2015", "react"]
+		})
 		.add(pkg.js.src+pkg.js.file)
 		.bundle()
 		.pipe(source(pkg.js.file))

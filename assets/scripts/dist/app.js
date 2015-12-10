@@ -1,178 +1,275 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Parser = require('react-dom-parser');
+'use strict';
 
-Parser.register({
-	Input: require('./classes/input.jsx')
+var _reactDomParser = require('react-dom-parser');
+
+var _reactDomParser2 = _interopRequireDefault(_reactDomParser);
+
+var _input = require('./classes/input.jsx');
+
+var _input2 = _interopRequireDefault(_input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_reactDomParser2.default.register({
+	Input: _input2.default
 });
 
-Parser.parse($('body')[0]);
+_reactDomParser2.default.parse($('body')[0]);
 
 var socket = io();
-socket.on('message', function(msg){
+socket.on('message', function (msg) {
 	console.log(msg);
 });
 
-setTimeout(function(){
+setTimeout(function () {
 	socket.emit('chat message', 'hi');
 }, 1000);
 
-},{"./classes/input.jsx":2,"react-dom-parser":4}],2:[function(require,module,exports){
-var React = require('react'),
-    ReactDOM = require('react-dom');
+var test = 'test';
+console.log(test);
 
-/** @jsx React.DOM */
-module.exports = React.createClass({
-	displayName: 'Input Class',
-	isOldie: false,
-	mounted: false,
-	propTypes: {
-		tag: React.PropTypes.string,
-		attributes: React.PropTypes.shape({
-			type: React.PropTypes.string,
-			placeholder: React.PropTypes.oneOfType([
-				React.PropTypes.string,
-				React.PropTypes.bool
-			]),
-			name: React.PropTypes.string,
-			id: React.PropTypes.string,
-		}),
-		parameter: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.bool
-		]),
-		errorMsg: React.PropTypes.string,
-		required: React.PropTypes.bool
-	},
-	getDefaultProps: function(){
-		return {
-			tag: 'input',
-			attributes: {
-				type: 'text',
-				placeholder: null,
-				name: 'input',
-				id: 'input',
-			},
-			validation: null,
-			parameter: null,
-			errorMsg: 'This field is invalid',
-			required: false
-		};
-	},
-	getInitialState: function(){
-		return {
-			value: '',
-			valid: true
-		}
-	},
-	componentWillReceiveProps: function(props){
-		this.setState({value: props.attributes.value});
-	},
-	componentWillMount: function(){
-		var domClass =  document.documentElement.className;
-		this.isOldie = (domClass.indexOf('ie9') > -1 || domClass.indexOf('ie8') > -1 || domClass.indexOf('ie6') > -1 || domClass.indexOf('ie7') > -1);
-		this.setState({value: this.props.attributes.value});
-	},
-	componentDidMount: function(){
-		this.mounted = true;
-		if(this.props.parameter){
-			var parameters = {};
-			$.each(location.search.substr(1).split("&"), function(index, part){
-			    var item = part.split("="),
-			        result = {};
-			    parameters[item[0]] = decodeURIComponent(item[1]);
-			});
-			if(parameters[this.props.parameter]){
-				this.setState({value: parameters[this.props.parameter]});
-			}
-		}
-		if(this.isOldie && this.props.attributes.placeholder && this.props.attributes.type == 'text'){
-			this.setState({value: this.props.attributes.placeholder});
-		}
-	},
-	validate: function(newValue){
-		var value = typeof(newValue) !== 'undefined' ? newValue : (this.state.value ? this.state.value : ''),
-			isValid = true;
-		if(this.props.validation){
-			if(this.props.validation instanceof RegExp){
-				isValid = this.props.validation.test(value);
-			} else {
-				isValid = new RegExp(this.props.validation).test(value);
-			}
-		}
-		if(!isValid && !this.props.required && value.length === 0){
-			isValid = true;
-		} else if(this.props.required && this.props.attributes.type == 'checkbox' && !ReactDOM.findDOMNode(this.refs['form-element']).checked){ 
-			isValid = false;
-		} else if(this.props.required && value.length === 0){
-			isValid = false;
-		}
-		this.setState({valid: isValid});
-		return isValid;
-	},
-	handleChange: function(event){
-		if(this.props.tag == 'select') $(ReactDOM.findDOMNode(this.refs['form-element'])).blur();
-		this.setState({value: event.target.value});
-		// validate on change?
-		// this.validate(event.target.value);
-	},
-	handleFocus: function(event){
-		if(this.state.value == this.props.attributes.placeholder){
-			this.setState({value: ''});
-		}
-	},
-	handleBlur: function(event){
-		if(!this.isOldie || !this.props.attributes.placeholder || this.props.attributes.type != 'text') return;
-		if(this.state.value == ''){
-			this.setState({value: this.props.attributes.placeholder});
-		}
-	},
-	render: function(){
-		var self = this;
-		if(this.props.attributes.type == 'radio'){
-			return (
-				React.createElement("fieldset", {className: this.state.valid ? null : 'error'}, 
-						React.createElement("legend", null, this.props.legend), 
-						React.createElement("p", {className: "small-margin"}, this.props.description), 
-						this.props.options.map(_.bind(function(option, i) {
-							return React.createElement("label", {htmlFor: 'radio-button-'+i+'-'+this.props.attributes.name}, React.createElement("input", {id: 'radio-button-'+i+'-'+this.props.attributes.name, key: 'input-option-'+i, type: this.props.attributes.type, name: this.props.attributes.name, value: option.value, onChange: this.handleChange, onFocus: this.handleFocus, onBlur: this.handleBlur}), option.label)
-						}, this)), 
-						(function(){
-							if(!self.state.valid){
-								return React.createElement("span", {className: "error-message"}, self.props.errorMsg)
-							}
-						})()
-				)
-			);
-		} else if(this.props.tag == 'select'){
-			return (
-				React.createElement("p", null, 
-					React.createElement("select", React.__spread({ref: "form-element"},  this.props.attributes, {onChange: this.handleChange, onFocus: this.handleFocus, onBlur: this.handleBlur, className: this.state.valid ? null : 'error'}), 
-						React.createElement("option", {disabled: true, selected: true}, this.props.attributes.placeholder), 
-						this.props.options.map(_.bind(function(option, i) {
-							return React.createElement("option", {key: 'input-option-'+i, value: option.value}, option.label)
-						}, this))
-					), 
-					(function(){
-						if(!self.state.valid){
-							return React.createElement("span", {className: "error-message"}, self.props.errorMsg)
-						}
-					})()
-				)
-			)
-		} else {
-			return (
-				React.createElement("span", null, 
-					React.createElement(this.props.tag, React.__spread({ref: "form-element"},  this.props.attributes, {onChange: this.handleChange, value: this.state.value, onFocus: this.handleFocus, onBlur: this.handleBlur, className: this.state.valid ? null : 'error'})), 
-						(function(){
-							if(!self.state.valid){
-								return React.createElement("span", {className: "error-message"}, self.props.errorMsg)
-							}
-						})()
-				)
-			);
-		}
-	}
+},{"./classes/input.jsx":2,"react-dom-parser":4}],2:[function(require,module,exports){
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
 });
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Input = (function (_React$Component) {
+	_inherits(Input, _React$Component);
+
+	function Input(props) {
+		_classCallCheck(this, Input);
+
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this, props));
+
+		_this.state = { name: props.name };
+
+		// 	this.isOldie = false;
+		// this.mounted = false;
+		//
+
+		// this.setState({name: 'test'});z
+
+		return _this;
+	}
+
+	_createClass(Input, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(props) {
+			console.log(props);
+		}
+	}, {
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			console.log("will mount");
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			console.log("did mount");
+		}
+	}, {
+		key: 'setName',
+		value: function setName(name) {
+			this.setState({ name: name });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var hatClass = 'hat ' + this.props.type;
+			return _react2.default.createElement(
+				'h1',
+				null,
+				'hello ',
+				this.state.name
+			);
+		}
+		// componentWillReceiveProps(props){
+		// 	this.setState({value: props.attributes.value});
+		// }
+
+		// componentWillMount(){
+		// 	var domClass =  document.documentElement.className;
+		// 	this.isOldie = (domClass.indexOf('ie9') > -1 || domClass.indexOf('ie8') > -1 || domClass.indexOf('ie6') > -1 || domClass.indexOf('ie7') > -1);
+		// 	console.log(this);
+		// 	this.setState({value: this.props.attributes.value});
+		// }
+
+		// componentDidMount(){
+		// 	this.mounted = true;
+		// 	if(this.props.parameter){
+		// 		var parameters = {};
+		// 		$.each(location.search.substr(1).split("&"), function(index, part){
+		// 		    var item = part.split("="),
+		// 		        result = {};
+		// 		    parameters[item[0]] = decodeURIComponent(item[1]);
+		// 		});
+		// 		if(parameters[this.props.parameter]){
+		// 			this.setState({value: parameters[this.props.parameter]});
+		// 		}
+		// 	}
+		// 	if(this.isOldie && this.props.attributes.placeholder && this.props.attributes.type == 'text'){
+		// 		this.setState({value: this.props.attributes.placeholder});
+		// 	}
+		// }
+
+		// validate(newValue){
+		// 	var value = typeof(newValue) !== 'undefined' ? newValue : (this.state.value ? this.state.value : ''),
+		// 		isValid = true;
+		// 	if(this.props.validation){
+		// 		if(this.props.validation instanceof RegExp){
+		// 			isValid = this.props.validation.test(value);
+		// 		} else {
+		// 			isValid = new RegExp(this.props.validation).test(value);
+		// 		}
+		// 	}
+		// 	if(!isValid && !this.props.required && value.length === 0){
+		// 		isValid = true;
+		// 	} else if(this.props.required && this.props.attributes.type == 'checkbox' && !ReactDOM.findDOMNode(this.refs['form-element']).checked){
+		// 		isValid = false;
+		// 	} else if(this.props.required && value.length === 0){
+		// 		isValid = false;
+		// 	}
+		// 	this.setState({valid: isValid});
+		// 	return isValid;
+		// }
+
+		// handleChange(event){
+		// 	if(this.props.tag == 'select') $(ReactDOM.findDOMNode(this.refs['form-element'])).blur();
+		// 	this.setState({value: event.target.value});
+		// 	// validate on change?
+		// 	// this.validate(event.target.value);
+		// }
+
+		// handleFocus(event){
+		// 	console.log(this);
+		// 	if(this.state.value == this.props.attributes.placeholder){
+		// 		this.setState({value: ''});
+		// 	}
+		// }
+
+		// handleBlur(event){
+		// 	if(!this.isOldie || !this.props.attributes.placeholder || this.props.attributes.type != 'text') return;
+		// 	if(this.state.value == ''){
+		// 		this.setState({value: this.props.attributes.placeholder});
+		// 	}
+		// }
+
+		// render(){
+		// 	var self = this;
+		// 	if(this.props.attributes.type == 'radio'){
+		// 		return (
+		// 			<fieldset className={this.state.valid ? null : 'error'} >
+		// 					<legend>{this.props.legend}</legend>
+		// 					<p className="small-margin">{this.props.description}</p>
+		// 					{this.props.options.map(_.bind(function(option, i) {
+		// 						return <label htmlFor={'radio-button-'+i+'-'+this.props.attributes.name}><input id={'radio-button-'+i+'-'+this.props.attributes.name} key={'input-option-'+i} type={this.props.attributes.type} name={this.props.attributes.name} value={option.value} onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />{option.label}</label>
+		// 					}, this))}
+		// 					{(function(){
+		// 						if(!self.state.valid){
+		// 							return <span className="error-message">{self.props.errorMsg}</span>
+		// 						}
+		// 					})()}
+		// 			</fieldset>
+		// 		);
+		// 	} else if(this.props.tag == 'select'){
+		// 		return (
+		// 			<p>
+		// 				<select ref="form-element" {...this.props.attributes} onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} className={this.state.valid ? null : 'error'} >
+		// 					<option disabled selected>{this.props.attributes.placeholder}</option>
+		// 					{this.props.options.map(_.bind(function(option, i) {
+		// 						return <option key={'input-option-'+i} value={option.value}>{option.label}</option>
+		// 					}, this))}
+		// 				</select>
+		// 				{(function(){
+		// 					if(!self.state.valid){
+		// 						return <span className="error-message">{self.props.errorMsg}</span>
+		// 					}
+		// 				})()}
+		// 			</p>
+		// 		)
+		// 	} else {
+		// 		return (
+		// 			<span>
+		// 				<this.props.tag ref="form-element" {...this.props.attributes} onChange={this.handleChange} value={this.state.value} onFocus={this.handleFocus} onBlur={this.handleBlur} className={this.state.valid ? null : 'error'} />
+		// 					{(function(){
+		// 						if(!self.state.valid){
+		// 							return <span className="error-message">{self.props.errorMsg}</span>
+		// 						}
+		// 					})()}
+		// 			</span>
+		// 		);
+		// 	}
+		// }
+
+	}]);
+
+	return Input;
+})(_react2.default.Component);
+
+Input.defaultProps = { name: 'anonymous', hat: 'none' };
+
+// Input.displayName = 'Input Class';
+
+// Input.state = {
+// 	value: '',
+// 	valid: true
+// };
+
+// Input.defaultProps = {
+// 	tag: 'input',
+// 	attributes: {
+// 		type: 'text',
+// 		placeholder: null,
+// 		name: 'input',
+// 		id: 'input',
+// 	},
+// 	validation: null,
+// 	parameter: null,
+// 	errorMsg: 'This field is invalid',
+// 	required: false
+// };
+
+// Input.propTypes = {
+// 	tag: React.PropTypes.string,
+// 	attributes: React.PropTypes.shape({
+// 		type: React.PropTypes.string,
+// 		placeholder: React.PropTypes.oneOfType([
+// 			React.PropTypes.string,
+// 			React.PropTypes.bool
+// 		]),
+// 		name: React.PropTypes.string,
+// 		id: React.PropTypes.string,
+// 	}),
+// 	parameter: React.PropTypes.oneOfType([
+// 		React.PropTypes.string,
+// 		React.PropTypes.bool
+// 	]),
+// 	errorMsg: React.PropTypes.string,
+// 	required: React.PropTypes.bool
+// };
+
+exports.default = Input;
 
 },{"react":161,"react-dom":5}],3:[function(require,module,exports){
 // shim for using process in browser

@@ -1,7 +1,8 @@
-var Parser = require('react-dom-parser');
+import Parser from 'react-dom-parser';
+import Input from './classes/input';
 
 Parser.register({
-	Input: require('./classes/input.jsx')
+	Input: Input
 });
 
 Parser.parse($('body')[0]);
@@ -14,3 +15,6 @@ socket.on('message', function(msg){
 setTimeout(function(){
 	socket.emit('chat message', 'hi');
 }, 1000);
+
+const test = 'test';
+console.log(test);
