@@ -4,9 +4,14 @@ A live music lobby that rotates between peoples song suggestions, anyone can lis
 This app is using node, mongodb (mongoose), react, browserify, babel, sass and gulp, the project will auto reload sass and javascript when changes are made and the server will auto reload when node src is changed.
 
 ## Running the app:
+	
+	//Ensure node is up to date for harmony support
+	sudo npm cache clean -f
+	sudo npm install -g n
+	sudo n stable
 
 	//Ensure mongodb is installed and mongodb is running
-	mongod
+	sudo mongod
 
 	//Install dependencies
 	npm install
@@ -14,7 +19,7 @@ This app is using node, mongodb (mongoose), react, browserify, babel, sass and g
 	// Start gulp
 	gulp
 
-4. visit http://localhost:3000
+visit http://localhost:3000
 
 ## Core functionality/things to do
 

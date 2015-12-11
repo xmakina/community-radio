@@ -15,6 +15,32 @@
 		<input type="text" name="username" />
 		<input type="password" name="password" />
 		<input type="text" name="email" />
+
+		<div data-react-component="Input" data-react-props="
+ 			tag: 'select',
+ 			errorMsg: 'Please select an event'
+ 			required: true,
+ 			attributes: {
+				type: 'select',
+				name: 'event',
+				id: 'event',
+				placeholder: 'Events'
+			},
+			options: [
+				{
+					value: 'Copenhagen, Denmark - 6th October',
+					label: 'Copenhagen, Denmark - 6th October'
+				},
+				{
+					value: 'Milan, Italy - 6th October',
+					label: 'Milan, Italy - 6th October'
+				},
+				{
+					value: 'Rome, Italy - 8th October',
+					label: 'Rome, Italy - 8th October'
+				}
+			]
+		"></div>
 		
 		<select name="avatar">
 			<option disabled selected>Select an avatar</option>

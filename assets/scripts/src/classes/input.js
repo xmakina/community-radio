@@ -122,7 +122,7 @@ class Input extends React.Component {
 		} else {
 			return (
 				<span>
-					<this.props.tag ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} value={this.state.value} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? null : 'error'} />
+					<this.props.tag ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} value={this.state.value} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.class : this.props.attributes.class+' error'} />
 						{(function(){
 							if(!self.state.valid){
 								return <span className="error-message">{self.props.errorMsg}</span>
@@ -141,6 +141,7 @@ Input.defaultProps = {
 		placeholder: null,
 		name: 'input',
 		id: 'input',
+		class: ''
 	},
 	validation: null,
 	parameter: null,

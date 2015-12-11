@@ -1,13 +1,15 @@
-var controllers = {
+'use strict';
+
+const controllers = {
 		user: require('../controllers/user')
 	};
 
-var isAuthenticated = function (req, res, next) {
+const isAuthenticated = (req, res, next) => {
 	if (req.isAuthenticated()) return next();
 	res.redirect('/');
 }
 
-module.exports = function(app){
+module.exports = (app) => {
 
 	app
 		.post('/register', controllers.user.register)

@@ -16,13 +16,13 @@ module.exports = {
 		failureFlash: true
 	}),
 
-	logout: function(req, res) {
+	logout: (req, res) => {
 		req.logout();
 		res.redirect('/');
 	},
 
-	update: function(req, res) {
-		User.findOne({username: req.body.username}, function(err, user){
+	update: (req, res) => {
+		User.findOne({username: req.body.username}, (err, user) => {
 			if(err) {
 				req.flash('message', {type: 'error', message: 'User Not found.'});
 				res.status(400);
@@ -32,7 +32,7 @@ module.exports = {
 			user.email = req.body.email;
 			user.password = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(10), null);
 			user.avatar = req.body.avatar;
-			user.save(function(err) {
+			user.save((err) => {
 				if(err) {
 					req.flash('message', {type: 'error', message: 'Unable to save user'});
 					res.status(400);

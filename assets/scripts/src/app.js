@@ -14,5 +14,3 @@ socket.on('message', (msg) => {
 setTimeout(() => {
 	socket.emit('chat message', 'hi');
 }, 1000);
-
-const test = 'test';

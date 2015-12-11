@@ -2,14 +2,14 @@ var User = require('../models/user'),
 	bCrypt = require('bcrypt-nodejs'),
 	LocalStrategy = require('passport-local').Strategy;
 
-var isValidPassword = function(user, password){
+var isValidPassword = (user, password) => {
 		return bCrypt.compareSync(password, user.password);
 	},
-	createHash = function(password){
+	createHash = (password) => {
 		return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 	};
 
-module.exports = function(passport){
+module.exports = (passport) => {
 
 	passport.serializeUser(function(user, done){
 		done(null, user._id); 

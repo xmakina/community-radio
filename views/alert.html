@@ -1,0 +1,12 @@
+{%if message.type == 'error' %}
+	<div class="alert alert-danger" role="alert"> <!-- store these in a partial -->
+		<span class="glyphicon glyphicon-exclamation-sign"></span>
+		{{message.message}}
+	</div>
+{% endif %}
+
+{%if message.type == 'message' %}
+	<div class="alert alert-info" role="alert">
+		{{message.message}}
+	</div>
+{% endif %}

@@ -1,10 +1,10 @@
 // Build tools
 const gulp = require('gulp'),
-	sass = require('gulp-sass'),
 	livereload = require('gulp-livereload'),
 	uglify = require('gulp-uglify'),
 	jshint = require('gulp-jshint'),
-	babel = require('gulp-babel');
+	babel = require('gulp-babel'),
+	shell = require('gulp-shell');
 
 // Compilers
 const browserify = require('browserify'),
@@ -16,16 +16,6 @@ const pkg = require('./package.json');
 
 // Nodemon
 const nodemon = require('gulp-nodemon');
-
-// Build SASS
-gulp.task('sass', function() {
-	gulp.src(pkg.styles.src)
-		.pipe(sass({
-			errLogToConsole: true
-		}))
-		.pipe(gulp.dest(pkg.styles.dest))
-		.pipe(livereload());
-});
 
 // Build JS
 gulp.task('js', function() {
@@ -42,9 +32,14 @@ gulp.task('js', function() {
 		.pipe(livereload());
 });
 
+// Start sass watch
+gulp.task('sass', shell.task([
+  'sass --watch '+pkg.styles.src+':'+pkg.styles.dest
+]));
+
 // Watch assets for live reload
 gulp.task('watch', function() {
-	gulp.watch(pkg.styles.src, ['sass']);
+	gulp.watch(pkg.styles.dest);
 	gulp.watch(pkg.js.src+"**/*.*", ['js']);
 	livereload.listen();
 });
@@ -59,6 +54,8 @@ gulp.task('lint', function () {
 gulp.task('dev', function () {
 	nodemon({
 		script: 'server.js',
+        args:['--harmony'],
+        nodeArgs: [],
 		ext: 'html js',
 		ignore: ['assets/**/*'],
 		//tasks: ['lint'],
@@ -75,6 +72,8 @@ gulp.task('dev', function () {
 gulp.task('prod', function () {
 	nodemon({
 		script: 'server.js',
+        args:['--harmony'],
+        nodeArgs: [],
 		ext: 'html js',
 		ignore: ['assets/**/*'],
 		env: {
@@ -83,4 +82,4 @@ gulp.task('prod', function () {
 	})
 });
 
-gulp.task('default', ['watch', 'dev']);
+gulp.task('default', ['watch', 'sass', 'dev']);

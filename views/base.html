@@ -7,6 +7,8 @@
     <head>
         <title>Twogether Radio - Get tuned in</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" rel="stylesheet" href="style/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="style/bootstrap-theme.css" />
         <link type="text/css" rel="stylesheet" href="style/styles.css" />
         <script src="scripts/libs/modernizr.js"></script>
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -19,29 +21,40 @@
                 <script type="text/javascript" src="scripts/libs/selectivizr.js"></script>
         <![endif]-->
     </head>
-    <body>
-        
-        {% if loggedIn %} 
-            <a href="/logout">Logout</a>
-            <a href="/settings">Settings</a>
-        {% else %}
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        {% endif %}
+    <body class="container">
 
-        <div data-react-component="Input" data-react-props="name: 'hello'"></div>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <h1>Twogether Radio</h1>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if loggedIn %} 
+                        <li><a href="/logout">Logout</a></li>
+                        <li><a href="/settings">Settings</a></li>
+                    {% else %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
 
-        <header>
+        <header class="page-header">
             {% block header %}{% endblock %}
         </header>
 
         <section>
             {% block content %}{% endblock %}
         </section>
-
-        <footer>
-            Some footer links
-        </footer>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>

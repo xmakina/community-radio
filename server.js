@@ -1,4 +1,6 @@
-var express = require('express'),
+'use strict';
+
+const express = require('express'),
 	nunjucks = require('nunjucks'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
@@ -23,44 +25,16 @@ app
 	.use(passport.initialize())
 	.use(passport.session())
 	.use(flash())
-	.use(function (req, res, next) {
-		res.locals = {
-			loggedIn: req.isAuthenticated()
-		};
-		if(res.locals.loggedIn) res.locals.user = req.user;
-		next();
-	});
-
-nunjucks.configure(['./views'], {
-	autoescape: true,
-    express: app
-});
-
-var env = new nunjucks.Environment();
-env.addFilter('dump', function(str, count){
-	return JSON.stringify(str, null, "\t");
-});
+	.use(require('./app/bootstrap'));
 
 mongoose.connect(database.url);
 
 require('./app/routes')(app);
 require('./app/api')(app);
 require('./app/passport')(passport);
+require('./app/sockets')(io);
+require('./app/nunjucks')(app, nunjucks);
 
-var server = http.listen(3000, 'localhost', function () {
+const server = http.listen(3000, 'localhost', () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
-});
-
-io.on('connection', function(socket){
-
-	//socket.emit //send-client only
-	//io.emit //all clients including sender
-	//socket.broadcast.emit //send to all clients except sender
-	
-	// socket.on('message', function(msg){
-		
-	// });
-
-	//socket.broadcast.emit('message', 'hello'); //Send to all but current user
-	//socket.emit('message', 'hello'); //Send to all users
 });
