@@ -29,11 +29,11 @@ app
 
 mongoose.connect(database.url);
 
-require('./app/routes')(app);
-require('./app/api')(app);
+require('./app/nunjucks')(app, nunjucks);
 require('./app/passport')(passport);
 require('./app/sockets')(io);
-require('./app/nunjucks')(app, nunjucks);
+require('./app/routes')(app);
+require('./app/api')(app);
 
 const server = http.listen(3000, 'localhost', () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);

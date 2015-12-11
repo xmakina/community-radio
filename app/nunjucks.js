@@ -1,14 +1,13 @@
 module.exports = (app, nunjucks) => {
 
-	nunjucks.configure(['./views'], {
+	const env = nunjucks.configure(['./views'], {
 		autoescape: true,
 	    express: app
 	});
 
-	const env = new nunjucks.Environment();
-
-	env.addFilter('dump', (str, count) => {
-		return JSON.stringify(str, null, "\t");
-	});
+	// env.addFilter('test', (str, count) => {
+	// 	var test = str;
+	// 	return test;
+	// });
 
 }

@@ -1,56 +1,70 @@
 {% extends "base.html" %}
 
 {% block header %}
-	<h1>Register</h1>
+	<h1>Register <small>using your work email</small></h1>
 {% endblock %}
 
+
 {% block content %}
-
-	{% for message in message %}
-		<span class="notify-{{message.type}}">{{ message.message }}</span>
-	{% endfor %}
-
-	<form action="/register" method="post">
-
-		<input type="text" name="username" />
-		<input type="password" name="password" />
-		<input type="text" name="email" />
-
-		<div data-react-component="Input" data-react-props="
- 			tag: 'select',
- 			errorMsg: 'Please select an event'
- 			required: true,
- 			attributes: {
-				type: 'select',
-				name: 'event',
-				id: 'event',
-				placeholder: 'Events'
-			},
-			options: [
-				{
-					value: 'Copenhagen, Denmark - 6th October',
-					label: 'Copenhagen, Denmark - 6th October'
-				},
-				{
-					value: 'Milan, Italy - 6th October',
-					label: 'Milan, Italy - 6th October'
-				},
-				{
-					value: 'Rome, Italy - 8th October',
-					label: 'Rome, Italy - 8th October'
-				}
-			]
-		"></div>
-		
-		<select name="avatar">
-			<option disabled selected>Select an avatar</option>
-			{% for avatar in avatars %}
-				<option value="{{avatar|replace('.gif','')}}">{{avatar|replace('.gif','')}}</option>
+	<div class="container-fluid">
+		<div class="col-md-4 col-sm-8 col-md-offset-4 col-sm-offset-2">
+			{% for message in message %}
+				{% include "alert.html" %}
 			{% endfor %}
-		</select>
-	
-		<button>Register</button>
-
-	</form>
-
+			<form action="/register" method="post" role="form" class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group" data-react-component="Input" data-react-props="
+							errorMsg: 'Please enter a username',
+							required: true,
+							attributes: {
+								type: 'text',
+								name: 'username',
+								className: 'form-control',
+								id: 'username',
+								placeholder: 'Username'
+							}
+					"></div>
+					<div class="form-group" data-react-component="Input" data-react-props="
+							errorMsg: 'Please enter a valid email address',
+							required: true,
+							validation: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+							attributes: {
+								type: 'text',
+								name: 'email',
+								className: 'form-control',
+								id: 'email',
+								placeholder: 'Email'
+							}
+					"></div>
+					<div class="form-group" data-react-component="Input" data-react-props="
+							errorMsg: 'Please enter a password',
+							required: true,
+							attributes: {
+								type: 'password',
+								name: 'password',
+								id: 'password',
+								placeholder: 'Password',
+								className: 'form-control'
+							}
+					"></div>
+					<div data-react-component="Input" data-react-props="
+			 			tag: 'select',
+			 			errorMsg: 'Please select an avatar',
+			 			required: true,
+			 			attributes: {
+							type: 'select',
+							name: 'avatar',
+							id: 'avatar',
+							placeholder: 'Avatar',
+							className: 'form-control'
+						},
+						options: {{avatars|safe|replace('"','\'')}}
+					"></div>
+				</div>
+				<div class="panel-footer">
+					<button class="btn btn-primary btn-lg">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}

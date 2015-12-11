@@ -157,7 +157,7 @@ var Input = (function (_React$Component) {
 			if (this.props.attributes.type == 'radio') {
 				return _react2.default.createElement(
 					'fieldset',
-					{ className: this.state.valid ? null : 'error' },
+					{ className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' },
 					_react2.default.createElement(
 						'legend',
 						null,
@@ -192,7 +192,7 @@ var Input = (function (_React$Component) {
 					null,
 					_react2.default.createElement(
 						'select',
-						_extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? null : 'error' }),
+						_extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' }),
 						_react2.default.createElement(
 							'option',
 							{ disabled: true, selected: true },
@@ -220,7 +220,7 @@ var Input = (function (_React$Component) {
 				return _react2.default.createElement(
 					'span',
 					null,
-					_react2.default.createElement(this.props.tag, _extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), value: this.state.value, onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? this.props.attributes.class : this.props.attributes.class + ' error' })),
+					_react2.default.createElement(this.props.tag, _extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), value: this.state.value, onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' })),
 					(function () {
 						if (!self.state.valid) {
 							return _react2.default.createElement(
