@@ -1,3 +1,4 @@
+@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
 abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
   margin: 0;
   padding: 0;
@@ -62,5 +63,65 @@ hr {
 
 input, select {
   vertical-align: middle; }
+
+button {
+  background: none;
+  border: none;
+  color: #cccccc;
+  font-size: 20px;
+  padding: 0 10px;
+  height: 40px;
+  outline: none;
+  transition: color 0.2s;
+  cursor: pointer;
+  float: left; }
+  button:hover {
+    color: white; }
+
+#controls {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  right: 10px; }
+
+.volume-wrap {
+  padding: 0 10px 0 0;
+  display: inline-block; }
+  .volume-wrap #volume {
+    float: left; }
+  .volume-wrap .volume-panel {
+    float: left;
+    height: 40px;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.2s;
+    cursor: pointer; }
+    .volume-wrap .volume-panel .volume-slider {
+      position: relative;
+      height: 100%; }
+    .volume-wrap .volume-panel .volume-slider-track {
+      height: 2px;
+      width: 70px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      margin-top: -1px;
+      background: gray; }
+    .volume-wrap .volume-panel .volume-slider-progress {
+      height: 100%;
+      width: 0%;
+      background: red;
+      position: relative; }
+    .volume-wrap .volume-panel .volume-slider-handle {
+      height: 12px;
+      width: 3px;
+      position: absolute;
+      top: -5px;
+      right: 0;
+      background: white; }
+  .volume-wrap:hover button {
+    color: white; }
+  .volume-wrap:hover .volume-panel {
+    width: 73px; }
 
 /*# sourceMappingURL=styles.css.map */

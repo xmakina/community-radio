@@ -69,8 +69,7 @@ class Input extends React.Component {
 	handleChange(event){
 		if(this.props.tag == 'select') $(ReactDOM.findDOMNode(this.refs['form-element'])).blur();
 		this.setState({value: event.target.value});
-		// validate on change?
-		// this.validate(event.target.value);
+		this.validate(event.target.value);
 	}
 
 	handleFocus(event){
@@ -98,7 +97,7 @@ class Input extends React.Component {
 						}, this))}
 						{(function(){
 							if(!self.state.valid){
-								return <span className="error-message">{self.props.errorMsg}</span>
+								return <span className="help-inline">{self.props.errorMsg}</span>
 							}
 						})()}
 				</fieldset>
@@ -107,14 +106,14 @@ class Input extends React.Component {
 			return (
 				<p>
 					<select ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} >
-						<option disabled selected>{this.props.attributes.placeholder}</option>
+						<option disabled>{this.props.attributes.placeholder}</option>
 						{this.props.options.map(_.bind(function(option, i) {
 							return <option key={'input-option-'+i} value={option.value}>{option.label}</option>
 						}, this))}
 					</select>
 					{(function(){
 						if(!self.state.valid){
-							return <span className="error-message">{self.props.errorMsg}</span>
+							return <span className="help-inline">{self.props.errorMsg}</span>
 						}
 					})()}
 				</p>
@@ -125,7 +124,7 @@ class Input extends React.Component {
 					<this.props.tag ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} value={this.state.value} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} />
 						{(function(){
 							if(!self.state.valid){
-								return <span className="error-message">{self.props.errorMsg}</span>
+								return <span className="help-inline">{self.props.errorMsg}</span>
 							}
 						})()}
 				</span>

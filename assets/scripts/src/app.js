@@ -1,8 +1,10 @@
 import Parser from 'react-dom-parser';
+
 import Input from './classes/input';
 import Player from './classes/player';
+import Controls from './classes/controls';
 
-Parser.register({Input, Player});
+Parser.register({Input, Player, Controls});
 
 Parser.parse($('body')[0]);
 
