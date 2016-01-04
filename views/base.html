@@ -49,18 +49,11 @@
                 transform: translate(-50%, 0%);
             }
 
-            input[type=checkbox] {
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                z-index: 3;
-            }
-
-            input[type=checkbox]:checked + #overlay {
+            body.overlay-open #overlay {
                 opacity: 0;
             }
             
-            input[type=checkbox]:checked + #overlay + #player {
+            body.overlay-open #overlay + #player {
                 -webkit-filter: blur(0) grayscale(0);
             }
 

@@ -52,13 +52,27 @@ class Volume extends React.Component {
 	}
 
 	toggleMute() {
-		if(this.state.muted){
+		if(this.state.volumeLevel == 0){
+			this.setVolume(100);
+			this.setState({muted: false});
+			this.domPlayer.player.unMute();
+		} else if(this.state.muted){
 			this.setState({muted: false});
 			this.domPlayer.player.unMute()
 		} else {
 			this.setState({muted: true});
 			this.domPlayer.player.mute();
 		}
+	}
+
+	jumpTo(e) {
+		var percent = (e.pageX - this.refs.slider.getBoundingClientRect().left) / this.refs.slider.getBoundingClientRect().width * 100;
+		if (percent < 0) {
+			percent = 0;
+		} else if (percent > 100) {
+			percent = 100;
+		}
+		this.setVolume(percent);
 	}
 
 	render() {
@@ -68,7 +82,7 @@ class Volume extends React.Component {
 					<span className={this.state.muted || this.state.volumeLevel === 0 ? "fa fa-volume-off" : (this.state.volumeLevel < 50 ? "fa fa-volume-down" : "fa fa-volume-up")}></span>
 				</button>
 				<div className="volume-panel">
-					<div className="volume-slider" ref="slider">
+					<div className="volume-slider" ref="slider" onClick={this.jumpTo.bind(this)}>
 						<div className="volume-slider-track">
 							<div className="volume-slider-progress" style={{width: (this.state.muted ? 0 : this.state.volumeLevel+'%')}}>
 								<div className="volume-slider-handle" onMouseDown={this.drag.bind(this)}></div>
