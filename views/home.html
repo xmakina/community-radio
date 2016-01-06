@@ -9,36 +9,11 @@
 	{% for message in message %}
 		<span class="notify-{{message.type}}">{{ message.message }}</span>
 	{% endfor %}
-<!-- 
-	<img id="logo" src="images/logo.png" alt="" /> -->
+	
+	<!-- <img id="logo" src="images/logo.png" alt="" /> -->
 
 	<div data-react-component="Controls" id="controls"></div>
-
-	<input type="checkbox" class="toggle-overlay">
-
-	<section id="overlay">
-		<img src="https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg" />
-		<h3>Gary Fagan</h3>
-		<h3>Boulevard Of Broken Dreams by Green Day</h3>
-		
-		<h3>Audience</h3>
-		<ul class="align-left">
-			<li>
-				<img src="https://www.wearetwogether.com/images/us/Jon-Busby-2.jpg" width="100" title="Jon Busby" />
-			</li>
-			<li>
-				<img src="https://www.wearetwogether.com/images/us/Julie-Rollinson-2.jpg" width="100" title="Julie Rollinson" />
-			</li>
-			<li>
-				<img src="https://www.wearetwogether.com/images/us/Lilly-Yau-2.jpg" width="100" title="Lilly Yau" />
-			</li>
-			<li>
-				<img src="https://www.wearetwogether.com/images/us/Ben-Whitehouse-2.jpg" width="100" title="Simon Staton" />
-			</li>
-		</ul>
-	</section>
-
-	{# 1. The iframe (and video player) will replace this div tag. #}
+	<div data-react-component="Room" data-react-props="name: 'twogether'"></div>
 	<div data-react-component="Player" id="playerWrapper"></div>
 
 {% endblock %}

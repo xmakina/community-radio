@@ -1,18 +1,37 @@
-module.exports = (io) => {
+var url = require('url'),
+	cookie = require('cookie'),
+	cookieParser = require('cookie-parser');
 
-	io.on('connection', (socket) => {
+module.exports = (io, app, redisClient) => {
 
-		//socket.emit //send-client only
-		//io.emit //all clients including sender
-		//socket.broadcast.emit //send to all clients except sender
-		
-		// socket.on('message', function(msg){
-			
-		// });
+    io.of('/radio').use(function (socket, next) {
+    	var handshake = socket.request;
+        if(handshake.headers.cookie) {
+            var cookieData = cookie.parse(handshake.headers.cookie),
+            	sessionId = cookieParser.signedCookie(cookieData['connect.sid'], 'itsAMassiveSecret');
+            redisClient.get('sess:'+sessionId, function(err, session) {
+	        	handshake.session = JSON.parse(session);
+	        	next();
+	        });
+        } else {
+        	next();
+        }
+    });
 
-		//socket.broadcast.emit('message', 'hello'); //Send to all but current user
-		//socket.emit('message', 'hello'); //Send to all users
-		
+	io.of('/radio').on('connection', (socket) => {
+
+		var user = socket.request.session.passport.user,
+			userData = {
+				username: user.username,
+				avatar: user.avatar
+			};
+
+		io.of('/radio').emit('listening', userData);
+
+		socket.on('disconnect', () => {
+			io.of('/radio').emit('notListening', userData);
+		});
+
 	});
 
 }

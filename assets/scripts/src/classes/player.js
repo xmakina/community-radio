@@ -11,7 +11,6 @@ class Player extends React.Component {
 	}
 
 	changeVideo(videoId) {
-		// use either: RzB6JlEVYcQ, UclCCFNG9q4, RWYOYhAHKDA, YQHsXMglC9A
 		this.player.loadVideoById(videoId);
 	}
 
