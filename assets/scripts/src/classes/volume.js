@@ -13,7 +13,9 @@ class Volume extends React.Component {
 			muted: false
 		};
 
-		if(Cookies.cookies.volume) this.state.volumeLevel = Cookies.cookies.volume;
+		if(Cookies.cookies.volume) {
+			this.state.volumeLevel = parseFloat(Cookies.cookies.volume);
+		}
 
 		Parser.onParseComplete(() => {
 			this.domPlayer = Parser.getByNode(document.getElementById('player'));
@@ -62,10 +64,12 @@ class Volume extends React.Component {
 			this.domPlayer.player.unMute();
 		} else if(this.state.muted){
 			this.setState({muted: false});
-			this.domPlayer.player.unMute()
+			this.domPlayer.player.unMute();
+			Cookies.set('volume', this.state.volumeLevel);
 		} else {
 			this.setState({muted: true});
 			this.domPlayer.player.mute();
+			Cookies.set('volume', 0);
 		}
 	}
 

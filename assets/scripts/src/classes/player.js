@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Youtube from '../utils/youtube';
+import Cookies from '../utils/cookies';
 
 class Player extends React.Component {
 
@@ -22,6 +23,7 @@ class Player extends React.Component {
 				events: {
 					onReady: (event) => {
 						event.target.playVideo();
+						if(Cookies.cookies.volume) this.player.setVolume(Cookies.cookies.volume);
 					}
 				},
 				playerVars: { 

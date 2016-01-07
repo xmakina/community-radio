@@ -540,6 +540,10 @@ var _youtube = require('../utils/youtube');
 
 var _youtube2 = _interopRequireDefault(_youtube);
 
+var _cookies = require('../utils/cookies');
+
+var _cookies2 = _interopRequireDefault(_cookies);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -576,6 +580,7 @@ var Player = (function (_React$Component) {
 					events: {
 						onReady: function onReady(event) {
 							event.target.playVideo();
+							if (_cookies2.default.cookies.volume) _this2.player.setVolume(_cookies2.default.cookies.volume);
 						}
 					},
 					playerVars: {
@@ -600,7 +605,7 @@ Player.defaultProps = {};
 
 exports.default = Player;
 
-},{"../utils/youtube":12,"react":171,"react-dom":42}],7:[function(require,module,exports){
+},{"../utils/cookies":9,"../utils/youtube":12,"react":171,"react-dom":42}],7:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -740,7 +745,9 @@ var Volume = (function (_React$Component) {
 			muted: false
 		};
 
-		if (_cookies2.default.cookies.volume) _this.state.volumeLevel = _cookies2.default.cookies.volume;
+		if (_cookies2.default.cookies.volume) {
+			_this.state.volumeLevel = parseFloat(_cookies2.default.cookies.volume);
+		}
 
 		_reactDomParser2.default.onParseComplete(function () {
 			_this.domPlayer = _reactDomParser2.default.getByNode(document.getElementById('player'));
@@ -794,9 +801,11 @@ var Volume = (function (_React$Component) {
 			} else if (this.state.muted) {
 				this.setState({ muted: false });
 				this.domPlayer.player.unMute();
+				_cookies2.default.set('volume', this.state.volumeLevel);
 			} else {
 				this.setState({ muted: true });
 				this.domPlayer.player.mute();
+				_cookies2.default.set('volume', 0);
 			}
 		}
 	}, {
