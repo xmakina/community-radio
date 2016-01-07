@@ -1,5 +1,13 @@
+"use strict";
+
 const Session = require('../models/session'),
+	Timeline = require('../app/timeline'),
 	io = require('../app/resources').io;
+
+var test = new Timeline();
+test._getSongLength('RzB6JlEVYcQ', function(response){
+	console.log(response);
+});
 
 module.exports = {
 

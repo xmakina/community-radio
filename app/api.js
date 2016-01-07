@@ -15,6 +15,7 @@ const isAuthenticated = (req, res, next) => {
 
 module.exports = () => {
 
+	// Restful API
 	app
 
 		// Auth layer api
