@@ -56,6 +56,6 @@ require('./app/api')();
 mongoose.connect(database.url);
 
 // Start listening
-const server = http.listen(3000, '172.16.120.72', () => {
+const server = http.listen(3000, () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
 });
