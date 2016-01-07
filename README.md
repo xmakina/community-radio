@@ -1,7 +1,7 @@
 # Twogether Radio
 A live music lobby that rotates between peoples song suggestions, anyone can listen anonymously but internally people can register, listen, create playlists and click ‘start djing’ to queue up their songs.
 
-This app is using node, mongodb (mongoose), redis (sessions), react, browserify, babel, sass and gulp, the project will auto reload sass and javascript when changes are made and the server will auto reload when node src is changed.
+This app is using node, mongodb (mongoose), react, browserify, babel, sass and gulp, the project will auto build sass and javascript when changes are made and the server will auto reload when node src is changed.
 
 ## Running the app:
 	
@@ -12,9 +12,6 @@ This app is using node, mongodb (mongoose), redis (sessions), react, browserify,
 
 	//Ensure mongodb is installed and mongodb is running
 	sudo mongod
-
-	// Ensure redis is installed (brew install redis) and is running
-	sudo redis-server
 
 	//Install dependencies
 	npm install

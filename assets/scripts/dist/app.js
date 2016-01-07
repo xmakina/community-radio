@@ -36,7 +36,7 @@ _reactDomParser2.default.register({ Input: _input2.default, Player: _player2.def
 _reactDomParser2.default.parse(_dom2.default.$body[0]);
 
 },{"./classes/controls":3,"./classes/input":4,"./classes/player":5,"./classes/room":6,"./utils/dom":8,"./utils/socket.js":9,"react-dom-parser":39}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -44,7 +44,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -63,35 +63,26 @@ var Audience = (function (_React$Component) {
 		_classCallCheck(this, Audience);
 
 		return _possibleConstructorReturn(this, Object.getPrototypeOf(Audience).call(this, props));
-		// io.connect("http://localhost/new");
 	}
 
 	_createClass(Audience, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				"ul",
-				{ className: "align-left" },
-				_react2.default.createElement(
-					"li",
-					null,
-					_react2.default.createElement("img", { src: "https://www.wearetwogether.com/images/us/Jon-Busby-2.jpg", width: "100", title: "Jon Busby" })
-				),
-				_react2.default.createElement(
-					"li",
-					null,
-					_react2.default.createElement("img", { src: "https://www.wearetwogether.com/images/us/Julie-Rollinson-2.jpg", width: "100", title: "Julie Rollinson" })
-				),
-				_react2.default.createElement(
-					"li",
-					null,
-					_react2.default.createElement("img", { src: "https://www.wearetwogether.com/images/us/Lilly-Yau-2.jpg", width: "100", title: "Lilly Yau" })
-				),
-				_react2.default.createElement(
-					"li",
-					null,
-					_react2.default.createElement("img", { src: "https://www.wearetwogether.com/images/us/Ben-Whitehouse-2.jpg", width: "100", title: "Simon Staton" })
-				)
+				'ul',
+				{ className: 'align-left' },
+				this.props.listening.map(function (user, index) {
+					return _react2.default.createElement(
+						'li',
+						{ key: index },
+						_react2.default.createElement('img', { src: 'images/avatars/' + user.avatar + '.gif', width: '100', title: user.username }),
+						_react2.default.createElement(
+							'p',
+							null,
+							user.username
+						)
+					);
+				})
 			);
 		}
 	}]);
@@ -565,22 +556,37 @@ var Room = (function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Room).call(this, props));
 
-		var socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
+		_this.state = {
+			audience: []
+		};
 
-		socket.on('listening', function (user) {
-			console.log(user);
-		});
-
-		socket.on('notListening', function (user) {
-			console.log(user);
-		});
+		_this._bindEvents();
+		_this._getListeners();
 
 		return _this;
 	}
 
 	_createClass(Room, [{
+		key: '_bindEvents',
+		value: function _bindEvents() {
+
+			var socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
+			socket.on('listening', this._getListeners.bind(this));
+			socket.on('notListening', this._getListeners.bind(this));
+		}
+	}, {
+		key: '_getListeners',
+		value: function _getListeners() {
+			var _this2 = this;
+
+			$.get('/radio/listening', function (response) {
+				_this2.setState({ audience: response });
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'room-wrapper' },
@@ -604,7 +610,7 @@ var Room = (function (_React$Component) {
 						null,
 						'Audience'
 					),
-					_react2.default.createElement(_audience2.default, null)
+					_react2.default.createElement(_audience2.default, { listening: this.state.audience })
 				)
 			);
 		}
@@ -612,10 +618,6 @@ var Room = (function (_React$Component) {
 
 	return Room;
 })(_react2.default.Component);
-
-Room.defaultProps = {
-	name: 'radio-room'
-};
 
 exports.default = Room;
 

@@ -7,41 +7,52 @@ class Room extends React.Component {
 
 		super(props);
 
-		var socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
-		
-		socket.on('listening', function(user){
-			console.log(user);
-		});
+		this.state = {
+			audience: []
+		};
 
-		socket.on('notListening', function(user){
-			console.log(user);
-		});
+		this._bindEvents();
+		this._getListeners();
 
 	}
 
-	render(){
+	_bindEvents() {
+
+		var socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
+		socket.on('listening', this._getListeners.bind(this));
+		socket.on('notListening', this._getListeners.bind(this));
+
+	}
+
+	_getListeners() {
+		$.get('/radio/listening', (response) => {
+			this.setState({audience: response});
+		});
+	}
+
+	render() {
+
 		return (
 
 			<div className="room-wrapper">
 				<input type="checkbox" className="toggle-overlay" />
 				<section id="overlay">
+
 					<img src="https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg" />
+
 					<h3>Gary Fagan</h3>
 					<h3>Boulevard Of Broken Dreams by Green Day</h3>
 					
 					<h3>Audience</h3>
 
-					<Audience />
+					<Audience listening={this.state.audience}/>
 
 				</section>
 			</div>
+
 		);
 	}
 
 }
-
-Room.defaultProps = {
-	name: 'radio-room'
-};
 
 export default Room;

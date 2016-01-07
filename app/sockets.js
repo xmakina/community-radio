@@ -1,40 +1,56 @@
-var url = require('url'),
+const url = require('url'),
 	cookie = require('cookie'),
 	cookieParser = require('cookie-parser'),
-	Session = require('../models/session');
+	Session = require('../models/session'),
+	resources = require('./resources'),
+	io = resources.io;
 
-module.exports = (io, app) => {
+module.exports = () => {
 
-	io.of('/radio').use(function (socket, next) {
+	// Map session to socket client and store client id in session store
+	io.of('/radio').use((socket, next) => {
+
 		var handshake = socket.request;
 		if(handshake.headers.cookie) {
+
 			var cookieData = cookie.parse(handshake.headers.cookie),
 			sessionId = cookieParser.signedCookie(cookieData['connect.sid'], 'itsAMassiveSecret');
 
-			Session.findOne({_id: sessionId}, function(err, data){
-				handshake.session = JSON.parse(data.session);
-				next();
+			Session.findOne({_id: sessionId}, (err, session) => {
+				var sessionData = JSON.parse(session.session);
+				session._socketId = socket.id;
+				session.save((err) => {
+					handshake.user = {};
+					if(sessionData) {
+						if(sessionData.passport && sessionData.passport.user) {
+							handshake.user.username = sessionData.passport.user.username;
+							handshake.user.avatar = sessionData.passport.user.avatar
+						}
+					}
+					next();
+				});
 			});
+
 		} else {
+
 			next();
+
 		}
+
 	});
 
+	// User joined radio
 	io.of('/radio').on('connection', (socket) => {
 
-		var userData = {};
-		if(socket.request.session) {
-			var session = socket.request.session;
-			if(session.passport && session.passport.user) {
-				userData.username = session.passport.user.username;
-				userData.avatar = session.passport.user.avatar
-			}
-		}
+		// Emit listening event to all clients
+		io.of('/radio').emit('listening', socket.request.user);
 
-		io.of('/radio').emit('listening', userData);
-
+		// User left radio
 		socket.on('disconnect', () => {
-			io.of('/radio').emit('notListening', userData);
+
+			// Emit not listening event to all clients
+			io.of('/radio').emit('notListening', socket.request.user);
+
 		});
 
 	});

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 module.exports = mongoose.model('Sessions', new Schema({ 

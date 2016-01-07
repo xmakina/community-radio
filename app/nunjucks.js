@@ -1,8 +1,10 @@
-module.exports = (app, nunjucks) => {
+const resources = require('./resources');
 
-	const env = nunjucks.configure(['./views'], {
+module.exports = () => {
+
+	const env = resources.nunjucks.configure(['./views'], {
 		autoescape: true,
-		express: app
+		express: resources.app
 	});
 
 	// env.addFilter('test', (str, count) => {

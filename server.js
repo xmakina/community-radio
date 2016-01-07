@@ -1,5 +1,6 @@
 'use strict';
 
+// Get dependencies
 const express = require('express'),
 	nunjucks = require('nunjucks'),
 	mongoose = require('mongoose'),
@@ -7,13 +8,19 @@ const express = require('express'),
 	flash = require('express-flash'),
 	session = require("express-session"),
 	cookieParser = require('cookie-parser'),
-	bodyParser = require('body-parser'),
-	database = require('./app/database'),
-	app = express(),
+	bodyParser = require('body-parser');
+
+// Get local configs and resources
+const database = require('./app/database'),
+	resources = require('./app/resources');
+
+// Instantiate servers and stores
+const app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	MongoStore = require('connect-mongo')(session);
 
+// Set middleware
 app
 	.use(express.static(__dirname + '/assets'))
 	.use(session({
@@ -32,14 +39,23 @@ app
 	.use(flash())
 	.use(require('./app/bootstrap'));
 
-require('./app/nunjucks')(app, nunjucks);
-require('./app/passport')(passport);
-require('./app/sockets')(io, app);
-require('./app/routes')(app);
-require('./app/api')(app);
+// Map resources
+resources.app = app;
+resources.nunjucks = nunjucks;
+resources.passport = passport;
+resources.io = io;
 
+// Load app components
+require('./app/nunjucks')();
+require('./app/passport')();
+require('./app/sockets')();
+require('./app/routes')();
+require('./app/api')();
+
+// Connect to mongodb
 mongoose.connect(database.url);
 
-const server = http.listen(3000, () => {
+// Start listening
+const server = http.listen(3000, '172.16.120.72', () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
 });

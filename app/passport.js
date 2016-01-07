@@ -1,6 +1,7 @@
-var User = require('../models/user'),
+const User = require('../models/user'),
 	bCrypt = require('bcrypt-nodejs'),
-	LocalStrategy = require('passport-local').Strategy;
+	LocalStrategy = require('passport-local').Strategy,
+	resources = require('./resources');
 
 var isValidPassword = (user, password) => {
 		return bCrypt.compareSync(password, user.password);
@@ -9,19 +10,19 @@ var isValidPassword = (user, password) => {
 		return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 	};
 
-module.exports = (passport) => {
+module.exports = () => {
 
-	passport.serializeUser(function(user, done){
-		done(null, user); 
+	resources.passport.serializeUser(function(user, done){
+		done(null, user);
 	});
 	 
-	passport.deserializeUser(function(id, done){
+	resources.passport.deserializeUser(function(id, done){
 		User.findById(id, function(err, user){
 			done(err, user);
 		});
 	});
 
-	passport.use('login', new LocalStrategy({
+	resources.passport.use('login', new LocalStrategy({
 			usernameField: 'email',
 			passwordField: 'password',
 			passReqToCallback : true
@@ -39,7 +40,7 @@ module.exports = (passport) => {
 			);
 		}));
 
-	passport.use('register', new LocalStrategy({
+	resources.passport.use('register', new LocalStrategy({
 			usernameField: 'email',
 			passwordField: 'password',
 			passReqToCallback : true

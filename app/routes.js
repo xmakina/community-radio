@@ -5,9 +5,10 @@ const isAuthenticated = (req, res, next) => {
 	isUnauthenticated = (req, res, next) =>{
 		if (!req.isAuthenticated()) return next();
 		res.redirect('/');
-	};
+	},
+	app = require('./resources').app;
 
-module.exports = (app) => {
+module.exports = () => {
 
 	app
 		.get('/', (req, res) => {
