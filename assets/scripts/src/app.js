@@ -7,8 +7,8 @@ import Input from './classes/input';
 import Player from './classes/player';
 import Controls from './classes/controls';
 import Room from './classes/room';
-import Playlist from './classes/Playlist';
+import Playlists from './classes/Playlists';
 
-Parser.register({Input, Player, Controls, Room, Playlist});
+Parser.register({Input, Player, Controls, Room, Playlists});
 
 Parser.parse(dom.$body[0]);

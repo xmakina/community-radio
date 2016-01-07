@@ -72,7 +72,16 @@ var Playlist = (function (_React$Component) {
 	_createClass(Playlist, [{
 		key: "render",
 		value: function render() {
-			return _react2.default.createElement("div", { id: "player" });
+			return _react2.default.createElement(
+				"div",
+				{ id: "playlist" },
+				_react2.default.createElement(
+					"button",
+					{ className: "open-playlist" },
+					_react2.default.createElement("i", { "class": "fa fa-list-ol" })
+				),
+				_react2.default.createElement("div", { className: "playlist-window" })
+			);
 		}
 	}]);
 
