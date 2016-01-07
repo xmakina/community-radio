@@ -37,15 +37,17 @@ class Timeline {
 
 	playSong(id) {
 
+		console.log("now playing", id);
+
 		this.startsAt = new Date();
 		this._getSongLength(id, (data) => {
 
-			console.log("play song");
-			
 			this.endsAt = new Date();
-			this.endsAt.setSeconds(this.endsAt.getSeconds() + data.seconds);
-			this.endsAt.setMinutes(this.endsAt.getMinutes() + data.minutes);
 
+			var now = new Date();
+			this.endsAt = new Date(now.getTime() + (data.seconds*1000));
+			this.endsAt = new Date(this.endsAt.getTime() + (data.minutes*60000));
+			
 			this.playing = id;
 
 			if(this.callbacks.newSong) {
@@ -77,7 +79,9 @@ class Timeline {
 	_nextTick() {
 		if(!this.playing) return;
 		var now = new Date();
+		console.log(Math.abs((now.getTime() - this.endsAt.getTime()) / 1000));
 		if(now.getTime() > this.endsAt.getTime()) {
+			console.log("its over");
 			this.elapsed = 0;
 			var index = this.defaultPlaylist.indexOf(this.playing),
 				nextSong = index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
