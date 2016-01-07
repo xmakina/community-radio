@@ -3,9 +3,7 @@
 const express = require('express'),
 	nunjucks = require('nunjucks'),
 	mongoose = require('mongoose'),
-	redis = require("redis"),
 	passport = require('passport'),
-	cookieSession = require('cookie-session'),
 	flash = require('express-flash'),
 	session = require("express-session"),
 	cookieParser = require('cookie-parser'),
@@ -14,24 +12,19 @@ const express = require('express'),
 	app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
-	redisClient = redis.createClient(),
-	redisStore = require("connect-redis")(session);
+	MongoStore = require('connect-mongo')(session);
 
 app
 	.use(express.static(__dirname + '/assets'))
-	.use(cookieSession({
-		name: 'session',
-		secret: 'itsAMassiveSecret'
-	}))
 	.use(session({
-		store: new redisStore({
-			client: redisClient
+		store: new MongoStore({
+			mongooseConnection: mongoose.connection
 		}),
-		resave: true, 
-		saveUninitialized: true,
 		secret: "itsAMassiveSecret",
+		resave: false,
+		saveUninitialized: true
 	}))
-	.use(cookieParser("itsAMassiveSecret"))
+	.use(cookieParser())
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(bodyParser.json())
 	.use(passport.initialize())
@@ -41,12 +34,12 @@ app
 
 require('./app/nunjucks')(app, nunjucks);
 require('./app/passport')(passport);
-require('./app/sockets')(io, app, redisClient);
+require('./app/sockets')(io, app);
 require('./app/routes')(app);
 require('./app/api')(app);
 
 mongoose.connect(database.url);
 
-const server = http.listen(3000, 'localhost', () => {
+const server = http.listen(3000, () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
 });
