@@ -5,18 +5,32 @@ module.exports = {
 
 	listening: (req, res) => {
 
-		var clients = io.of('/radio').connected,
-			users = [],
-			wasSet = [];
-
-		for (var id in clients) {
-			if(wasSet.indexOf(clients[id].request.user.username) == -1) {
-				users.push(clients[id].request.user);
-				wasSet.push(clients[id].request.user.username);
-			}
+		var clientIds = [];
+		for (var id in io.of('/radio').connected) {
+			clientIds.push(id);
 		}
 
-		res.send(users);
+		Session.find({
+			_socketId: { $in: clientIds }
+		}).exec(function(err, sessions){
+
+			if(err){
+				res.status(400);
+				res.send(err);
+			}
+
+			var users = [];
+			for(var i=0;i<sessions.length;i++){
+				var session = JSON.parse(sessions[i].session);
+				users.push({
+					username: session.passport.user.username,
+					avatar: session.passport.user.avatar
+				});
+			}
+
+			res.send(users);
+
+		});
 
 	}
 

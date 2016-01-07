@@ -21,7 +21,7 @@ class Player extends React.Component {
 				videoId: 'RzB6JlEVYcQ',
 				events: {
 					onReady: (event) => {
-						event.target.playVideo();
+						//event.target.playVideo();
 					}
 				},
 				playerVars: { 

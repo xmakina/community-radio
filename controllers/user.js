@@ -22,24 +22,32 @@ module.exports = {
 	},
 
 	update: (req, res) => {
-		User.findOne({username: req.body.username}, (err, user) => {
+		User.findOne({_id: req.body._id}, (err, user) => {
 			if(err) {
 				req.flash('message', {type: 'error', message: 'User Not found.'});
 				res.status(400);
 				res.send(err);
 			}
-			user.username = req.body.username;
-			user.email = req.body.email;
-			user.password = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(10), null);
-			user.avatar = req.body.avatar;
+			for(var key in req.body){
+				if(key == 'password'){
+					req.body[key] = bCrypt.hashSync(req.body[key], bCrypt.genSaltSync(10), null);
+				}
+				user[key] = req.body[key];
+			}
 			user.save((err) => {
+
 				if(err) {
 					req.flash('message', {type: 'error', message: 'Unable to save user'});
 					res.status(400);
 					res.send(err);
 				}
-				req.flash('message', {type: 'message', message: 'User updated.'});
-				res.redirect('/settings');
+
+				// Update session
+				req.login(user, function(err) {
+					req.flash('message', {type: 'message', message: 'User updated.'});
+					res.redirect('/settings');
+				});
+
 			});
 		});
 	}

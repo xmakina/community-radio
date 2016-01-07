@@ -23,7 +23,7 @@ visit http://localhost:3000
 
 ## Core functionality/things to do
 
-### 1. People can listen to music from youtube synchronously 
+### 1. People can listen to music from youtube synchronously
 - Videos are loaded in from youtube id's passed in from node via websockets
 - Videos will play synchronously across all clients
 - Video functionality will be stripped away and we will use the youtube api to render just the audio

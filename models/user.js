@@ -25,5 +25,11 @@ module.exports = mongoose.model('User', Schema({
 	playlists: [{
 		type: ObjectId,
 		ref: 'Playlist'
-	}]
+	}],
+	playerSettings: {
+		volume: {
+			type: Number,
+			default: 100
+		}
+	}
 }));

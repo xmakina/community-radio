@@ -20,13 +20,6 @@ module.exports = () => {
 				var sessionData = JSON.parse(session.session);
 				session._socketId = socket.id;
 				session.save((err) => {
-					handshake.user = {};
-					if(sessionData) {
-						if(sessionData.passport && sessionData.passport.user) {
-							handshake.user.username = sessionData.passport.user.username;
-							handshake.user.avatar = sessionData.passport.user.avatar
-						}
-					}
 					next();
 				});
 			});
@@ -43,13 +36,13 @@ module.exports = () => {
 	io.of('/radio').on('connection', (socket) => {
 
 		// Emit listening event to all clients
-		io.of('/radio').emit('listening', socket.request.user);
+		io.of('/radio').emit('listening');
 
 		// User left radio
 		socket.on('disconnect', () => {
 
 			// Emit not listening event to all clients
-			io.of('/radio').emit('notListening', socket.request.user);
+			io.of('/radio').emit('notListening');
 
 		});
 

@@ -11,6 +11,7 @@
 				{% include "alert.html" %}
 			{% endfor %}
 			<form action="/settings" method="post" role="form" class="panel panel-default">
+				<input type="hidden" name="_id" value="{{user._id}}" />
 				<div class="panel-body">
 					<div class="form-group" data-react-component="Input" data-react-props="
 							errorMsg: 'Please enter a username',
