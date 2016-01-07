@@ -570,7 +570,7 @@ var Player = (function (_React$Component) {
 		});
 
 		_this.socket.on('songDetails', function (data) {
-			_this.makePlayer(data.id, data.elapsed);
+			if (!_this.made) _this.makePlayer(data.id, data.elapsed);
 		});
 
 		return _this;
@@ -586,6 +586,7 @@ var Player = (function (_React$Component) {
 		value: function makePlayer(id, elapsed) {
 			var _this2 = this;
 
+			this.made = true;
 			_youtube2.default.onReady(function () {
 				_this2.player = new YT.Player(_reactDom2.default.findDOMNode(_this2), {
 					videoId: id,

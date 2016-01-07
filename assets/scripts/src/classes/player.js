@@ -9,7 +9,6 @@ class Player extends React.Component {
 
 		super(props);
 		
-
 		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
 
 		this.socket.on('newSong', (id) => {
@@ -17,7 +16,7 @@ class Player extends React.Component {
 		});
 
 		this.socket.on('songDetails', (data) => {
-			this.makePlayer(data.id, data.elapsed);
+			if(!this.made) this.makePlayer(data.id, data.elapsed);
 		});
 
 	}
@@ -27,6 +26,7 @@ class Player extends React.Component {
 	}
 
 	makePlayer(id, elapsed) {
+		this.made = true;
 		Youtube.onReady(() => {
 			this.player = new YT.Player(ReactDOM.findDOMNode(this), {
 				videoId: id,

@@ -75,13 +75,14 @@ class Timeline {
 	_nextTick() {
 		if(!this.playing) return;
 		var now = new Date();
-		if(now > this.endsAt) {
+		if(now.getTime() > this.endsAt.getTime()) {
 			this.elapsed = 0;
+			var index = this.defaultPlaylist.indexOf(this.playing),
+				nextSong = index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
+			this.playSong(nextSong);
 			this.playing = false;
-			this.playSong(this.defaultPlaylist[this.defaultPlaylist.indexOf(this.playing) + 1]);
 		} else {
 			this.elapsed = Math.abs((this.startsAt.getTime() - now.getTime()) / 1000);
-			console.log(this.elapsed);
 		}
 	}
 
