@@ -4,11 +4,6 @@ const Session = require('../models/session'),
 	Timeline = require('../app/timeline'),
 	io = require('../app/resources').io;
 
-var test = new Timeline();
-test._getSongLength('RzB6JlEVYcQ', function(response){
-	console.log(response);
-});
-
 module.exports = {
 
 	joinedDjQueue: () => {
@@ -17,7 +12,7 @@ module.exports = {
 
 	},
 
-	leftDJQueue: () => {
+	leftDjQueue: () => {
 
 		// Update user model with flag - endpoint via websockets not restful api
 

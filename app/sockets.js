@@ -4,6 +4,7 @@ const url = require('url'),
 	Session = require('../models/session'),
 	resources = require('./resources'),
 	radio = require('../controllers/radio'),
+	Timeline = require('../app/timeline'),
 	io = resources.io;
 
 module.exports = () => {
@@ -38,12 +39,21 @@ module.exports = () => {
 			// Emit not listening event to all clients
 			io.of('/radio').emit('notListening');
 
-			radio.leftDJQueue();
+			radio.leftDjQueue();
 
 		});
 
+		socket.emit('songDetails', {
+			id: Timeline.playing,
+			elapsed: Timeline.elapsed
+		});
+
+		Timeline.on('newSong', (id) => {
+			socket.emit('newSong', id);
+		});
+
 		socket.on('joinedDjQueue', radio.joinedDjQueue);
-		socket.on('leftDJQueue', radio.leftDJQueue);
+		socket.on('leftDjQueue', radio.leftDjQueue);
 
 	});
 

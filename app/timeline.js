@@ -12,16 +12,47 @@ class Timeline {
 			youtubeApiKey: 'AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU'
 		});
 
-		this.activeSong = {};
-		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
-		
-		// Have events for start and end of song
-		// Get song length
-		// Set 1 second interval to check if song has completed
-		// Fire events to clients for next song
+		this.defaultPlaylist = [
+			'hbb09MRR-Q4',
+			'6Z66wVo7uNw',
+			'mzJj5-lubeM',
+			'tIdIqbv7SPo'
+		];
 
-		// Need some functionality for watching the queue of people and rotating the songs
-		// Get current time of video, if someone joins mid song it will jump them to that part of the song
+		this.callbacks = {};
+
+		this.playSong(this.defaultPlaylist[0]);
+
+		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
+
+	}
+
+	on(event, callback) {
+		if(this.callbacks[event]) {
+			this.callbacks[event].push(callback);
+		} else {
+			this.callbacks[event] = [callback];
+		}
+	}
+
+	playSong(id) {
+
+		this.startsAt = new Date();
+		this._getSongLength(id, (data) => {
+
+			this.endsAt = new Date();
+			this.endsAt.setSeconds(this.endsAt.getSeconds() + data.seconds);
+			this.endsAt.setMinutes(this.endsAt.getMinutes() + data.minutes);
+
+			this.playing = id;
+
+			if(this.callbacks.newSong) {
+				for(var callback of this.callbacks.newSong){
+					callback(id);
+				}
+			}
+
+		});
 
 	}
 
@@ -42,10 +73,18 @@ class Timeline {
 	}
 
 	_nextTick() {
-		// Get elapsed time from start of song - check to see if its ended
-		// Check length, or do some basic non intensive logic here
+		if(!this.playing) return;
+		var now = new Date();
+		if(now > this.endsAt) {
+			this.elapsed = 0;
+			this.playing = false;
+			this.playSong(this.defaultPlaylist[this.defaultPlaylist.indexOf(this.playing) + 1]);
+		} else {
+			this.elapsed = Math.abs((this.startsAt.getTime() - now.getTime()) / 1000);
+			console.log(this.elapsed);
+		}
 	}
 
 }
 
-module.exports = Timeline;
+module.exports = new Timeline();
