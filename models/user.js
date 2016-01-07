@@ -25,5 +25,5 @@ module.exports = mongoose.model('User', Schema({
 	playlists: [{
 		type: ObjectId,
 		ref: 'Playlist'
-	}
+	}]
 }));

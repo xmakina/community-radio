@@ -1,5 +1,6 @@
 import React from 'react';
 import Parser from 'react-dom-parser';
+import Cookies from '../utils/cookies';
 
 class Volume extends React.Component {
 
@@ -11,6 +12,8 @@ class Volume extends React.Component {
 			volumeLevel: 100,
 			muted: false
 		};
+
+		if(Cookies.cookies.volume) this.state.volumeLevel = Cookies.cookies.volume;
 
 		Parser.onParseComplete(() => {
 			this.domPlayer = Parser.getByNode(document.getElementById('player'));
@@ -25,6 +28,7 @@ class Volume extends React.Component {
 			this.toggleMute();
 		}
 		this.setState({volumeLevel: percentage});
+		Cookies.set('volume', percentage);
 
 	}
 

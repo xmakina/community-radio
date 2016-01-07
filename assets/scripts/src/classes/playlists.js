@@ -13,10 +13,10 @@ class Playlists extends React.Component {
 
 			<div id="playlists">
 
-				<button className="open-playlists"><i class="fa fa-list-ol"></i></button>
+				<button className="open-playlists"><i className="fa fa-list-ol"></i></button>
 
 				<div className="playlists-window">
-
+					
 				</div>
 
 			</div>

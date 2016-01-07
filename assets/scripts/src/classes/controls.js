@@ -10,7 +10,8 @@ class Controls extends React.Component {
 		super(props);
 
 		this.state = {
-			overlayOpen: true
+			overlayOpen: true,
+			inDjQueue: false
 		};
 		
 		Parser.onParseComplete(() => {
@@ -32,6 +33,11 @@ class Controls extends React.Component {
 		this.setState({overlayOpen: !this.state.overlayOpen});
 	}
 
+	toggleDJ(e) {
+		this.setState({inDjQueue: !this.state.inDjQueue});
+		
+	}
+
 	changeSong(e) {
 		let songs = ['RzB6JlEVYcQ', 'UclCCFNG9q4', 'RWYOYhAHKDA', 'YQHsXMglC9A'],
 			randomSong = songs[Math.floor(Math.random() * songs.length)];
@@ -42,6 +48,7 @@ class Controls extends React.Component {
 		return (
 			<div className="controls-wrapper">
 				<button type="button" onClick={this.changeSong.bind(this)}>Change Song (for testing)</button>
+				<button type="button" onClick={this.toggleDJ.bind(this)}>{this.state.inDjQueue ? "Leave Dj Queue" : "Join Dj Queue"}</button>
 				<button type="button" onClick={this.toggleOverlay.bind(this)}><i className={this.state.overlayOpen ? "fa fa-expand" : "fa fa-compress"}></i></button>
 				<button type="button" onClick={this.voteDown.bind(this)}><i className="fa fa-thumbs-o-down"></i></button>
 				<button type="button" onClick={this.voteUp.bind(this)}><i className="fa fa-thumbs-o-up"></i></button>
