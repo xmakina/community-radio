@@ -40,6 +40,8 @@ class Timeline {
 		this.startsAt = new Date();
 		this._getSongLength(id, (data) => {
 
+			console.log("play song");
+			
 			this.endsAt = new Date();
 			this.endsAt.setSeconds(this.endsAt.getSeconds() + data.seconds);
 			this.endsAt.setMinutes(this.endsAt.getMinutes() + data.minutes);

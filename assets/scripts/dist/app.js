@@ -566,6 +566,7 @@ var Player = (function (_React$Component) {
 		_this.socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
 
 		_this.socket.on('newSong', function (id) {
+			console.log("now playing", id);
 			_this.changeVideo(id);
 		});
 
