@@ -11,6 +11,8 @@ class Room extends React.Component {
 			audience: []
 		};
 
+		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
+		
 		this._bindEvents();
 		this._getListeners();
 
@@ -18,9 +20,8 @@ class Room extends React.Component {
 
 	_bindEvents() {
 
-		var socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
-		socket.on('listening', this._getListeners.bind(this));
-		socket.on('notListening', this._getListeners.bind(this));
+		this.socket.on('listening', this._getListeners.bind(this));
+		this.socket.on('notListening', this._getListeners.bind(this));
 
 	}
 

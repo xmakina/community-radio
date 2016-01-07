@@ -13,6 +13,8 @@ class Controls extends React.Component {
 			overlayOpen: true,
 			inDjQueue: false
 		};
+
+		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
 		
 		Parser.onParseComplete(() => {
 			this.player = Parser.getByNode(document.getElementById('player'));
@@ -35,7 +37,11 @@ class Controls extends React.Component {
 
 	toggleDJ(e) {
 		this.setState({inDjQueue: !this.state.inDjQueue});
-		
+		if(this.state.inDjQueue){
+			socket.on('joinedDjQueue', radio.joinedDjQueue);
+		} else {
+			socket.on('leftDJQueue', radio.leftDJQueue);
+		}
 	}
 
 	changeSong(e) {

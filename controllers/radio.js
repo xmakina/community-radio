@@ -3,6 +3,18 @@ const Session = require('../models/session'),
 
 module.exports = {
 
+	joinedDjQueue: () => {
+
+		// Update user model with flag - endpoint via websockets not restful api
+
+	},
+
+	leftDJQueue: () => {
+
+		// Update user model with flag - endpoint via websockets not restful api
+
+	},
+
 	listening: (req, res) => {
 
 		var clientIds = [];

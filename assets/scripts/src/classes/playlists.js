@@ -16,7 +16,7 @@ class Playlists extends React.Component {
 				<button className="open-playlists"><i className="fa fa-list-ol"></i></button>
 
 				<div className="playlists-window">
-					
+
 				</div>
 
 			</div>
