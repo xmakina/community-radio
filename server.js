@@ -56,6 +56,6 @@ require('./app/api')();
 mongoose.connect(database.url);
 
 // Start listening
-const server = http.listen(3000, () => {
+const server = http.listen(process.env.PORT || 3000, process.env.HOSTNAME || 'localhost', () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
 });

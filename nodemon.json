@@ -1,0 +1,6 @@
+{
+    "args":["--harmony"],
+    "nodeArgs": [],
+	"ext": "html js",
+	"ignore": ["assets/*"]
+}
