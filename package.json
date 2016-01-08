@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Twogether radio, share your music or listen to someone elses.",
   "main": "server.js",
+  "engine": "node 5.2.0",
   "repository": {
     "type": "git",
     "url": "git@gitlab.second2digital.com:studio/twogether-radio.git"
