@@ -19,16 +19,8 @@ module.exports = () => {
 			}
 		})
 		.get('/register', isUnauthenticated, (req, res) => {
-			var avatars = [];
-			for(avatar of require('fs').readdirSync('./assets/images/avatars')) {
-				avatars.push({
-					value: avatar.replace('.gif',''),
-					label: avatar.replace('.gif','')
-				});
-			}
 			res.render('register.html', {
-				message: req.flash('message'),
-				avatars: JSON.stringify(avatars)
+				message: req.flash('message')
 			});
 		})
 		.get('/login', isUnauthenticated, (req, res) => {
@@ -37,17 +29,9 @@ module.exports = () => {
 			});
 		})
 		.get('/settings', isAuthenticated, (req, res) => {
-			var avatars = [];
-			for(avatar of require('fs').readdirSync('./assets/images/avatars')) {
-				avatars.push({
-					value: avatar.replace('.gif',''),
-					label: avatar.replace('.gif','')
-				});
-			}
 			res.render('settings.html', {
 				message: req.flash('message'),
-				user: req.user,
-				avatars: JSON.stringify(avatars)
+				user: req.user
 			});
 		})
 

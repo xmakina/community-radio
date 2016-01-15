@@ -1,71 +1,20 @@
+@import 'bourbon/bourbon';
+@import 'neat/neat';
+
 @import '_reset';
 @import '_variables';
+@import '_animations';
+@import '_themes';
+@import '_fonts';
 
-@import '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css';
+@import 'classes/helpers';
+@import 'classes/typography';
+@import 'classes/buttons';
+@import 'classes/forms';
+@import 'classes/columns';
+@import 'classes/boxes';
 
-button {
-	background:none; border:none;
-	color:darken(white,20%);
-	font-size:20px;
-	padding:0 10px;
-	height:40px;
-	outline:none;
-	transition:color 0.2s;
-	cursor:pointer;
-	float:left;
-	&:hover { color:white; }
-}
-
-#controls {
-	position: absolute;
-	z-index: 3;
-	top: 0;
-	left: 0;
-	right: 0;
-	padding: 10px;
-	text-align: right;
-	background: rgba(0,0,0,0.5);
-}
-
-.toggle-overlay {
-	display: none;
-}
-
-.volume-wrap {
-	padding:0 10px 0 0; display:inline-block;
-	#volume { float:left; }
-	.volume-panel {
-		float:left;
-		height:40px; width:0;
-		overflow:hidden;
-		transition:width 0.2s;
-		cursor:pointer;
-		.volume-slider {
-			position:relative;
-			height:100%;
-		}
-		.volume-slider-track {
-			height:2px; width:70px;
-			position:absolute;
-			top:50%; right:0;
-			margin-top:-1px;
-			background:gray;
-		}
-		.volume-slider-progress {
-			height:100%; width:0%;
-			background:red;
-			position:relative;
-		}
-		.volume-slider-handle {
-			height:12px; width:5px;
-			position:absolute;
-			top:-5px; right:0;
-			background:white;
-		}
-	}
-
-	&:hover {
-		button { color:white; }
-		.volume-panel { width:76px; }
-	}
-}
+@import 'singletons/controls';
+@import 'singletons/volume';
+@import 'singletons/room';
+@import 'singletons/playlists';

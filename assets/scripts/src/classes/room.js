@@ -30,7 +30,7 @@ class Room extends React.Component {
 			this.setState({audience: response});
 		});
 	}
-
+	
 	render() {
 
 		return (

@@ -37,10 +37,11 @@ module.exports = {
 			var users = [];
 			for(var i=0;i<sessions.length;i++){
 				var session = JSON.parse(sessions[i].session);
-				users.push({
-					username: session.passport.user.username,
-					avatar: session.passport.user.avatar
-				});
+				if(session.passport && session.passport.user && session.passport.user.username) {
+					users.push({
+						username: session.passport.user.username
+					});
+				}
 			}
 
 			res.send(users);

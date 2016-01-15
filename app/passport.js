@@ -50,14 +50,11 @@ module.exports = () => {
 					if (err) return done(err);
 					if (user) {
 						return done(null, false, req.flash('message', {type: 'error', message: 'User Already Exists'}));
-					} else if(email.toLowerCase().indexOf('@wearetwogether') == -1){
-						return done(null, false, req.flash('message', {type: 'error', message: 'Please use your @wearetwogether email address'}));
 					} else {
 						var newUser = new User();
 						newUser.email = email;
 						newUser.password = createHash(password);
 						newUser.username = req.body.username;
-						newUser.avatar = req.body.avatar;
 						newUser.save(function(err) {
 							if (err) return done(err);
 							return done(null, newUser);

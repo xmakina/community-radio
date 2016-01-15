@@ -1,0 +1,28 @@
+//Constructor
+%form {
+	width: 100%;
+}
+
+%form-element {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 20px;
+	border: 1px solid #A7A7A7;
+	outline: 0px;
+	margin-bottom: 5px;
+}
+
+form {
+	@extend %form;
+	.input-wrapper {
+		.error-msg {
+			color: $black;
+		}
+	}
+	input {
+		@extend %form-element;
+	}
+}

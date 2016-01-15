@@ -1,0 +1,36 @@
+.toggle-overlay {
+	display: none;
+}
+
+#overlay {
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	z-index: 1;
+	background: rgba(40,40,40,0.75);
+	box-sizing: border-box;
+	color: #fff;
+	padding: 100px;
+	text-align: center;
+	transition: opacity 0.5s ease;
+}
+
+#player {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	-webkit-filter: blur(2px) grayscale(100%);
+}
+
+body.overlay-open {
+	#overlay {
+		opacity: 0;
+	}
+	#player {
+		-webkit-filter: blur(0) grayscale(0) !important;
+	}
+}

@@ -5,10 +5,8 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
     <head>
-        <title>Twogether Radio - Get tuned in</title>
+        <title>Community Radio - Get tuned in</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link type="text/css" rel="stylesheet" href="style/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="style/bootstrap-theme.css" />
         <link type="text/css" rel="stylesheet" href="style/styles.css" />
         <script src="scripts/libs/modernizr.js"></script>
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -20,99 +18,8 @@
                 <link type="text/css" rel="stylesheet" href="style/ie.css" />
                 <script type="text/javascript" src="scripts/libs/selectivizr.js"></script>
         <![endif]-->
-
-        <style>
-            body {
-                font-family: arial;
-                margin:0;
-            }
-
-            ul {
-                padding: 0;
-            }
-
-            .align-left li {
-                display: inline-block;
-            }
-
-            li {
-                list-style: none;
-            }
-
-            #logo {
-                position: absolute;
-                bottom: 30px;
-                left: 50%;
-                z-index: 3;
-                width: 200px;
-
-                transform: translate(-50%, 0%);
-            }
-
-            body.overlay-open #overlay {
-                opacity: 0;
-            }
-            
-            body.overlay-open #player {
-                -webkit-filter: blur(0) grayscale(0) !important;
-            }
-
-            #player {
-                position: fixed;
-                right: 0;
-                bottom: 0;
-                min-width: 100%;
-                min-height: 100%;
-                width: auto;
-                height: auto;
-                -webkit-filter: blur(2px) grayscale(100%);
-            }
-
-            #overlay {
-                position: absolute;
-                width: 100%;
-                min-height: 100%;
-                z-index: 1;
-                background-image: url('images/333333-0.9.png');
-                box-sizing: border-box;
-                color: #fff;
-                padding: 100px;
-                text-align: center;
-                transition: opacity 0.5s ease;
-            }
-        </style>
     </head>
     <body>
-        <!--
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <h1>Twogether Radio</h1>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    {% if loggedIn %} 
-                        <li><a href="/logout">Logout</a></li>
-                        <li><a href="/settings">Settings</a></li>
-                    {% else %}
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-        -->
-
-        <!-- <header class="page-header"> -->
-            <!-- {% block header %}{% endblock %} -->
-        <!-- </header> -->
 
         <section>
             {% block content %}{% endblock %}

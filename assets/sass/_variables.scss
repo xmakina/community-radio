@@ -1,12 +1,16 @@
 //Breakpoints
 $desktop: "(min-width: 1280px)";
-$laptop: "(max-width: 980px)";
-$tablet: "(max-width: 760px)";
+$laptop: "(max-width: 1280px)";
+$tablet: "(max-width: 900px)";
 $mobile: "(max-width: 580px)";
 
 //Colors
+$grey: #e4e4e4;
+$lightGrey: #F9F9F9;
+$darkGrey: #434343;
 $white: #fff;
 $black: #000;
+$shadow: rgba(0,0,0,0.5);
 
 //Dimensions
-$pageWidth: 980px;
+$pageWidth: 930px;

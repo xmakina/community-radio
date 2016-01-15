@@ -1,0 +1,27 @@
+#controls {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	z-index: 3;
+	background: $shadow;
+	@extend .clearfix;
+	button, a {
+		font-size: 25px;
+		@extend .animate-all;
+		opacity: 0.7;
+		&:hover {
+			opacity: 1;
+			color: $white;
+		}
+	}
+	.volume-wrap {
+		float: right;
+		&:hover {
+			button {
+				opacity: 1;
+			}
+		}
+	}
+}

@@ -36,7 +36,7 @@ _reactDomParser2.default.register({ Input: _input2.default, Player: _player2.def
 _reactDomParser2.default.parse(_dom2.default.$body[0]);
 
 },{"./classes/Playlists":2,"./classes/controls":4,"./classes/input":5,"./classes/player":6,"./classes/room":7,"./utils/dom":10,"react-dom-parser":40}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -44,9 +44,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _dom = require('../utils/dom');
+
+var _dom2 = _interopRequireDefault(_dom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66,17 +70,40 @@ var Playlists = (function (_React$Component) {
 	}
 
 	_createClass(Playlists, [{
-		key: "render",
+		key: 'toggleOpen',
+		value: function toggleOpen() {
+			_dom2.default.$body.toggleClass('playlist-open');
+		}
+	}, {
+		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				"div",
-				{ id: "playlists" },
+				'div',
+				{ id: 'playlists' },
 				_react2.default.createElement(
-					"button",
-					{ className: "open-playlists" },
-					_react2.default.createElement("i", { className: "fa fa-list-ol" })
+					'button',
+					{ className: 'open-playlists', onClick: this.toggleOpen.bind(this) },
+					_react2.default.createElement('i', { className: 'fa fa-list' }),
+					' Playlists'
 				),
-				_react2.default.createElement("div", { className: "playlists-window" })
+				_react2.default.createElement(
+					'div',
+					{ className: 'playlists-window' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Playlists'
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							'test'
+						)
+					)
+				)
 			);
 		}
 	}]);
@@ -97,8 +124,8 @@ exports.default = Playlists;
 
 */
 
-},{"react":170}],3:[function(require,module,exports){
-'use strict';
+},{"../utils/dom":10,"react":170}],3:[function(require,module,exports){
+"use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -106,7 +133,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -127,19 +154,20 @@ var Audience = (function (_React$Component) {
 		return _possibleConstructorReturn(this, Object.getPrototypeOf(Audience).call(this, props));
 	}
 
+	// <img src={'images/avatars/'+user.avatar+'.gif'} width="100" title={user.username} />
+
 	_createClass(Audience, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
-				'ul',
-				{ className: 'align-left' },
+				"ul",
+				{ className: "align-left" },
 				this.props.listening.map(function (user, index) {
 					return _react2.default.createElement(
-						'li',
+						"li",
 						{ key: index },
-						_react2.default.createElement('img', { src: 'images/avatars/' + user.avatar + '.gif', width: '100', title: user.username }),
 						_react2.default.createElement(
-							'p',
+							"p",
 							null,
 							user.username
 						)
@@ -397,6 +425,7 @@ var Input = (function (_React$Component) {
 		value: function render() {
 			var self = this;
 			if (this.props.attributes.type == 'radio') {
+				this.props.attributes.className += ' input-wrapper';
 				return _react2.default.createElement(
 					'fieldset',
 					{ className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' },
@@ -422,7 +451,7 @@ var Input = (function (_React$Component) {
 						if (!self.state.valid) {
 							return _react2.default.createElement(
 								'span',
-								{ className: 'help-inline' },
+								{ className: 'error-msg' },
 								self.props.errorMsg
 							);
 						}
@@ -430,8 +459,8 @@ var Input = (function (_React$Component) {
 				);
 			} else if (this.props.tag == 'select') {
 				return _react2.default.createElement(
-					'p',
-					null,
+					'div',
+					{ className: 'input-wrapper' },
 					_react2.default.createElement(
 						'select',
 						_extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' }),
@@ -452,7 +481,7 @@ var Input = (function (_React$Component) {
 						if (!self.state.valid) {
 							return _react2.default.createElement(
 								'span',
-								{ className: 'help-inline' },
+								{ className: 'error-msg' },
 								self.props.errorMsg
 							);
 						}
@@ -460,14 +489,14 @@ var Input = (function (_React$Component) {
 				);
 			} else {
 				return _react2.default.createElement(
-					'span',
-					null,
+					'div',
+					{ className: 'input-wrapper' },
 					_react2.default.createElement(this.props.tag, _extends({ ref: 'form-element' }, this.props.attributes, { onChange: this.handleChange.bind(this), value: this.state.value, onFocus: this.handleFocus.bind(this), onBlur: this.handleBlur.bind(this), className: this.state.valid ? this.props.attributes.className : this.props.attributes.className + ' error' })),
 					(function () {
 						if (!self.state.valid) {
 							return _react2.default.createElement(
 								'span',
-								{ className: 'help-inline' },
+								{ className: 'error-msg' },
 								self.props.errorMsg
 							);
 						}

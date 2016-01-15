@@ -1,0 +1,36 @@
+//Constructors
+%text {
+	font-family: 'Open Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: $white;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 22px;
+}
+
+%heading {
+	font-family: 'Open Sans', sans-serif;
+	color: $white;
+	font-size: 35px;
+	line-height: 50px;
+	text-transform: uppercase;
+	margin-bottom: 25px;
+}
+
+//Selectors
+body {
+	@extend %text;
+}
+
+h1, h2, h3, h4 {
+	@extend %heading;
+}
+
+a, button {
+	@extend %text;
+	color: $white;
+	&:hover {
+		color: #3C3C3C;
+	}
+}

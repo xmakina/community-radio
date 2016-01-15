@@ -1,0 +1,101 @@
+img {
+	max-width: 100%;
+}
+
+html, body {
+	height: 100%;
+}
+
+button {
+	background: none;
+	border: 0px;
+	outline: none;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+
+.align-center {
+	text-align: center;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	float: none !important;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.hide-desktop {
+	display: none;
+	@media #{$tablet} {
+		display: block;
+	}
+}
+
+.show-desktop {
+	display: block;
+	@media #{$tablet} {
+		display: none !important;
+	}
+}
+
+.vertical-padding {
+	padding: 40px 0;
+	&-top {
+		padding-top: 40px;
+	}
+	&-bottom {
+		padding-bottom: 40px;
+	}
+}
+
+.vertical-padding-large {
+	padding: 150px 0;
+	&-top {
+		padding-top: 90px;
+	}
+	&-bottom {
+		padding-bottom: 90px;
+	}
+}
+
+.vertical-padding-small {
+	padding: 20px 0;
+	&-top {
+		padding-top: 20px;
+	}
+	&-bottom {
+		padding-bottom: 20px;
+	}
+}
+
+.float-right {
+	float: right;
+}
+
+.force-inline {
+	display: inline !important;
+}

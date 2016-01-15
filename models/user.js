@@ -18,10 +18,6 @@ module.exports = mongoose.model('User', Schema({
 		trim: true,
 		unique: true
 	},
-	avatar: {
-		type: String,
-		required: true
-	},
 	playlists: [{
 		type: ObjectId,
 		ref: 'Playlist'

@@ -1,0 +1,13 @@
+//Selectors
+.img {
+	&-circle {
+		border-radius: 50%;
+	}
+	&-small {
+		width: 100px;
+	}
+	&-inline {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
