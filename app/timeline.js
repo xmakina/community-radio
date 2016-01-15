@@ -13,8 +13,7 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
-			'6lHzySwhUac',
-			'uGHy5IE-240',
+			'sBzrzS1Ag_g',
 			'pFptt7Cargc',
 			'fcISKYecwII',
 			'SBjQ9tuuTJQ',
