@@ -71,6 +71,7 @@ class Timeline {
 		request(url, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
+				console.log(data.items[0]);
 				if(!data.items[0].status.embeddable) {
 					self._nextSong();
 				} else {
