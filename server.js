@@ -42,7 +42,7 @@ app
 // Map resources
 resources.app = app;
 resources.nunjucks = nunjucks;
-resourcees.passport = passport;
+resources.passport = passport;
 resources.io = io;
 
 // Load app components
