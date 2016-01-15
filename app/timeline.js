@@ -6,24 +6,24 @@ class Timeline {
 
 	constructor(opts) {
 
-		// if(!opts) opts = {};
-		// this.opts = Object.assign({}, opts, {
-		// 	refreshInterval: 1000,
-		// 	youtubeApiKey: 'AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU'
-		// });
+		if(!opts) opts = {};
+		this.opts = Object.assign({}, opts, {
+			refreshInterval: 1000,
+			youtubeApiKey: 'AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU'
+		});
 
-		// this.defaultPlaylist = [
-		// 	'hbb09MRR-Q4',
-		// 	'6Z66wVo7uNw',
-		// 	'mzJj5-lubeM',
-		// 	'tIdIqbv7SPo'
-		// ];
+		this.defaultPlaylist = [
+			'hbb09MRR-Q4',
+			'6Z66wVo7uNw',
+			'mzJj5-lubeM',
+			'tIdIqbv7SPo'
+		];
 
-		// this.callbacks = {};
+		this.callbacks = {};
 
-		// this.playSong(this.defaultPlaylist[0]);
+		this.playSong(this.defaultPlaylist[0]);
 
-		// this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
+		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
 
 	}
 
@@ -37,6 +37,7 @@ class Timeline {
 
 	playSong(id) {
 
+		// Refactor this - shouldn't be invoking so many dates
 		this.startsAt = new Date();
 		this._getSongLength(id, (data) => {
 
