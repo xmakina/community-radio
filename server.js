@@ -37,12 +37,12 @@ app
 	.use(passport.initialize())
 	.use(passport.session())
 	.use(flash())
-	.use(require('./app/bootstrap'));
+	.us(require('./app/bootstrap'));
 
 // Map resources
 resources.app = app;
 resources.nunjucks = nunjucks;
-resources.passport = passport;
+resourcees.passport = passport;
 resources.io = io;
 
 // Load app components
@@ -56,7 +56,7 @@ require('./app/api')();
 mongoose.connect(database.url);
 
 if(!process.env.PORT) process.env.PORT = 3000;
-if(!process.env.HOSTNAME) process.env.HOSTNAME = '172.16.120.72';
+if(!process.env.HOSTNAME) process.env.HOSTNAME = 'localhost';
 
 // Start listening
 const server = http.listen(process.env.PORT, process.env.HOSTNAME, () => {
