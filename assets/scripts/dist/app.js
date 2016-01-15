@@ -234,23 +234,11 @@ var Controls = (function (_React$Component) {
 			}
 		}
 	}, {
-		key: 'changeSong',
-		value: function changeSong(e) {
-			var songs = ['RzB6JlEVYcQ', 'UclCCFNG9q4', 'RWYOYhAHKDA', 'YQHsXMglC9A'],
-			    randomSong = songs[Math.floor(Math.random() * songs.length)];
-			this.player.changeVideo(randomSong);
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'controls-wrapper' },
-				_react2.default.createElement(
-					'button',
-					{ type: 'button', onClick: this.changeSong.bind(this) },
-					'Change Song (for testing)'
-				),
 				_react2.default.createElement(
 					'button',
 					{ type: 'button', onClick: this.toggleDJ.bind(this) },

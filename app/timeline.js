@@ -13,10 +13,16 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
-			'hbb09MRR-Q4',
-			'6Z66wVo7uNw',
+			'Jgpp6xnqMg0',
+			'uGHy5IE-240',
+			'pFptt7Cargc',
+			'fcISKYecwII',
+			'SBjQ9tuuTJQ',
 			'mzJj5-lubeM',
-			'tIdIqbv7SPo'
+			'00bk5E7gecI',
+			'tIdIqbv7SPo',
+			'R7UrFYvl5TE',
+			'oVslvM30EWI'
 		];
 
 		this.callbacks = {};
@@ -59,20 +65,39 @@ class Timeline {
 
 	}
 
-	_getSongLength(id, callback) {
-		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&key='+this.opts.youtubeApiKey
+	_getVideoData(id, callback) {
+		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails,status&key='+this.opts.youtubeApiKey,
+			self = this;
 		request(url, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				var data = JSON.parse(body),
-					duration = data.items[0].contentDetails.duration.replace('PT', ''),
-					minutes = duration.split('M')[0],
-					seconds = duration.split('M')[1].replace('S', '');
-				callback({
-					minutes: minutes,
-					seconds: seconds
-				});
+				var data = JSON.parse(body);
+				if(!data.items[0].status.embeddable) {
+					self._nextSong();
+				} else {
+					callback(data);
+				}
 			}
 		});
+	}
+
+	_getSongLength(id, callback) {
+		this._getVideoData(id, function(data) {
+			var duration = data.items[0].contentDetails.duration.replace('PT', ''),
+				minutes = duration.split('M')[0],
+				seconds = duration.split('M')[1].replace('S', '');
+			callback({
+				minutes: minutes,
+				seconds: seconds
+			});
+		});
+	}
+
+	_nextSong() {
+		this.elapsed = 0;
+		var index = this.defaultPlaylist.indexOf(this.playing),
+			nextSong = index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
+		this.playSong(nextSong);
+		this.playing = false;
 	}
 
 	_nextTick() {
@@ -80,11 +105,7 @@ class Timeline {
 		var now = new Date();
 
 		if(now.getTime() > this.endsAt.getTime()) {
-			this.elapsed = 0;
-			var index = this.defaultPlaylist.indexOf(this.playing),
-				nextSong = index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
-			this.playSong(nextSong);
-			this.playing = false;
+			this._nextSong();
 		} else {
 			this.elapsed = Math.abs((this.startsAt.getTime() - now.getTime()) / 1000);
 		}
