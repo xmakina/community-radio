@@ -37,7 +37,7 @@ app
 	.use(passport.initialize())
 	.use(passport.session())
 	.use(flash())
-	.us(require('./app/bootstrap'));
+	.use(require('./app/bootstrap'));
 
 // Map resources
 resources.app = app;
