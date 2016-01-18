@@ -24,7 +24,7 @@
 		opacity: 0;
 		transition: all 0.3s ease-in-out;
 		-webkit-transition: all 0.3s ease-in-out;
-		* {
+		p, h2, a, button {
 			color: #fff !important;
 		}
 	}
@@ -34,6 +34,7 @@ body.playlist-open {
 	#playlistsWrapper {
 		height: 100%;
 		width: 100%;
+		overflow: auto;
 		.playlists-window {
 			opacity: 1;
 			visibility: visible;

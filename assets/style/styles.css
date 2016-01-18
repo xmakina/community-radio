@@ -513,12 +513,13 @@ body.overlay-open #player {
     opacity: 0;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out; }
-    #playlistsWrapper .playlists-window * {
+    #playlistsWrapper .playlists-window p, #playlistsWrapper .playlists-window h2, #playlistsWrapper .playlists-window a, #playlistsWrapper .playlists-window button {
       color: #fff !important; }
 
 body.playlist-open #playlistsWrapper {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  overflow: auto; }
   body.playlist-open #playlistsWrapper .playlists-window {
     opacity: 1;
     visibility: visible; }

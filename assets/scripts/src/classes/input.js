@@ -70,6 +70,9 @@ class Input extends React.Component {
 		if(this.props.tag == 'select') $(ReactDOM.findDOMNode(this.refs['form-element'])).blur();
 		this.setState({value: event.target.value});
 		this.validate(event.target.value);
+		if(this.props.onChange) {
+			this.props.onChange(event);
+		}
 	}
 
 	handleFocus(event){

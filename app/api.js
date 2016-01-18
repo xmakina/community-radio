@@ -5,7 +5,8 @@ const resources = require('./resources'),
 
 const controllers = {
 		user: require('../controllers/user'),
-		radio: require('../controllers/radio')
+		radio: require('../controllers/radio'),
+		playlists: require('../controllers/playlists')
 	};
 
 const isAuthenticated = (req, res, next) => {
@@ -26,6 +27,12 @@ module.exports = () => {
 
 		// Radio api
 		.get('/radio/listening', controllers.radio.listening)
+
+		// Playlist api
+		.get('/playlists/:guid', controllers.playlists.list)
+		.post('/playlists', controllers.playlists.create)
+		.post('/playlists/:id', controllers.playlists.update)
+		.delete('/playlists/:id', controllers.playlists.delete)
 
 	return app;
 

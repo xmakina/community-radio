@@ -35,9 +35,6 @@ class Player extends React.Component {
 						event.target.seekTo(elapsed || 0);
 						event.target.playVideo();
 						if(Cookies.cookies.volume) this.player.setVolume(Cookies.cookies.volume);
-						// WHen player starts grab length of video so we can trigger next video playing
-						// Use similar approach to track how far into the song it is playing? - have server cache increment every second with song for timeline regardless of client
-
 					}
 				},
 				playerVars: { 

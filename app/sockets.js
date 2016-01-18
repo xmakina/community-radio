@@ -1,7 +1,7 @@
-const url = require('url'),
-	cookie = require('cookie'),
+const cookie = require('cookie'),
 	cookieParser = require('cookie-parser'),
 	Session = require('../models/session'),
+	User = require('../models/user'),
 	resources = require('./resources'),
 	radio = require('../controllers/radio'),
 	Timeline = require('../app/timeline'),
@@ -19,7 +19,12 @@ module.exports = () => {
 				var sessionData = JSON.parse(session.session);
 				session._socketId = socket.id;
 				session.save((err) => {
-					next();
+					User.findOne({_id: sessionData.passport.user._id}, (err, user) => { // Save to user model so we can access it there for mongoose middleware
+						user._socketId = session._socketId;
+						user.save((err) => {
+							next();
+						});
+					});
 				});
 			});
 		} else {
