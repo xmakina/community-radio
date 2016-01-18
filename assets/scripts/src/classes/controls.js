@@ -36,11 +36,20 @@ class Controls extends React.Component {
 	}
 
 	toggleDJ(e) {
-		this.setState({inDjQueue: !this.state.inDjQueue});
 		if(this.state.inDjQueue){
-			socket.on('joinedDjQueue', radio.joinedDjQueue);
+			$.get('/radio/leave', (response) => {
+				console.log(response);
+				this.setState({inDjQueue: false});
+			});
 		} else {
-			socket.on('leftDJQueue', radio.leftDJQueue);
+			$.ajax({
+				method: 'POST',
+				url: '/radio/join',
+				success: (response) => {
+					console.log(response);
+				this.setState({inDjQueue: true});
+				}
+			})
 		}
 	}
 

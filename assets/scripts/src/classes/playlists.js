@@ -12,7 +12,8 @@ class Playlists extends React.Component {
 			playlists: [],
 			open: false,
 			playlistFormOpen: false,
-			selectedPlaylist: false
+			selectedPlaylist: false,
+			activePlaylist: window._bootstrapData.activePlaylist || false
 		};
 
 		$.get('/playlists/'+window._bootstrapData.guid, (response) => {
@@ -74,6 +75,22 @@ class Playlists extends React.Component {
 		});
 	}
 
+	makeActive(playlist) {
+		$.ajax({
+			method: 'POST',
+			url: '/settings',
+			data: {
+				activePlaylist: playlist._id
+			},
+			success: (response) => {
+				this.setState({activePlaylist: playlist._id});
+			},
+			error: (body, type, err) => {
+				console.log(err);
+			}
+		})
+	}
+
 	render() {
 		return (
 			<div id="playlists">
@@ -87,7 +104,7 @@ class Playlists extends React.Component {
 								<h2>Playlists</h2>
 								<ul>
 									{this.state.playlists.map((playlist, i) => {
-										return <li key={i}>{playlist.name} <button onClick={this.editPlaylist.bind(this, playlist)}>Edit</button> <button onClick={this.deletePlaylist.bind(this, playlist)}>Delete</button></li>;
+										return <li key={i}>{playlist.name} <button onClick={this.editPlaylist.bind(this, playlist)}>Edit</button> <button onClick={this.deletePlaylist.bind(this, playlist)}>Delete</button> {this.state.activePlaylist == playlist._id ? 'Is Active' : <button onClick={this.makeActive.bind(this, playlist)}>Make Active</button>}</li>;
 									})}
 								</ul>
 							</div>

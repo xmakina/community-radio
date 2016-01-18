@@ -24,6 +24,10 @@ const mongoose = require('mongoose'),
 			type: ObjectId,
 			ref: 'Playlist'
 		}],
+		activePlaylist: {
+			type: ObjectId,
+			ref: 'Playlist'
+		},
 		_socketId: {
 			type: String
 		}

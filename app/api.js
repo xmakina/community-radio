@@ -27,12 +27,15 @@ module.exports = () => {
 
 		// Radio api
 		.get('/radio/listening', controllers.radio.listening)
+		.post('/radio/join', controllers.radio.joinQueue)
+		.get('/radio/leave', controllers.radio.leaveQueue)
 
 		// Playlist api
 		.get('/playlists/:guid', controllers.playlists.list)
 		.post('/playlists', controllers.playlists.create)
 		.post('/playlists/:id', controllers.playlists.update)
 		.delete('/playlists/:id', controllers.playlists.delete)
+
 
 	return app;
 

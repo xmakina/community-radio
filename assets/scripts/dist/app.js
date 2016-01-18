@@ -76,7 +76,8 @@ var Playlists = (function (_React$Component) {
 			playlists: [],
 			open: false,
 			playlistFormOpen: false,
-			selectedPlaylist: false
+			selectedPlaylist: false,
+			activePlaylist: window._bootstrapData.activePlaylist || false
 		};
 
 		$.get('/playlists/' + window._bootstrapData.guid, function (response) {
@@ -153,9 +154,28 @@ var Playlists = (function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'makeActive',
+		value: function makeActive(playlist) {
+			var _this4 = this;
+
+			$.ajax({
+				method: 'POST',
+				url: '/settings',
+				data: {
+					activePlaylist: playlist._id
+				},
+				success: function success(response) {
+					_this4.setState({ activePlaylist: playlist._id });
+				},
+				error: function error(body, type, err) {
+					console.log(err);
+				}
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			var _this4 = this;
+			var _this5 = this;
 
 			return _react2.default.createElement(
 				'div',
@@ -178,7 +198,7 @@ var Playlists = (function (_React$Component) {
 					),
 					_react2.default.createElement(_playlistForm2.default, { open: this.state.playlistFormOpen, playlist: this.state.selectedPlaylist, onSave: this.onSave.bind(this) }),
 					(function () {
-						if (!_this4.state.playlistFormOpen) return _react2.default.createElement(
+						if (!_this5.state.playlistFormOpen) return _react2.default.createElement(
 							'div',
 							{ className: 'playlists-list' },
 							_react2.default.createElement(
@@ -189,7 +209,7 @@ var Playlists = (function (_React$Component) {
 							_react2.default.createElement(
 								'ul',
 								null,
-								_this4.state.playlists.map(function (playlist, i) {
+								_this5.state.playlists.map(function (playlist, i) {
 									return _react2.default.createElement(
 										'li',
 										{ key: i },
@@ -197,14 +217,20 @@ var Playlists = (function (_React$Component) {
 										' ',
 										_react2.default.createElement(
 											'button',
-											{ onClick: _this4.editPlaylist.bind(_this4, playlist) },
+											{ onClick: _this5.editPlaylist.bind(_this5, playlist) },
 											'Edit'
 										),
 										' ',
 										_react2.default.createElement(
 											'button',
-											{ onClick: _this4.deletePlaylist.bind(_this4, playlist) },
+											{ onClick: _this5.deletePlaylist.bind(_this5, playlist) },
 											'Delete'
+										),
+										' ',
+										_this5.state.activePlaylist == playlist._id ? 'Is Active' : _react2.default.createElement(
+											'button',
+											{ onClick: _this5.makeActive.bind(_this5, playlist) },
+											'Make Active'
 										)
 									);
 								})
@@ -353,11 +379,22 @@ var Controls = (function (_React$Component) {
 	}, {
 		key: 'toggleDJ',
 		value: function toggleDJ(e) {
-			this.setState({ inDjQueue: !this.state.inDjQueue });
+			var _this2 = this;
+
 			if (this.state.inDjQueue) {
-				socket.on('joinedDjQueue', radio.joinedDjQueue);
+				$.get('/radio/leave', function (response) {
+					console.log(response);
+					_this2.setState({ inDjQueue: false });
+				});
 			} else {
-				socket.on('leftDJQueue', radio.leftDJQueue);
+				$.ajax({
+					method: 'POST',
+					url: '/radio/join',
+					success: function success(response) {
+						console.log(response);
+						_this2.setState({ inDjQueue: true });
+					}
+				});
 			}
 		}
 	}, {

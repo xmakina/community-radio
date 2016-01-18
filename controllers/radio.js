@@ -1,21 +1,56 @@
 "use strict";
 
 const Session = require('../models/session'),
+	Queue = require('../models/queue'),
 	Timeline = require('../app/timeline'),
 	io = require('../app/resources').io;
 
 module.exports = {
 
-	joinedDjQueue: () => {
+	joinQueue: (req, res) => {
 
-		// Update user model with flag - endpoint via websockets not restful api
+		Queue.findOne({name: 'global'}, (err, queue) => {
+			if(!queue) {
+				queue = new Queue();
+				queue.name = 'global';
+				queue.djs = [req.session.passport.user._id];
+			} else if(queue.djs.indexOf(req.session.passport.user._id) === -1) {
+				queue.djs.push(req.session.passport.user._id);
+			} else {
+				res.send('user already in queue');
+				return;
+			}
+			queue.save((err, queue) => {
+				if(err) {
+					res.status(400);
+					res.send(err);
+				} else {
+					res.send(queue);
+				}
+			});
+		});
+
 
 	},
 
-	leftDjQueue: () => {
-
-		// Update user model with flag - endpoint via websockets not restful api
-
+	leaveQueue: (req, res) => {
+		if(!res) return;
+		Queue.findOne({name: 'global'}, (err, queue) => {
+			if(queue) {
+				queue.djs.splice(queue.djs.indexOf(req.session.passport.user._id), 1);
+			} else {
+				res.send('user not in queue');
+				return;
+			}
+			queue.save((err, queue) => {
+				if(err) {
+					res.status(400);
+					res.send(err);
+				} else {
+					res.send(queue);
+				}
+			});
+		});
 	},
 
 	listening: (req, res) => {
@@ -27,7 +62,7 @@ module.exports = {
 
 		Session.find({
 			_socketId: { $in: clientIds }
-		}).exec(function(err, sessions){
+		}).exec((err, sessions) => {
 
 			if(err){
 				res.status(400);

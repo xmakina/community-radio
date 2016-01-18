@@ -44,7 +44,7 @@ module.exports = () => {
 			// Emit not listening event to all clients
 			io.of('/radio').emit('notListening');
 
-			radio.leftDjQueue();
+			radio.leaveQueue();
 
 		});
 
@@ -56,9 +56,6 @@ module.exports = () => {
 		Timeline.on('newSong', (id) => {
 			socket.emit('newSong', id);
 		});
-
-		socket.on('joinedDjQueue', radio.joinedDjQueue);
-		socket.on('leftDjQueue', radio.leftDjQueue);
 
 	});
 
