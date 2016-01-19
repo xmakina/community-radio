@@ -109,7 +109,7 @@ class Timeline {
 
 			var nextInQueue = 0;
 			if(this.currentDj && this.djQueue.length > 1) {
-				nextInQueue = this.djQueue.indexOf(this.currentDj)++;
+				nextInQueue = this.djQueue.indexOf(this.currentDj) + 1;
 			}
 
 			for(var user of users) {
