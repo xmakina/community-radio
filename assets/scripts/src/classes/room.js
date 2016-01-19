@@ -8,7 +8,9 @@ class Room extends React.Component {
 		super(props);
 
 		this.state = {
-			audience: []
+			audience: [],
+			song: null,
+			dj: null
 		};
 
 		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
@@ -19,15 +21,24 @@ class Room extends React.Component {
 	}
 
 	_bindEvents() {
-
 		this.socket.on('listening', this._getListeners.bind(this));
 		this.socket.on('notListening', this._getListeners.bind(this));
-
+		this.socket.on('songDetails', this._setOverlayDetails.bind(this));
+		this.socket.on('newSong', this._setOverlayDetails.bind(this));
 	}
 
 	_getListeners() {
 		$.get('/radio/listening', (response) => {
 			this.setState({audience: response});
+		});
+	}
+
+	_setOverlayDetails(songInfo) {
+		this.setState({dj: songInfo.dj});
+		$.get('https://www.googleapis.com/youtube/v3/videos?id='+songInfo.id+'&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', (response) => {
+			if(response.items[0]) {
+				this.setState({song: response.items[0]});
+			}	
 		});
 	}
 	
@@ -39,10 +50,15 @@ class Room extends React.Component {
 				<input type="checkbox" className="toggle-overlay" />
 				<section id="overlay">
 
-					<img src="https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg" />
+					<img src={this.state.dj ? 'https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg' : 'https://www.steamid.co.uk/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg'} />
 
-					<h3>Gary Fagan</h3>
-					<h3>Boulevard Of Broken Dreams by Green Day</h3>
+					<h3>{this.state.dj ? this.state.dj : 'Community.dj Bot'}</h3>
+
+					{(() => {
+						if(this.state.song) {
+							return <h3>{this.state.song.snippet.title}</h3>
+						}
+					})()}
 					
 					<h3>Audience</h3>
 

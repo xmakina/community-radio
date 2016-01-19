@@ -11,8 +11,8 @@ class Player extends React.Component {
 		
 		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
 
-		this.socket.on('newSong', (id) => {
-			this.changeVideo(id);
+		this.socket.on('newSong', (info) => {
+			this.changeVideo(info.id);
 		});
 
 		this.socket.on('songDetails', (data) => {

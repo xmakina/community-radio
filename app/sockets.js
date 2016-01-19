@@ -20,10 +20,11 @@ module.exports = () => {
 		// Radio events
 		socket.emit('songDetails', {
 			id: Timeline.playing,
-			elapsed: Timeline.elapsed
+			elapsed: Timeline.elapsed,
+			dj: Timeline.currentDj
 		});
-		Timeline.on('newSong', (id) => {
-			socket.emit('newSong', id);
+		Timeline.on('newSong', (id, dj) => {
+			socket.emit('newSong', {id,dj});
 		});
 
 	});

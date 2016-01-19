@@ -14,10 +14,6 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
-			'Jgpp6xnqMg0',
-			'pFptt7Cargc',
-			'SBjQ9tuuTJQ',
-			'mzJj5-lubeM',
 			'fcISKYecwII',
 			'00bk5E7gecI',
 			'tIdIqbv7SPo',
@@ -59,7 +55,7 @@ class Timeline {
 
 			if(this.callbacks.newSong) {
 				for(var callback of this.callbacks.newSong){
-					callback(id);
+					callback(id, this.currentDj);
 				}
 			}
 

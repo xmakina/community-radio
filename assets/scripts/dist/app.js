@@ -721,8 +721,8 @@ var Player = (function (_React$Component) {
 
 		_this.socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
 
-		_this.socket.on('newSong', function (id) {
-			_this.changeVideo(id);
+		_this.socket.on('newSong', function (info) {
+			_this.changeVideo(info.id);
 		});
 
 		_this.socket.on('songDetails', function (data) {
@@ -1006,7 +1006,9 @@ var Room = (function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Room).call(this, props));
 
 		_this.state = {
-			audience: []
+			audience: [],
+			song: null,
+			dj: null
 		};
 
 		_this.socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
@@ -1020,9 +1022,10 @@ var Room = (function (_React$Component) {
 	_createClass(Room, [{
 		key: '_bindEvents',
 		value: function _bindEvents() {
-
 			this.socket.on('listening', this._getListeners.bind(this));
 			this.socket.on('notListening', this._getListeners.bind(this));
+			this.socket.on('songDetails', this._setOverlayDetails.bind(this));
+			this.socket.on('newSong', this._setOverlayDetails.bind(this));
 		}
 	}, {
 		key: '_getListeners',
@@ -1034,8 +1037,21 @@ var Room = (function (_React$Component) {
 			});
 		}
 	}, {
+		key: '_setOverlayDetails',
+		value: function _setOverlayDetails(songInfo) {
+			var _this3 = this;
+
+			this.setState({ dj: songInfo.dj });
+			$.get('https://www.googleapis.com/youtube/v3/videos?id=' + songInfo.id + '&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', function (response) {
+				if (response.items[0]) {
+					_this3.setState({ song: response.items[0] });
+				}
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this4 = this;
 
 			return _react2.default.createElement(
 				'div',
@@ -1044,17 +1060,21 @@ var Room = (function (_React$Component) {
 				_react2.default.createElement(
 					'section',
 					{ id: 'overlay' },
-					_react2.default.createElement('img', { src: 'https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg' }),
+					_react2.default.createElement('img', { src: this.state.dj ? 'https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg' : 'https://www.steamid.co.uk/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg' }),
 					_react2.default.createElement(
 						'h3',
 						null,
-						'Gary Fagan'
+						this.state.dj ? this.state.dj : 'Community.dj Bot'
 					),
-					_react2.default.createElement(
-						'h3',
-						null,
-						'Boulevard Of Broken Dreams by Green Day'
-					),
+					(function () {
+						if (_this4.state.song) {
+							return _react2.default.createElement(
+								'h3',
+								null,
+								_this4.state.song.snippet.title
+							);
+						}
+					})(),
 					_react2.default.createElement(
 						'h3',
 						null,
