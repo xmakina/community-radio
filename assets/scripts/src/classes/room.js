@@ -38,7 +38,7 @@ class Room extends React.Component {
 		$.get('https://www.googleapis.com/youtube/v3/videos?id='+songInfo.id+'&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', (response) => {
 			if(response.items[0]) {
 				this.setState({song: response.items[0]});
-			}	
+			}
 		});
 	}
 	
