@@ -71,6 +71,7 @@ class Timeline {
 	}
 
 	_getVideoData(id, callback) {
+		console.log(id);
 		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails,status&key='+this.opts.youtubeApiKey,
 			self = this;
 		request(url, function (error, response, body) {
@@ -135,7 +136,7 @@ class Timeline {
 	_loadFromDefaultPlaylist() {
 		this.elapsed = 0;
 		var index = this.defaultPlaylist.indexOf(this.playing),
-			nextSong = index === -1 || index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
+			nextSong = index === -1 || index >= this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
 		this.playSong(nextSong);
 		this.playing = false;
 	}
