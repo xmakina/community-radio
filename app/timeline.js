@@ -77,7 +77,7 @@ class Timeline {
 		request(url, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
-				if(!data.items[0].status.embeddable) {
+				if(!data.items[0] || !data.items[0].status || !data.items[0].status.embeddable) {
 					self._getNextSong();
 				} else {
 					callback(data);
