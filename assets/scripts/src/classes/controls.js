@@ -11,7 +11,7 @@ class Controls extends React.Component {
 
 		this.state = {
 			overlayOpen: true,
-			inDjQueue: false
+			inDjQueue: window._bootstrapData.inDjQueue
 		};
 
 		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');

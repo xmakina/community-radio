@@ -352,7 +352,7 @@ var Controls = (function (_React$Component) {
 
 		_this.state = {
 			overlayOpen: true,
-			inDjQueue: false
+			inDjQueue: window._bootstrapData.inDjQueue
 		};
 
 		_this.socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');

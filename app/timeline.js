@@ -123,19 +123,39 @@ class Timeline {
 
 			if(this.djQueue.length > -1) {
 				this.currentDj = this.djQueue[nextInQueue] || this.djQueue[0];
+				this._loadFromDefaultPlaylist();
 			} else {
 				this.currentDj = null;
-				this._loadFromDefa
+				this._loadFromUsersPlaylist();
 			}
 
 		});
 
+	}
 
+	_loadFromDefaultPlaylist() {
 		this.elapsed = 0;
 		var index = this.defaultPlaylist.indexOf(this.playing),
-			nextSong = index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
+			nextSong = index === -1 || index > this.defaultPlaylist.length ? this.defaultPlaylist[0] : this.defaultPlaylist[1 + index];
 		this.playSong(nextSong);
 		this.playing = false;
+	}
+
+	_loadFromUsersPlaylist() {
+		User.findOne({_id: this.currentDj})
+			.populate('activePlaylist')
+			.exec((err, user) => {
+				var songs = user.activePlaylist.songs;
+				if(!user.lastSong) {
+					user.lastSong = songs[0];
+					user.save();
+				} else {
+					user.lastSong = songs[1 + songs.indexOf(user.lastSong)] || songs[0];
+				}
+				this.elapsed = 0;
+				this.playSong(user.lastSong);
+				this.playing = false;
+			});
 	}
 
 }

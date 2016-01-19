@@ -1,7 +1,7 @@
 "use strict";
 
 const Session = require('../models/session'),
-	Queue = require('../models/queue'),
+	User = require('../models/user'),
 	Timeline = require('../app/timeline'),
 	io = require('../app/resources').io;
 
@@ -9,6 +9,11 @@ module.exports = {
 
 	joinQueue: (req, res) => {
 		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
+			if(!user.activePlaylist) {
+				res.status(400);
+				res.send('please activate a playlist');
+				return;
+			}
 			user.inQueue = true;
 			user.save((err) => {
 				if(err) {

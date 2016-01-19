@@ -32,23 +32,12 @@ const mongoose = require('mongoose'),
 			type: Boolean,
 			default: false
 		},
+		lastSong: {
+			type: String
+		},
 		_socketId: {
 			type: String
 		}
 	});
 
 module.exports = mongoose.model('User', userSchema);
-
-userSchema.post('save', function(user) {
-	// User.findOne({_id: doc.user}, (err, user) => {
-	// 	if(user._socketId) {
-	// 		io.sockets.connected[user._socketId].emit('playlist_updated', 'for your eyes only');
-	// 	}
-	// });
-});
-
-
-// User is in queue set in db
-// Timeline will auto get all users in queue and calculate the playlist
-// 
-// Need to get each users active playlist and get a song from each
