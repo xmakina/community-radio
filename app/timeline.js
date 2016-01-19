@@ -120,7 +120,7 @@ class Timeline {
 				}
 			}
 
-			if(this.djQueue.length > -1) {
+			if(this.djQueue[0]) {
 				this.currentDj = this.djQueue[nextInQueue] || this.djQueue[0];
 				this._loadFromUsersPlaylist();
 			} else {
