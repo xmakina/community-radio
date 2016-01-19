@@ -383,15 +383,15 @@ var Controls = (function (_React$Component) {
 
 			if (this.state.inDjQueue) {
 				$.get('/radio/leave', function (response) {
-					console.log(response);
 					_this2.setState({ inDjQueue: false });
+					_this2.socket.emit('leavingQueue');
 				});
 			} else {
 				$.ajax({
 					method: 'POST',
 					url: '/radio/join',
 					success: function success(response) {
-						console.log(response);
+						_this2.socket.emit('joiningQueue');
 						_this2.setState({ inDjQueue: true });
 					}
 				});

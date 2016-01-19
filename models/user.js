@@ -28,6 +28,10 @@ const mongoose = require('mongoose'),
 			type: ObjectId,
 			ref: 'Playlist'
 		},
+		inQueue: {
+			type: Boolean,
+			default: false
+		},
 		_socketId: {
 			type: String
 		}
@@ -42,3 +46,9 @@ userSchema.post('save', function(user) {
 	// 	}
 	// });
 });
+
+
+// User is in queue set in db
+// Timeline will auto get all users in queue and calculate the playlist
+// 
+// Need to get each users active playlist and get a song from each

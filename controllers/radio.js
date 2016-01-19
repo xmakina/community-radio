@@ -8,48 +8,30 @@ const Session = require('../models/session'),
 module.exports = {
 
 	joinQueue: (req, res) => {
-
-		Queue.findOne({name: 'global'}, (err, queue) => {
-			if(!queue) {
-				queue = new Queue();
-				queue.name = 'global';
-				queue.djs = [req.session.passport.user._id];
-			} else if(queue.djs.indexOf(req.session.passport.user._id) === -1) {
-				queue.djs.push(req.session.passport.user._id);
-			} else {
-				res.send('user already in queue');
-				return;
-			}
-			queue.save((err, queue) => {
+		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
+			user.inQueue = true;
+			user.save((err) => {
 				if(err) {
 					res.status(400);
 					res.send(err);
 				} else {
-					res.send(queue);
+					res.send(true);
 				}
-			});
+			})
 		});
-
-
 	},
 
 	leaveQueue: (req, res) => {
-		if(!res) return;
-		Queue.findOne({name: 'global'}, (err, queue) => {
-			if(queue) {
-				queue.djs.splice(queue.djs.indexOf(req.session.passport.user._id), 1);
-			} else {
-				res.send('user not in queue');
-				return;
-			}
-			queue.save((err, queue) => {
+		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
+			user.inQueue = true;
+			user.save((err) => {
 				if(err) {
 					res.status(400);
 					res.send(err);
 				} else {
-					res.send(queue);
+					res.send(true);
 				}
-			});
+			})
 		});
 	},
 

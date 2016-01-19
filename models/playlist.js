@@ -13,6 +13,9 @@ const mongoose = require('mongoose'),
 		user: {
 			type: ObjectId,
 			ref: 'User'
+		},
+		nextSong: {
+			type: String
 		}
 	});
 

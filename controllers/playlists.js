@@ -27,6 +27,7 @@ module.exports = {
 				} else {
 					playlist.name = req.body.name;
 					playlist.songs = JSON.parse(req.body.songs);
+					playlist.nextSong = playlist.songs[0];
 					playlist.save((err, playlist) => {
 						if(err) {
 							res.status(400);
@@ -70,6 +71,7 @@ module.exports = {
 		var playlist = new Playlist();
 		playlist.name = req.body.name;
 		playlist.songs = JSON.parse(req.body.songs);
+		playlist.nextSong = playlist.songs[0];
 		playlist.user = req.session.passport.user._id;
 		playlist.save((err, playlist) => {
 			if(err) {

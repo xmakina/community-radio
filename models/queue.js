@@ -5,6 +5,9 @@ const mongoose = require('mongoose'),
 		name: {
 			type: String
 		},
+		current: {
+			type: Schema.Types.Mixed,
+		},
 		djs: [{
 			type: ObjectId,
 			ref: 'User'

@@ -9,6 +9,25 @@ const cookie = require('cookie'),
 
 module.exports = () => {
 
+	io.of('/radio').on('connection', (socket) => {
+
+		// Audience events
+		io.of('/radio').emit('listening');
+		socket.on('disconnect', () => {
+			io.of('/radio').emit('notListening');
+		});
+
+		// Radio events
+		socket.emit('songDetails', {
+			id: Timeline.playing,
+			elapsed: Timeline.elapsed
+		});
+		Timeline.on('newSong', (id) => {
+			socket.emit('newSong', id);
+		});
+
+	});
+
 	// Map session to socket client and store client id in session store
 	io.of('/radio').use((socket, next) => {
 		var handshake = socket.request;
@@ -30,33 +49,6 @@ module.exports = () => {
 		} else {
 			next();
 		}
-	});
-
-	// User joined radio
-	io.of('/radio').on('connection', (socket) => {
-
-		// Emit listening event to all clients
-		io.of('/radio').emit('listening');
-
-		// User left radio
-		socket.on('disconnect', () => {
-
-			// Emit not listening event to all clients
-			io.of('/radio').emit('notListening');
-
-			radio.leaveQueue();
-
-		});
-
-		socket.emit('songDetails', {
-			id: Timeline.playing,
-			elapsed: Timeline.elapsed
-		});
-
-		Timeline.on('newSong', (id) => {
-			socket.emit('newSong', id);
-		});
-
 	});
 
 }
