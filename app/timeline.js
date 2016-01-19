@@ -14,11 +14,8 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
-			'fcISKYecwII',
-			'00bk5E7gecI',
-			'tIdIqbv7SPo',
-			'R7UrFYvl5TE',
-			'oVslvM30EWI'
+			'NCFg7G63KgI',
+			'6ITD1tqXDII'
 		];
 
 		this.callbacks = {};
@@ -91,8 +88,14 @@ class Timeline {
 	_getSongLength(id, callback) {
 		this._getVideoData(id, function(data) {
 			var duration = data.items[0].contentDetails.duration.replace('PT', ''),
+				minutes, seconds;
+			if(duration.split('M')[1]) {
 				minutes = duration.split('M')[0],
 				seconds = duration.split('M')[1].replace('S', '');
+			} else {
+				minutes = 0,
+				seconds = duration.split('S')[0];
+			}
 			callback({
 				minutes: minutes,
 				seconds: seconds
@@ -119,10 +122,10 @@ class Timeline {
 
 			if(this.djQueue.length > -1) {
 				this.currentDj = this.djQueue[nextInQueue] || this.djQueue[0];
-				this._loadFromDefaultPlaylist();
+				this._loadFromUsersPlaylist();
 			} else {
 				this.currentDj = null;
-				this._loadFromUsersPlaylist();
+				this._loadFromDefaultPlaylist();
 			}
 
 		});
