@@ -1041,7 +1041,7 @@ var Room = (function (_React$Component) {
 		value: function _setOverlayDetails(songInfo) {
 			var _this3 = this;
 
-			this.setState({ dj: songInfo.dj });
+			this.setState({ dj: songInfo.dj ? songInfo.dj.username : null });
 			$.get('https://www.googleapis.com/youtube/v3/videos?id=' + songInfo.id + '&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', function (response) {
 				if (response.items[0]) {
 					_this3.setState({ song: response.items[0] });

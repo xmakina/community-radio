@@ -52,7 +52,9 @@ class Timeline {
 
 			if(this.callbacks.newSong) {
 				for(var callback of this.callbacks.newSong){
-					callback(id, this.currentDj);
+					User.findOne({_id: this.currentDj}, (err, user) => {
+						callback(id, user);
+					});
 				}
 			}
 

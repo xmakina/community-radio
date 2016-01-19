@@ -18,11 +18,22 @@ module.exports = () => {
 		});
 
 		// Radio events
-		socket.emit('songDetails', {
-			id: Timeline.playing,
-			elapsed: Timeline.elapsed,
-			dj: Timeline.currentDj
-		});
+		if(Timeline.currentDj) {
+			User.findOne({_id: Timeline.currentDj}, (err, user) => {
+				socket.emit('songDetails', {
+					id: Timeline.playing,
+					elapsed: Timeline.elapsed,
+					dj: user
+				});
+			});
+		} else {
+			socket.emit('songDetails', {
+				id: Timeline.playing,
+				elapsed: Timeline.elapsed,
+				dj: Timeline.currentDj
+			});
+		}
+		
 		Timeline.on('newSong', (id, dj) => {
 			socket.emit('newSong', {id,dj});
 		});
