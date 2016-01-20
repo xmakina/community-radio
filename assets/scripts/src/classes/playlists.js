@@ -35,7 +35,7 @@ class Playlists extends React.Component {
 	}
 
 	editPlaylist(playlist) {
-		$.get('https://www.googleapis.com/youtube/v3/videos?id='+playlist.songs.join(',')+'&part=contentDetails,status,snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', (response) => {
+		$.get('/media/details/'+playlist.songs.join(','), (response) => {
 			playlist.songs = response.items;
 			this.setState({
 				selectedPlaylist: playlist,

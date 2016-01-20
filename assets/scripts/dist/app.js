@@ -106,7 +106,7 @@ var Playlists = (function (_React$Component) {
 		value: function editPlaylist(playlist) {
 			var _this2 = this;
 
-			$.get('https://www.googleapis.com/youtube/v3/videos?id=' + playlist.songs.join(',') + '&part=contentDetails,status,snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', function (response) {
+			$.get('/media/details/' + playlist.songs.join(','), function (response) {
 				playlist.songs = response.items;
 				_this2.setState({
 					selectedPlaylist: playlist,
@@ -1043,7 +1043,7 @@ var Room = (function (_React$Component) {
 			var _this3 = this;
 
 			this.setState({ dj: songInfo.dj ? songInfo.dj.username : null });
-			$.get('https://www.googleapis.com/youtube/v3/videos?id=' + songInfo.id + '&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', function (response) {
+			$.get('/media/details/' + songInfo.id, function (response) {
 				if (response.items[0]) {
 					_this3.setState({ song: response.items[0] });
 				}
@@ -1166,7 +1166,7 @@ var Search = (function (_React$Component) {
 			}
 			this.throttleSearch(function () {
 				_this3.setState({ searching: false });
-				$.get('https://www.googleapis.com/youtube/v3/search?q=' + encodeURIComponent(_this3.state.keyword) + '&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU&maxResults=50&type=video&videoEmbeddable=true&videoSyndicated=true', function (response) {
+				$.get('/media/search/' + encodeURIComponent(_this3.state.keyword), function (response) {
 					_this3.setState({ songs: response.items });
 				});
 			}, 2000);

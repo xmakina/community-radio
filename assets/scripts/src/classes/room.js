@@ -35,7 +35,7 @@ class Room extends React.Component {
 
 	_setOverlayDetails(songInfo) {
 		this.setState({dj: songInfo.dj ? songInfo.dj.username : null});
-		$.get('https://www.googleapis.com/youtube/v3/videos?id='+songInfo.id+'&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU', (response) => {
+		$.get('/media/details/'+songInfo.id, (response) => {
 			if(response.items[0]) {
 				this.setState({song: response.items[0]});
 			}

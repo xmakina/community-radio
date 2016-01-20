@@ -41,7 +41,7 @@ class Search extends React.Component {
 		}
 		this.throttleSearch(() => {
 			this.setState({searching: false});
-			$.get('https://www.googleapis.com/youtube/v3/search?q='+encodeURIComponent(this.state.keyword)+'&part=snippet&key=AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU&maxResults=50&type=video&videoEmbeddable=true&videoSyndicated=true', (response) => {
+			$.get('/media/search/'+encodeURIComponent(this.state.keyword), (response) => {
 				this.setState({songs: response.items});
 			});
 		}, 2000);

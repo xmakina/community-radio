@@ -6,7 +6,8 @@ const resources = require('./resources'),
 const controllers = {
 		user: require('../controllers/user'),
 		radio: require('../controllers/radio'),
-		playlists: require('../controllers/playlists')
+		playlists: require('../controllers/playlists'),
+		youtube: require('../controllers/youtube')
 	};
 
 const isAuthenticated = (req, res, next) => {
@@ -35,6 +36,10 @@ module.exports = () => {
 		.post('/playlists', controllers.playlists.create)
 		.post('/playlists/:id', controllers.playlists.update)
 		.delete('/playlists/:id', controllers.playlists.delete)
+
+		// Media
+		.get('/media/details/:id', controllers.youtube.details)
+		.get('/media/search/:keyword', controllers.youtube.search);
 
 
 	return app;
