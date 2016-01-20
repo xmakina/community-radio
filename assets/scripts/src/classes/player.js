@@ -22,6 +22,7 @@ class Player extends React.Component {
 	}
 
 	changeVideo(videoId) {
+		console.log("changing video");
 		this.player.loadVideoById(videoId);
 	}
 

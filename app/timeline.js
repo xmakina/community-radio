@@ -51,11 +51,11 @@ class Timeline {
 			this.playing = id;
 
 			if(this.callbacks.newSong) {
-				for(var callback of this.callbacks.newSong){
-					User.findOne({_id: this.currentDj}, (err, user) => {
+				User.findOne({_id: this.currentDj}, (err, user) => {
+					for(var callback of this.callbacks.newSong){
 						callback(id, user);
-					});
-				}
+					}
+				});
 			}
 
 		});

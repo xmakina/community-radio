@@ -49,6 +49,7 @@ module.exports = {
 		Session.findOne({
 			_socketId: socket.id
 		}).exec((err, data) => {
+			if(!data) return;
 			var session = JSON.parse(data.session);
 			if(!session && !session.passport && !session.passport.user) return;
 			User.findOne({_id: session.passport.user._id}, (err, user) => {
@@ -74,6 +75,7 @@ module.exports = {
 		Session.findOne({
 			_socketId: socket.id
 		}).exec((err, data) => {
+			if(!data) return;
 			var session = JSON.parse(data.session);
 			if(!session && !session.passport && !session.passport.user) return;
 			User.findOne({_id: session.passport.user._id}, (err, user) => {

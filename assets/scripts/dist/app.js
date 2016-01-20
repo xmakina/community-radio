@@ -735,6 +735,7 @@ var Player = (function (_React$Component) {
 	_createClass(Player, [{
 		key: 'changeVideo',
 		value: function changeVideo(videoId) {
+			console.log("changing video");
 			this.player.loadVideoById(videoId);
 		}
 	}, {
