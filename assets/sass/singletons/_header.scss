@@ -1,0 +1,84 @@
+header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	height: 80px;
+	background: $black;
+	z-index: 10;
+	@extend .clearfix;
+	.header-logo {
+		float: left;
+		display: block;
+		padding: 15px;
+		img {
+			height: 50px;
+		}
+	}
+	.header-navigation {
+		float: right;
+		list-style: none;
+		@extend .clearfix;
+		li {
+			float: left;
+			display: inline-block;
+			a {
+				@extend .animate-all;
+				display: block;
+				line-height: 60px;
+				padding: 10px 15px;
+				background: $white;
+				color: $black;
+				text-decoration: none;
+				text-transform: uppercase;
+				&:hover {
+					color: $orange;
+				}
+			}
+			&:last-child a {
+				background: $orange;
+				color: $white;
+			}
+		}
+	}
+	#controls {
+		float: right;
+		margin: 10px;
+		.controls-wrapper > button {
+			vertical-align: top;
+			display: inline-block;
+			margin-top: 10px;
+			height: 40px;
+			line-height: 40px;
+			padding-left: 15px;
+			margin-left: 10px;
+			@extend .animate-all;
+			&:hover {
+				color: $orange;
+			}
+		}
+		a {
+			@extend .animate-all;
+			&:hover {
+				color: $orange;
+			}
+		}
+		.volume-wrap {
+			margin-top: 10px;
+			padding-left: 10px;
+			margin-left: 10px;
+		}
+	}
+	.open-playlists {
+		@extend .animate-all;
+		display: block;
+		line-height: 60px;
+		padding: 10px 15px;
+		background: $white;
+		color: $black;
+		text-decoration: none;
+		text-transform: uppercase;
+		&:hover {
+			color: $orange;
+		}
+	}
+}

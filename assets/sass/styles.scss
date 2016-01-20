@@ -14,10 +14,10 @@
 @import 'classes/columns';
 @import 'classes/boxes';
 
-@import 'singletons/controls';
 @import 'singletons/volume';
 @import 'singletons/room';
 @import 'singletons/playlists';
+@import 'singletons/header';
 
 body {
 	background: url(../images/background.jpg) no-repeat center center fixed; 

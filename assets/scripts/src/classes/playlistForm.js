@@ -91,26 +91,26 @@ class PlaylistForm extends React.Component {
 								if(!this.state.searching) return (
 									<div>
 										<Input errorMsg="Please a playlist name" onChange={this.onNameChange.bind(this)} required={true} attributes={{type: 'text', name: 'playlist_name', id: 'playlist_name', placeholder: 'Playlist Name', value: this.state.playlistName}}/>
-										<ul>
+										<ul className="song-list">
 											{this.state.songs.map((song, i) => {
 												return (
 													<li key={i}>
 														<img src={song.snippet.thumbnails.medium.url} width="100"/>
-														<span>{song.snippet.title}</span>
-														<button type="button" onClick={this.removeSong.bind(this, song)}>Remove</button>
+														<span className="song-name">{song.snippet.title}</span>
+														<button type="button" onClick={this.removeSong.bind(this, song)}>Remove Song</button>
 													</li>
 												)
 											})}
 										</ul>
-										<button type="button" onClick={this.openSearch.bind(this)}>Add Song</button>
-										<button>Save</button>
+										<button type="button" className="add-song" onClick={this.openSearch.bind(this)}>Add Song</button>
+										<button className="save">Save</button>
 									</div>
 								)
 							})()}
 							{(() => {
 								if(this.state.searching) return (
 									<div>
-										<button type="button" onClick={this.closeSearch.bind(this)}>Back to playlist</button>
+										<button type="button" className="back-to-playlist" onClick={this.closeSearch.bind(this)}>Back to playlist</button>
 										<Search onSelect={this.addSong.bind(this)} />
 									</div>
 								)

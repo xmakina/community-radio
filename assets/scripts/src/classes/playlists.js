@@ -96,15 +96,22 @@ class Playlists extends React.Component {
 			<div id="playlists">
 				<button className="open-playlists" onClick={this.toggleOpen.bind(this)}><i className="fa fa-list"></i> Playlists</button>
 				<div className="playlists-window">
-					<button type="button" onClick={this.createPlaylist.bind(this)}><i className={this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus"}></i> {this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist' }</button>
+					<button type="button" className="new-playlist" onClick={this.createPlaylist.bind(this)}><i className={this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus"}></i> {this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist' }</button>
 					<PlaylistForm open={this.state.playlistFormOpen} playlist={this.state.selectedPlaylist} onSave={this.onSave.bind(this)} />
 					{(() => {
 						if(!this.state.playlistFormOpen) return (
 							<div className="playlists-list">
 								<h2>Playlists</h2>
-								<ul>
+								<ul className="playlists-list-wrapper">
 									{this.state.playlists.map((playlist, i) => {
-										return <li key={i}>{playlist.name} <button onClick={this.editPlaylist.bind(this, playlist)}>Edit</button> <button onClick={this.deletePlaylist.bind(this, playlist)}>Delete</button> {this.state.activePlaylist == playlist._id ? 'Is Active' : <button onClick={this.makeActive.bind(this, playlist)}>Make Active</button>}</li>;
+										return (
+											<li key={i} className={this.state.activePlaylist == playlist._id ? 'is-active' : null}>
+												<h3>{playlist.name}</h3>
+												<button onClick={this.editPlaylist.bind(this, playlist)} className="edit-playlist">Edit</button>
+												<button className="delete-playlist" onClick={this.deletePlaylist.bind(this, playlist)}>Delete Playlist</button>
+												{this.state.activePlaylist != playlist._id ? <button className="toggle-playlist" onClick={this.makeActive.bind(this, playlist)}>Make Active</button> : null}
+											</li>
+										);
 									})}
 								</ul>
 							</div>

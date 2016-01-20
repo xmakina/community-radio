@@ -1,43 +1,167 @@
 #playlistsWrapper {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	background: rgba(0,0,0,0.5);
-	transition: all 0.3s ease-in-out;
-	-webkit-transition: all 0.3s ease-in-out;
-	z-index: 2;
-	height: 60px;
-	width: 140px;
-	.open-playlists {
-		position: fixed;
-		bottom: 10px;
-		left: 10px;
-		color: #fff;
-		i { 
-			display: inline-block;
-		 	color: #fff;
-		}
-	}
 	.playlists-window {
-		padding: 50px;
+		@extend .animate-all;
+		z-index: 11;
+		position: fixed;
+		overflow: hidden;
 		visibility: hidden;
 		opacity: 0;
-		transition: all 0.3s ease-in-out;
-		-webkit-transition: all 0.3s ease-in-out;
-		p, h2, a, button {
-			color: #fff !important;
+		background: $black;
+		top: 80px;
+		right: 0;
+		left: 0;
+		height: 0px;
+		padding: 20px;
+		.new-playlist {
+			position: fixed;
+			top: 80px;
+			right: 0px;
+			background: $orange;
+			font-size: 25px;
+			padding: 15px;
+		}
+		h2 {
+			border-bottom: 1px solid $white;
+			margin-bottom: 0px !important;
+		}
+		.playlists-list-wrapper {
+			list-style: none;
+			li {
+				position: relative;
+				width: 100%;
+				padding: 10px;
+				border-bottom: 1px solid $white;
+				&.is-active {
+					background: $orange;
+				}
+				@extend .clearfix;
+				h3 {
+					display: inline-block;
+					text-transform: none;
+					font-size: 20px;
+					margin-bottom: 0px !important;
+				}
+				button {
+					@extend .animate-all;
+					float: right;
+					padding: 10px 20px;
+					margin-top: 5px;
+					background: $black;
+					margin-left: 5px;
+					&:hover {
+						background: $white;
+						color: $black;
+					}
+				}
+			}
+		}
+		#playlist-form {
+			padding-top: 60px;
+			.input-wrapper {
+				position: fixed;
+				top: 80px;
+				left: 0px;
+				right: 238px;
+				input {
+					border-bottom: 1px solid $white;
+					padding: 14px;
+					color: $white;
+					font-size: 22px;
+				}
+			}
+		}
+		.song-list {
+			list-style: none;
+			li {
+				width: 100%;
+				padding: 10px;
+				border-bottom: 1px solid $white;
+				@extend .clearfix;
+				img {
+					height: 50px;
+					display: inline-block;
+					vertical-align: top;
+				}
+				.song-name {
+					font-size: 20px;
+					display: inline-block;
+					line-height: 50px;
+					vertical-align: top;
+					padding-left: 10px;
+				}
+				button {
+					@extend .animate-all;
+					padding: 20px;
+					background: $orange;
+					color: $white;
+					float: right;
+					&:hover {
+						color: $black;
+						background: $white;
+					}
+				}
+			}
+		}
+		.add-song, .save{
+			position: fixed;
+			bottom: 0px;
+			left: 0px;
+			background: $orange;
+			color: $white;
+			font-size: 23px;
+			padding: 20px;
+			display: block;
+		}
+		.save {
+			right: 0px;
+			left: auto;
+		}
+		.back-to-playlist {
+			position: fixed;
+			bottom: 0px;
+			left: 0px;
+			background: $orange;
+			color: $white;
+			font-size: 23px;
+			padding: 20px;
+			display: block;
+		}
+		.search {
+			input {
+				position: fixed;
+				top: 80px;
+				left: 0px;
+				right: 238px;
+				border-bottom: 1px solid $white;
+				padding: 14px;
+				color: $white;
+				font-size: 22px;
+			}
+			ul {
+				list-style: none;
+				li {
+					width: 100%;
+					border-bottom: 1px solid $white;
+					@extend .clearfix;
+					padding: 10px;
+					cursor: pointer;
+					&:hover {
+						background: $orange;
+					}
+				}
+			}
 		}
 	}
 }
 
 body.playlist-open {
 	#playlistsWrapper {
-		height: 100%;
-		width: 100%;
-		overflow: auto;
 		.playlists-window {
 			opacity: 1;
 			visibility: visible;
+			bottom: 0;
+			height: 100%;
+			padding: 20px;
 		}
 	}
 }

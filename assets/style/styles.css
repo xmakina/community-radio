@@ -78,7 +78,7 @@ input, select {
   -o-transition: background 0.25s ease-in-out;
   transition: background 0.25s ease-in-out; }
 
-.animate-all, .btn, .btn-secondary, #controls button, #controls a {
+.animate-all, .btn, .btn-secondary, #playlistsWrapper .playlists-window, #playlistsWrapper .playlists-window .playlists-list-wrapper li button, #playlistsWrapper .playlists-window .song-list li button, header .header-navigation li a, header #controls .controls-wrapper > button, header #controls a, header .open-playlists {
   -webkit-transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
@@ -117,7 +117,7 @@ button {
   border: 0px;
   outline: none; }
 
-.clearfix:after, #controls:after {
+.clearfix:after, #playlistsWrapper .playlists-window .playlists-list-wrapper li:after, #playlistsWrapper .playlists-window .song-list li:after, #playlistsWrapper .playlists-window .search ul li:after, header:after, header .header-navigation:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -125,13 +125,13 @@ button {
   clear: both;
   height: 0; }
 
-.clearfix, #controls {
+.clearfix, #playlistsWrapper .playlists-window .playlists-list-wrapper li, #playlistsWrapper .playlists-window .song-list li, #playlistsWrapper .playlists-window .search ul li, header, header .header-navigation {
   display: inline-block; }
 
-* html .clearfix, * html #controls {
+* html .clearfix, * html #playlistsWrapper .playlists-window .playlists-list-wrapper li, #playlistsWrapper .playlists-window .playlists-list-wrapper * html li, * html #playlistsWrapper .playlists-window .song-list li, #playlistsWrapper .playlists-window .song-list * html li, * html #playlistsWrapper .playlists-window .search ul li, #playlistsWrapper .playlists-window .search ul * html li, * html header, * html header .header-navigation, header * html .header-navigation {
   height: 1%; }
 
-.clearfix, #controls {
+.clearfix, #playlistsWrapper .playlists-window .playlists-list-wrapper li, #playlistsWrapper .playlists-window .song-list li, #playlistsWrapper .playlists-window .search ul li, header, header .header-navigation {
   display: block; }
 
 .align-center {
@@ -406,25 +406,6 @@ form .input-wrapper .error-msg {
 .box-rounded {
   border-radius: 10px; }
 
-#controls {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  z-index: 3;
-  background: rgba(0, 0, 0, 0.5); }
-  #controls button, #controls a {
-    font-size: 25px;
-    opacity: 0.7; }
-    #controls button:hover, #controls a:hover {
-      opacity: 1;
-      color: #fff; }
-  #controls .volume-wrap {
-    float: right; }
-    #controls .volume-wrap:hover button {
-      opacity: 1; }
-
 .volume-wrap {
   padding: 0 10px 0 0;
   display: inline-block; }
@@ -499,40 +480,195 @@ body.overlay-open #overlay {
 body.overlay-open #player {
   -webkit-filter: blur(0) grayscale(0) !important; }
 
-#playlistsWrapper {
+#playlistsWrapper .playlists-window {
+  z-index: 11;
   position: fixed;
-  bottom: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  background: #000;
+  top: 80px;
+  right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  z-index: 2;
-  height: 60px;
-  width: 140px; }
-  #playlistsWrapper .open-playlists {
+  height: 0px;
+  padding: 20px; }
+  #playlistsWrapper .playlists-window .new-playlist {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    color: #fff; }
-    #playlistsWrapper .open-playlists i {
-      display: inline-block;
-      color: #fff; }
-  #playlistsWrapper .playlists-window {
-    padding: 50px;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out; }
-    #playlistsWrapper .playlists-window p, #playlistsWrapper .playlists-window h2, #playlistsWrapper .playlists-window a, #playlistsWrapper .playlists-window button {
-      color: #fff !important; }
+    top: 80px;
+    right: 0px;
+    background: #fc961b;
+    font-size: 25px;
+    padding: 15px; }
+  #playlistsWrapper .playlists-window h2 {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0px !important; }
+  #playlistsWrapper .playlists-window .playlists-list-wrapper {
+    list-style: none; }
+    #playlistsWrapper .playlists-window .playlists-list-wrapper li {
+      position: relative;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid #fff; }
+      #playlistsWrapper .playlists-window .playlists-list-wrapper li.is-active {
+        background: #fc961b; }
+      #playlistsWrapper .playlists-window .playlists-list-wrapper li h3 {
+        display: inline-block;
+        text-transform: none;
+        font-size: 20px;
+        margin-bottom: 0px !important; }
+      #playlistsWrapper .playlists-window .playlists-list-wrapper li button {
+        float: right;
+        padding: 10px 20px;
+        margin-top: 5px;
+        background: #000;
+        margin-left: 5px; }
+        #playlistsWrapper .playlists-window .playlists-list-wrapper li button:hover {
+          background: #fff;
+          color: #000; }
+  #playlistsWrapper .playlists-window #playlist-form {
+    padding-top: 60px; }
+    #playlistsWrapper .playlists-window #playlist-form .input-wrapper {
+      position: fixed;
+      top: 80px;
+      left: 0px;
+      right: 238px; }
+      #playlistsWrapper .playlists-window #playlist-form .input-wrapper input {
+        border-bottom: 1px solid #fff;
+        padding: 14px;
+        color: #fff;
+        font-size: 22px; }
+  #playlistsWrapper .playlists-window .song-list {
+    list-style: none; }
+    #playlistsWrapper .playlists-window .song-list li {
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid #fff; }
+      #playlistsWrapper .playlists-window .song-list li img {
+        height: 50px;
+        display: inline-block;
+        vertical-align: top; }
+      #playlistsWrapper .playlists-window .song-list li .song-name {
+        font-size: 20px;
+        display: inline-block;
+        line-height: 50px;
+        vertical-align: top;
+        padding-left: 10px; }
+      #playlistsWrapper .playlists-window .song-list li button {
+        padding: 20px;
+        background: #fc961b;
+        color: #fff;
+        float: right; }
+        #playlistsWrapper .playlists-window .song-list li button:hover {
+          color: #000;
+          background: #fff; }
+  #playlistsWrapper .playlists-window .add-song, #playlistsWrapper .playlists-window .save {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: #fc961b;
+    color: #fff;
+    font-size: 23px;
+    padding: 20px;
+    display: block; }
+  #playlistsWrapper .playlists-window .save {
+    right: 0px;
+    left: auto; }
+  #playlistsWrapper .playlists-window .back-to-playlist {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: #fc961b;
+    color: #fff;
+    font-size: 23px;
+    padding: 20px;
+    display: block; }
+  #playlistsWrapper .playlists-window .search input {
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    right: 238px;
+    border-bottom: 1px solid #fff;
+    padding: 14px;
+    color: #fff;
+    font-size: 22px; }
+  #playlistsWrapper .playlists-window .search ul {
+    list-style: none; }
+    #playlistsWrapper .playlists-window .search ul li {
+      width: 100%;
+      border-bottom: 1px solid #fff;
+      padding: 10px;
+      cursor: pointer; }
+      #playlistsWrapper .playlists-window .search ul li:hover {
+        background: #fc961b; }
 
-body.playlist-open #playlistsWrapper {
+body.playlist-open #playlistsWrapper .playlists-window {
+  opacity: 1;
+  visibility: visible;
+  bottom: 0;
   height: 100%;
+  padding: 20px; }
+
+header {
   width: 100%;
-  overflow: auto; }
-  body.playlist-open #playlistsWrapper .playlists-window {
-    opacity: 1;
-    visibility: visible; }
+  position: fixed;
+  top: 0;
+  height: 80px;
+  background: #000;
+  z-index: 10; }
+  header .header-logo {
+    float: left;
+    display: block;
+    padding: 15px; }
+    header .header-logo img {
+      height: 50px; }
+  header .header-navigation {
+    float: right;
+    list-style: none; }
+    header .header-navigation li {
+      float: left;
+      display: inline-block; }
+      header .header-navigation li a {
+        display: block;
+        line-height: 60px;
+        padding: 10px 15px;
+        background: #fff;
+        color: #000;
+        text-decoration: none;
+        text-transform: uppercase; }
+        header .header-navigation li a:hover {
+          color: #fc961b; }
+      header .header-navigation li:last-child a {
+        background: #fc961b;
+        color: #fff; }
+  header #controls {
+    float: right;
+    margin: 10px; }
+    header #controls .controls-wrapper > button {
+      vertical-align: top;
+      display: inline-block;
+      margin-top: 10px;
+      height: 40px;
+      line-height: 40px;
+      padding-left: 15px;
+      margin-left: 10px; }
+      header #controls .controls-wrapper > button:hover {
+        color: #fc961b; }
+    header #controls a:hover {
+      color: #fc961b; }
+    header #controls .volume-wrap {
+      margin-top: 10px;
+      padding-left: 10px;
+      margin-left: 10px; }
+  header .open-playlists {
+    display: block;
+    line-height: 60px;
+    padding: 10px 15px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase; }
+    header .open-playlists:hover {
+      color: #fc961b; }
 
 body {
   background: url(../images/background.jpg) no-repeat center center fixed;

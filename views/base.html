@@ -28,6 +28,27 @@
     </head>
     <body>
 
+        <header>
+            <a href="/" class="header-logo"><img src="images/logo.png" /></a>
+            <ul class="header-navigation">
+                {% if user %}
+                    {% if isRadio %}
+                    <li>
+                        <div data-react-component="Playlists" id="playlistsWrapper"></div>
+                    </li>
+                    {% endif %}
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                {% endif %}
+            </ul>
+            {% if isRadio %}
+                <div data-react-component="Controls" id="controls"></div>
+            {% endif %}
+        </header>
+
         <section>
             {% block content %}{% endblock %}
         </section>

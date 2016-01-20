@@ -15,7 +15,9 @@ module.exports = () => {
 			if(!req.isAuthenticated()){
 				res.render('login.html');
 			} else {
-				res.render('home.html');
+				res.render('home.html', {
+					isRadio: true
+				});
 			}
 		})
 		.get('/register', isUnauthenticated, (req, res) => {

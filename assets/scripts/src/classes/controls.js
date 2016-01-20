@@ -53,13 +53,14 @@ class Controls extends React.Component {
 		}
 	}
 
+	
+				// <button type="button" onClick={this.voteDown.bind(this)}><i className="fa fa-thumbs-o-down"></i></button>
+				// <button type="button" onClick={this.voteUp.bind(this)}><i className="fa fa-thumbs-o-up"></i></button>
 	render() {
 		return (
 			<div className="controls-wrapper">
 				<button type="button" onClick={this.toggleDJ.bind(this)}>{this.state.inDjQueue ? "Leave Dj Queue" : "Join Dj Queue"}</button>
 				<button type="button" onClick={this.toggleOverlay.bind(this)}><i className={this.state.overlayOpen ? "fa fa-expand" : "fa fa-compress"}></i></button>
-				<button type="button" onClick={this.voteDown.bind(this)}><i className="fa fa-thumbs-o-down"></i></button>
-				<button type="button" onClick={this.voteUp.bind(this)}><i className="fa fa-thumbs-o-up"></i></button>
 				<Volume />
 			</div>
 		);

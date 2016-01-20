@@ -50,9 +50,7 @@ class Room extends React.Component {
 				<input type="checkbox" className="toggle-overlay" />
 				<section id="overlay">
 
-					<img src={this.state.dj ? 'https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg' : 'https://www.steamid.co.uk/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg'} />
-
-					<h3>{this.state.dj ? this.state.dj : 'Community.dj Bot'}</h3>
+					<h3>Current Dj: {this.state.dj ? this.state.dj : 'Community.dj Bot'}</h3>
 
 					{(() => {
 						if(this.state.song) {
@@ -60,7 +58,7 @@ class Room extends React.Component {
 						}
 					})()}
 					
-					<h3>Audience</h3>
+					<p>Audience</p>
 
 					<Audience listening={this.state.audience}/>
 

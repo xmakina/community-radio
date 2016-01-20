@@ -191,7 +191,7 @@ var Playlists = (function (_React$Component) {
 					{ className: 'playlists-window' },
 					_react2.default.createElement(
 						'button',
-						{ type: 'button', onClick: this.createPlaylist.bind(this) },
+						{ type: 'button', className: 'new-playlist', onClick: this.createPlaylist.bind(this) },
 						_react2.default.createElement('i', { className: this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus" }),
 						' ',
 						this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist'
@@ -208,30 +208,31 @@ var Playlists = (function (_React$Component) {
 							),
 							_react2.default.createElement(
 								'ul',
-								null,
+								{ className: 'playlists-list-wrapper' },
 								_this5.state.playlists.map(function (playlist, i) {
 									return _react2.default.createElement(
 										'li',
-										{ key: i },
-										playlist.name,
-										' ',
+										{ key: i, className: _this5.state.activePlaylist == playlist._id ? 'is-active' : null },
+										_react2.default.createElement(
+											'h3',
+											null,
+											playlist.name
+										),
 										_react2.default.createElement(
 											'button',
-											{ onClick: _this5.editPlaylist.bind(_this5, playlist) },
+											{ onClick: _this5.editPlaylist.bind(_this5, playlist), className: 'edit-playlist' },
 											'Edit'
 										),
-										' ',
 										_react2.default.createElement(
 											'button',
-											{ onClick: _this5.deletePlaylist.bind(_this5, playlist) },
-											'Delete'
+											{ className: 'delete-playlist', onClick: _this5.deletePlaylist.bind(_this5, playlist) },
+											'Delete Playlist'
 										),
-										' ',
-										_this5.state.activePlaylist == playlist._id ? 'Is Active' : _react2.default.createElement(
+										_this5.state.activePlaylist != playlist._id ? _react2.default.createElement(
 											'button',
-											{ onClick: _this5.makeActive.bind(_this5, playlist) },
+											{ className: 'toggle-playlist', onClick: _this5.makeActive.bind(_this5, playlist) },
 											'Make Active'
-										)
+										) : null
 									);
 								})
 							)
@@ -397,6 +398,10 @@ var Controls = (function (_React$Component) {
 				});
 			}
 		}
+
+		// <button type="button" onClick={this.voteDown.bind(this)}><i className="fa fa-thumbs-o-down"></i></button>
+		// <button type="button" onClick={this.voteUp.bind(this)}><i className="fa fa-thumbs-o-up"></i></button>
+
 	}, {
 		key: 'render',
 		value: function render() {
@@ -412,16 +417,6 @@ var Controls = (function (_React$Component) {
 					'button',
 					{ type: 'button', onClick: this.toggleOverlay.bind(this) },
 					_react2.default.createElement('i', { className: this.state.overlayOpen ? "fa fa-expand" : "fa fa-compress" })
-				),
-				_react2.default.createElement(
-					'button',
-					{ type: 'button', onClick: this.voteDown.bind(this) },
-					_react2.default.createElement('i', { className: 'fa fa-thumbs-o-down' })
-				),
-				_react2.default.createElement(
-					'button',
-					{ type: 'button', onClick: this.voteUp.bind(this) },
-					_react2.default.createElement('i', { className: 'fa fa-thumbs-o-up' })
 				),
 				_react2.default.createElement(_volume2.default, null)
 			);
@@ -915,7 +910,7 @@ var PlaylistForm = (function (_React$Component) {
 								_react2.default.createElement(_input2.default, { errorMsg: 'Please a playlist name', onChange: _this3.onNameChange.bind(_this3), required: true, attributes: { type: 'text', name: 'playlist_name', id: 'playlist_name', placeholder: 'Playlist Name', value: _this3.state.playlistName } }),
 								_react2.default.createElement(
 									'ul',
-									null,
+									{ className: 'song-list' },
 									_this3.state.songs.map(function (song, i) {
 										return _react2.default.createElement(
 											'li',
@@ -923,25 +918,25 @@ var PlaylistForm = (function (_React$Component) {
 											_react2.default.createElement('img', { src: song.snippet.thumbnails.medium.url, width: '100' }),
 											_react2.default.createElement(
 												'span',
-												null,
+												{ className: 'song-name' },
 												song.snippet.title
 											),
 											_react2.default.createElement(
 												'button',
 												{ type: 'button', onClick: _this3.removeSong.bind(_this3, song) },
-												'Remove'
+												'Remove Song'
 											)
 										);
 									})
 								),
 								_react2.default.createElement(
 									'button',
-									{ type: 'button', onClick: _this3.openSearch.bind(_this3) },
+									{ type: 'button', className: 'add-song', onClick: _this3.openSearch.bind(_this3) },
 									'Add Song'
 								),
 								_react2.default.createElement(
 									'button',
-									null,
+									{ className: 'save' },
 									'Save'
 								)
 							);
@@ -952,7 +947,7 @@ var PlaylistForm = (function (_React$Component) {
 								null,
 								_react2.default.createElement(
 									'button',
-									{ type: 'button', onClick: _this3.closeSearch.bind(_this3) },
+									{ type: 'button', className: 'back-to-playlist', onClick: _this3.closeSearch.bind(_this3) },
 									'Back to playlist'
 								),
 								_react2.default.createElement(_search2.default, { onSelect: _this3.addSong.bind(_this3) })
@@ -1061,10 +1056,10 @@ var Room = (function (_React$Component) {
 				_react2.default.createElement(
 					'section',
 					{ id: 'overlay' },
-					_react2.default.createElement('img', { src: this.state.dj ? 'https://www.wearetwogether.com/images/us/Gary-Fagan-2.jpg' : 'https://www.steamid.co.uk/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg' }),
 					_react2.default.createElement(
 						'h3',
 						null,
+						'Current Dj: ',
 						this.state.dj ? this.state.dj : 'Community.dj Bot'
 					),
 					(function () {
@@ -1077,7 +1072,7 @@ var Room = (function (_React$Component) {
 						}
 					})(),
 					_react2.default.createElement(
-						'h3',
+						'p',
 						null,
 						'Audience'
 					),
