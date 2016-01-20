@@ -13,8 +13,10 @@ module.exports = () => {
 
 		// Audience events
 		io.of('/radio').emit('listening');
+		radio.userEnteringRoom(socket);
 		socket.on('disconnect', () => {
 			io.of('/radio').emit('notListening');
+			radio.userLeavingRoom(socket);
 		});
 
 		// Radio events

@@ -30,7 +30,12 @@ const mongoose = require('mongoose'),
 		},
 		inQueue: {
 			type: Boolean,
+			expires: '8h',
 			default: false
+		},
+		isConnected: {
+			type: Boolean,
+			expires: '10h',
 		},
 		lastSong: {
 			type: String

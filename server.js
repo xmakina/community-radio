@@ -18,15 +18,16 @@ const database = require('./app/database'),
 const app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
-	MongoStore = require('connect-mongo')(session);
+	MongoStore = require('connect-mongo')(session),
+	store = new MongoStore({
+		mongooseConnection: mongoose.connection
+	});
 
 // Set middleware
 app
 	.use(express.static(__dirname + '/assets'))
 	.use(session({
-		store: new MongoStore({
-			mongooseConnection: mongoose.connection
-		}),
+		store: store,
 		secret: "itsAMassiveSecret",
 		resave: false,
 		saveUninitialized: true
@@ -44,6 +45,7 @@ resources.app = app;
 resources.nunjucks = nunjucks;
 resources.passport = passport;
 resources.io = io;
+resources.sessionStore = store;
 
 // Load app components
 require('./app/nunjucks')();

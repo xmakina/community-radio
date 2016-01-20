@@ -1,9 +1,13 @@
 "use strict";
 
 const Session = require('../models/session'),
+	cookie = require('cookie'),
+	cookieParser = require('cookie-parser'),
 	User = require('../models/user'),
 	Timeline = require('../app/timeline'),
-	io = require('../app/resources').io;
+	resources = require('../app/resources'),
+	sessionStore = resources.sessionStore,
+	io = resources.io;
 
 module.exports = {
 
@@ -37,6 +41,45 @@ module.exports = {
 					res.send(true);
 				}
 			})
+		});
+	},
+
+	userLeavingRoom: (socket) => {
+		if(!socket.id) return;
+		Session.findOne({
+			_socketId: socket.id
+		}).exec((err, data) => {
+			var session = JSON.parse(data.session);
+			if(!session && !session.passport && !session.passport.user) return;
+			User.findOne({_id: session.passport.user._id}, (err, user) => {
+				user.isConnected = false;
+				user.save();
+				if(user.inQueue) {
+					// Check session again after 10 minutes
+					setTimeout(() => {
+						User.findOne({_id: session.passport.user._id}, (err, user) => {
+							if(!user.isConnected && user.inQueue) {
+								user.inQueue = false;
+								user.save();
+							}
+						});
+					}, 10 * 60 * 1000);
+				}
+			});
+		});
+	},
+
+	userEnteringRoom: (socket) => {
+		if(!socket.id) return;
+		Session.findOne({
+			_socketId: socket.id
+		}).exec((err, data) => {
+			var session = JSON.parse(data.session);
+			if(!session && !session.passport && !session.passport.user) return;
+			User.findOne({_id: session.passport.user._id}, (err, user) => {
+				user.isConnected = true;
+				user.save();
+			});
 		});
 	},
 
