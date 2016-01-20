@@ -32,7 +32,7 @@ module.exports = {
 
 	leaveQueue: (req, res) => {
 		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
-			user.inQueue = true;
+			user.inQueue = false;
 			user.save((err) => {
 				if(err) {
 					res.status(400);
