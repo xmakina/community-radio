@@ -78,7 +78,7 @@ input, select {
   -o-transition: background 0.25s ease-in-out;
   transition: background 0.25s ease-in-out; }
 
-.animate-all, .btn, #controls button, #controls a {
+.animate-all, .btn, .btn-secondary, #controls button, #controls a {
   -webkit-transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
@@ -166,7 +166,7 @@ button {
     padding-bottom: 40px; }
 
 .vertical-padding-large {
-  padding: 10% 0; }
+  padding: 6% 0; }
   .vertical-padding-large-top {
     padding-top: 90px; }
   .vertical-padding-large-bottom {
@@ -207,22 +207,27 @@ a, button {
   a:hover, button:hover {
     color: #3C3C3C; }
 
-.btn {
-  background: #434343;
+.btn, .btn-secondary {
+  background: #fc961b;
   color: #fff;
   text-transform: uppercase;
-  border-radius: 4px;
   display: inline-block;
-  padding: 10px 15px;
+  padding: 20px 45px;
   line-height: 20px;
   font-size: 16px;
+  font-weight: 600;
   text-decoration: none;
-  border: 2px solid #434343;
+  border: 2px solid #fc961b;
   box-sizing: border-box; }
-  .btn:hover {
+  .btn:hover, .btn-secondary:hover {
     background: none;
-    border: 2px solid #434343;
-    color: #434343; }
+    border: 2px solid #fc961b;
+    color: #fc961b; }
+
+.btn-secondary {
+  background: #fff;
+  color: #000;
+  border-color: #fff; }
 
 form {
   width: 100%; }
@@ -235,13 +240,13 @@ form input {
   line-height: 20px;
   outline: 0px;
   border: 0px;
-  margin-bottom: 15px;
   padding: 25px 60px;
   background: rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   color: #000; }
   form input:focus {
-    background: rgba(255, 255, 255, 0.2); }
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1); }
   form input:-webkit-autofill, form input:-webkit-autofill:hover, form input:-webkit-autofill:focus, form input:-webkit-autofill:active {
     -webkit-text-fill-color: #e4e4e4;
     transition: background-color 5000s ease-in-out 0s; }

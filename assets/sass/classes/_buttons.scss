@@ -1,25 +1,31 @@
 //Constructor
 %button {
 	@extend .animate-all;
-	background: $darkGrey;
+	background: $orange;
 	color: #fff;
 	text-transform: uppercase;
-	border-radius: 4px;
 	display: inline-block;
-	padding: 10px 15px;
+	padding: 20px 45px;
 	line-height: 20px;
 	font-size: 16px;
+	font-weight: 600;
 	text-decoration: none;
-	border: 2px solid $darkGrey;
+	border: 2px solid $orange;
 	box-sizing: border-box;
 	&:hover {
 		background: none;
-		border: 2px solid $darkGrey;
-		color: $darkGrey;
+		border: 2px solid $orange;
+		color: $orange;
 	}
 }
 
 //Selectors
 .btn {
 	@extend %button;
+	&-secondary {
+		@extend %button;
+		background: $white;
+		color: $black;
+		border-color: $white;
+	}
 }
