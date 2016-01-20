@@ -156,6 +156,7 @@ class Timeline {
 					user.save();
 				} else {
 					user.lastSong = songs[1 + songs.indexOf(user.lastSong)] || songs[0];
+					user.save();
 				}
 				this.elapsed = 0;
 				this.playSong(user.lastSong);
