@@ -18,3 +18,17 @@
 @import 'singletons/volume';
 @import 'singletons/room';
 @import 'singletons/playlists';
+
+body {
+	background: url(../images/background.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.page-logo {
+	width: 35%;
+	display: block;
+	margin: 0 auto 30px;
+}
