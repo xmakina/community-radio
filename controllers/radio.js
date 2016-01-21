@@ -59,16 +59,17 @@ module.exports = {
 				user.isConnected = false;
 				user.save();
 				if(user.inQueue) {
-					// Check session again after 10 minutes
+					// Check session again after 1 minute
 					setTimeout(() => {
 						User.findOne({_id: session.passport.user._id}, (err, user) => {
 							if(!user.isConnected && user.inQueue) {
 								user.inQueue = false;
-								Events.emit('leavingQueue', user);
-								user.save();
+								user.save((err) => {
+									Events.emit('leavingQueue', user);
+								});
 							}
 						});
-					}, 10 * 60 * 1000);
+					}, 1 * 60 * 1000);
 				}
 			});
 		});
