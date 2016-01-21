@@ -35,13 +35,29 @@ class Playlists extends React.Component {
 	}
 
 	editPlaylist(playlist) {
-		$.get('/media/details/'+playlist.songs.join(','), (response) => {
-			playlist.songs = response.items;
-			this.setState({
-				selectedPlaylist: playlist,
-				playlistFormOpen: true
-			});
-		});
+		if(playlist.songs && playlist.songs[0]) {
+			if(playlist.songs[0] && typeof playlist.songs[0] == 'object') {
+				this.setState({
+					selectedPlaylist: playlist,
+					playlistFormOpen: true
+				});
+			} else {
+				$.get('/media/details/'+playlist.songs.join(','), (response) => {
+					playlist.songs = response.items;
+					this.setState({
+						selectedPlaylist: playlist,
+						playlistFormOpen: true
+					});
+				});
+			}
+		}
+	}
+
+	viewPlaylists() {
+		this.setState({
+			selectedPlaylist: null,
+			playlistFormOpen: false
+		})
 	}
 
 	deletePlaylist(playlist) {
@@ -96,7 +112,7 @@ class Playlists extends React.Component {
 			<div id="playlists">
 				<button className="open-playlists" onClick={this.toggleOpen.bind(this)}><i className="fa fa-list"></i> Playlists</button>
 				<div className="playlists-window">
-					<button type="button" className="new-playlist" onClick={this.createPlaylist.bind(this)}><i className={this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus"}></i> {this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist' }</button>
+					<button type="button" className="new-playlist" onClick={this.state.playlistFormOpen ? this.viewPlaylists.bind(this) : this.createPlaylist.bind(this)}><i className={this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus"}></i> {this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist' }</button>
 					<PlaylistForm open={this.state.playlistFormOpen} playlist={this.state.selectedPlaylist} onSave={this.onSave.bind(this)} />
 					{(() => {
 						if(!this.state.playlistFormOpen) return (

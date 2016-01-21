@@ -62,6 +62,8 @@ var _playlistForm2 = _interopRequireDefault(_playlistForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -110,12 +112,29 @@ var Playlists = (function (_React$Component) {
 		value: function editPlaylist(playlist) {
 			var _this2 = this;
 
-			$.get('/media/details/' + playlist.songs.join(','), function (response) {
-				playlist.songs = response.items;
-				_this2.setState({
-					selectedPlaylist: playlist,
-					playlistFormOpen: true
-				});
+			if (playlist.songs && playlist.songs[0]) {
+				if (playlist.songs[0] && _typeof(playlist.songs[0]) == 'object') {
+					this.setState({
+						selectedPlaylist: playlist,
+						playlistFormOpen: true
+					});
+				} else {
+					$.get('/media/details/' + playlist.songs.join(','), function (response) {
+						playlist.songs = response.items;
+						_this2.setState({
+							selectedPlaylist: playlist,
+							playlistFormOpen: true
+						});
+					});
+				}
+			}
+		}
+	}, {
+		key: 'viewPlaylists',
+		value: function viewPlaylists() {
+			this.setState({
+				selectedPlaylist: null,
+				playlistFormOpen: false
 			});
 		}
 	}, {
@@ -195,7 +214,7 @@ var Playlists = (function (_React$Component) {
 					{ className: 'playlists-window' },
 					_react2.default.createElement(
 						'button',
-						{ type: 'button', className: 'new-playlist', onClick: this.createPlaylist.bind(this) },
+						{ type: 'button', className: 'new-playlist', onClick: this.state.playlistFormOpen ? this.viewPlaylists.bind(this) : this.createPlaylist.bind(this) },
 						_react2.default.createElement('i', { className: this.state.playlistFormOpen ? "fa fa-close" : "fa fa-plus" }),
 						' ',
 						this.state.playlistFormOpen ? 'Back To Playlists' : 'New Playlist'
