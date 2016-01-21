@@ -42,7 +42,7 @@ class PlaylistForm extends React.Component {
 
 	removeSong(song) {
 		var songs = this.state.songs;
-		songs.splice(songs.findIndex(data => data.id.videoId == song.id.videoId), 1)
+		songs.splice(songs.findIndex(data => data.id.videoId == song.id || song.id.videoId), 1)
 		this.setState({songs});
 	}
 

@@ -851,7 +851,7 @@ var PlaylistForm = (function (_React$Component) {
 		value: function removeSong(song) {
 			var songs = this.state.songs;
 			songs.splice(songs.findIndex(function (data) {
-				return data.id.videoId == song.id.videoId;
+				return data.id.videoId == song.id || song.id.videoId;
 			}), 1);
 			this.setState({ songs: songs });
 		}
