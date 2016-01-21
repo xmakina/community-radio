@@ -6,6 +6,7 @@ const Session = require('../models/session'),
 	User = require('../models/user'),
 	Timeline = require('../app/timeline'),
 	resources = require('../app/resources'),
+	Events = require('../app/events'),
 	sessionStore = resources.sessionStore,
 	io = resources.io;
 
@@ -24,6 +25,7 @@ module.exports = {
 					res.status(400);
 					res.send(err);
 				} else {
+					Events.emit('joiningQueue', user);
 					res.send(true);
 				}
 			})
@@ -38,6 +40,7 @@ module.exports = {
 					res.status(400);
 					res.send(err);
 				} else {
+					Events.emit('leavingQueue', user);
 					res.send(true);
 				}
 			})
@@ -61,6 +64,7 @@ module.exports = {
 						User.findOne({_id: session.passport.user._id}, (err, user) => {
 							if(!user.isConnected && user.inQueue) {
 								user.inQueue = false;
+								Events.emit('leavingQueue', user);
 								user.save();
 							}
 						});

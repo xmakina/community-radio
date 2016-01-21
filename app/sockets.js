@@ -5,6 +5,7 @@ const cookie = require('cookie'),
 	resources = require('./resources'),
 	radio = require('../controllers/radio'),
 	Timeline = require('../app/timeline'),
+	Events = require('./events'),
 	io = resources.io;
 
 module.exports = () => {
@@ -13,13 +14,13 @@ module.exports = () => {
 
 		// Audience events
 		io.of('/radio').emit('listening');
-		radio.userEnteringRoom(socket);
+		Events.emit('socketConnect', socket);
 		socket.on('disconnect', () => {
 			io.of('/radio').emit('notListening');
-			radio.userLeavingRoom(socket);
+			Events.emit('socketDisconnect', socket);
 		});
 
-		// Radio events
+		// Radio events - passes current song and duration to client on connection
 		if(Timeline.currentDj) {
 			User.findOne({_id: Timeline.currentDj}, (err, user) => {
 				socket.emit('songDetails', {
@@ -38,6 +39,7 @@ module.exports = () => {
 		
 		Timeline.on('newSong', (id, dj) => {
 			socket.emit('newSong', {id,dj});
+			Events.emit('newSong', id, dj);
 		});
 
 	});

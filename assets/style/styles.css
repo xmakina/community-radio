@@ -480,6 +480,34 @@ body.overlay-open #overlay {
 body.overlay-open #player {
   -webkit-filter: blur(0) grayscale(0) !important; }
 
+.queue-list {
+  position: fixed;
+  right: 0px;
+  text-align: right;
+  top: 25%;
+  z-index: 5;
+  width: 150px; }
+  .queue-list li {
+    display: block;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #000;
+    font-size: 18px;
+    color: #fff;
+    width: auto;
+    max-width: auto;
+    min-width: auto; }
+    .queue-list li.current {
+      background: #fc961b;
+      padding: 15px;
+      font-size: 22px; }
+    .queue-list li.title {
+      background: none;
+      text-transform: uppercase;
+      color: #fc961b;
+      font-weight: 600;
+      font-size: 24px; }
+
 #playlistsWrapper .playlists-window {
   z-index: 11;
   position: fixed;

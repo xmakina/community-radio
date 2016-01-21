@@ -34,3 +34,35 @@ body.overlay-open {
 		-webkit-filter: blur(0) grayscale(0) !important;
 	}
 }
+
+.queue-list {
+	position: fixed;
+	right: 0px;
+	text-align: right;
+	top: 25%;
+	z-index: 5;
+	width: 150px;
+	li {
+		display: block;
+		margin-bottom: 15px;
+		padding: 10px;
+		background: $black;
+		font-size: 18px;
+		color: $white;
+		width: auto;
+		max-width: auto;
+		min-width: auto;
+		&.current {
+			background: $orange;
+			padding: 15px;
+			font-size: 22px;
+		}
+		&.title {
+			background: none;
+			text-transform: uppercase;
+			color: $orange;
+			font-weight: 600;
+			font-size: 24px;
+		}
+	}
+}

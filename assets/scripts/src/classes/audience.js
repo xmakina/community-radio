@@ -15,7 +15,6 @@ class Audience extends React.Component {
 				{this.props.listening.map(function(user, index){
 					return (				
 						<li key={index}>
-							
 							<p>{user.username}</p>
 						</li>
 					)
