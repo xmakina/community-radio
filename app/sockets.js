@@ -12,12 +12,18 @@ module.exports = () => {
 
 	io.of('/radio').on('connection', (socket) => {
 
+		var onNewSong = (id, dj) => {
+			socket.emit('newSong', {id,dj});
+			Events.emit('newSong', id, dj);
+		};
+
 		// Audience events
 		io.of('/radio').emit('listening');
 		Events.emit('socketConnect', socket);
 		socket.on('disconnect', () => {
 			io.of('/radio').emit('notListening');
 			Events.emit('socketDisconnect', socket);
+			Timeline.off('newSong', onNewSong);
 		});
 
 		// Radio events - passes current song and duration to client on connection
@@ -37,10 +43,7 @@ module.exports = () => {
 			});
 		}
 		
-		Timeline.on('newSong', (id, dj) => {
-			socket.emit('newSong', {id,dj});
-			Events.emit('newSong', id, dj);
-		});
+		Timeline.on('newSong', onNewSong);
 
 	});
 

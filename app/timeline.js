@@ -6,7 +6,7 @@ const request = require('request'),
 class Timeline {
 
 	constructor(opts) {
-
+		
 		if(!opts) opts = {};
 		this.opts = Object.assign({}, opts, {
 			refreshInterval: 1000,
@@ -32,9 +32,7 @@ class Timeline {
 		this.djQueue = [];
 		this.currentDj = null;
 
-		this.playSong(this.defaultPlaylist[0]);
-
-		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
+		this.startProcess();
 
 	}
 
@@ -46,9 +44,14 @@ class Timeline {
 		}
 	}
 
+	off(event, callback) {
+		if(this.callbacks[event] && this.callbacks[event].indexOf(callback) > -1){
+			this.callbacks[event].splice(this.callbacks[event].indexOf(callback), 1);
+		}
+	}
+
 	playSong(id) {
 
-		// Refactor this - shouldn't be invoking so many dates
 		this.startsAt = new Date();
 		this._getSongLength(id, (data) => {
 
@@ -70,6 +73,25 @@ class Timeline {
 
 		});
 
+	}
+
+	noUsers() {
+		this.stopProcess();
+	}
+
+	hasUsers() {
+		this.startProcess();
+	}
+
+	stopProcess() {
+		this.elapsed = 0;
+		this.playing = false;
+		clearInterval(this.tracker);
+	}
+
+	startProcess() {
+		this.playSong(this.defaultPlaylist[0]);
+		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
 	}
 
 	_nextTick() {
@@ -108,6 +130,8 @@ class Timeline {
 				minutes = 0,
 				seconds = duration.split('S')[0];
 			}
+			minutes = 0;
+			seconds = 5;
 			callback({
 				minutes: minutes,
 				seconds: seconds
@@ -123,12 +147,14 @@ class Timeline {
 			if(this.currentDj && this.djQueue.length > 1) {
 				nextInQueue = this.djQueue.indexOf(this.currentDj) + 1;
 			}
-
+			
 			for(var user of users) {
-				if(user.inQueue && this.djQueue.indexOf(user._id) == -1) {
-					this.djQueue.push(user._id);
-				} else if(!user.inQueue && this.djQueue.indexOf(user._id) > -1) {
-					this.djQueue.splice(this.djQueue.indexOf(user._id), 1);
+				var id = user._id.toString();
+				if(user.inQueue && this.djQueue.indexOf(id) == -1) {
+					this.djQueue.push(id);
+				} else if(!user.inQueue && this.djQueue.indexOf(id) > -1) {
+					this.djQueue.splice(this.djQueue.indexOf(id), 1);
+				} else if(!user.inQueue) {
 				}
 			}
 

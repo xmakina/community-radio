@@ -116,6 +116,12 @@ module.exports = {
 				}
 			}
 
+			if(users.length === 0) {
+				Timeline.noUsers();
+			} else {
+				Timeline.hasUsers();
+			}
+
 			res.send(users);
 
 		});
