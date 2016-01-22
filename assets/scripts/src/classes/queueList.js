@@ -23,8 +23,8 @@ class QueueList extends React.Component {
 
 	_changeQueue(data) {
 		this.setState({
-			users: data.users,
-			current: data.current
+			users: data.djQueue,
+			current: data.currentDj
 		});
 	}
 

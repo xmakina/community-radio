@@ -753,7 +753,11 @@ var Player = (function (_React$Component) {
 	_createClass(Player, [{
 		key: 'changeVideo',
 		value: function changeVideo(videoId) {
-			this.player.loadVideoById(videoId);
+			if (!this.made) {
+				this.makePlayer(videoId, 0);
+			} else {
+				this.player.loadVideoById(videoId);
+			}
 		}
 	}, {
 		key: 'makePlayer',
@@ -1040,8 +1044,8 @@ var QueueList = (function (_React$Component) {
 		key: '_changeQueue',
 		value: function _changeQueue(data) {
 			this.setState({
-				users: data.users,
-				current: data.current
+				users: data.djQueue,
+				current: data.currentDj
 			});
 		}
 	}, {

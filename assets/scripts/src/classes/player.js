@@ -22,10 +22,15 @@ class Player extends React.Component {
 	}
 
 	changeVideo(videoId) {
-		this.player.loadVideoById(videoId);
+		if(!this.made) {
+			this.makePlayer(videoId, 0);
+		} else {
+			this.player.loadVideoById(videoId);
+		}
 	}
 
 	makePlayer(id, elapsed) {
+
 		this.made = true;
 		Youtube.onReady(() => {
 			this.player = new YT.Player(ReactDOM.findDOMNode(this), {

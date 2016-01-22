@@ -32,8 +32,6 @@ class Timeline {
 		this.djQueue = [];
 		this.currentDj = null;
 
-		this.startProcess();
-
 	}
 
 	on(event, callback) {
@@ -76,22 +74,51 @@ class Timeline {
 	}
 
 	noUsers() {
-		this.stopProcess();
+		if(this.running) this.stopProcess();
 	}
 
 	hasUsers() {
-		this.startProcess();
+		if(!this.running) this.startProcess();
 	}
 
 	stopProcess() {
+		this.running = false;
+		clearInterval(this.tracker);
 		this.elapsed = 0;
 		this.playing = false;
-		clearInterval(this.tracker);
 	}
 
 	startProcess() {
+		this.running = true;
 		this.playSong(this.defaultPlaylist[0]);
 		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
+	}
+
+	updateQueue(callback) {
+		User.find({}, (err, users) => {
+
+			var nextInQueue = 0;
+			if(this.currentDj && this.djQueue.length > 1) {
+				nextInQueue = this.djQueue.indexOf(this.currentDj) + 1;
+			}
+			
+			for(var user of users) {
+				var id = user._id.toString();
+				if(user.inQueue && this.djQueue.indexOf(id) == -1) {
+					this.djQueue.push(id);
+				} else if(!user.inQueue && this.djQueue.indexOf(id) > -1) {
+					this.djQueue.splice(this.djQueue.indexOf(id), 1);
+				} else if(!user.inQueue) {
+				}
+			}
+
+			if(nextInQueue == this.currentDj) {
+				nextInQueue = this.djQueue.indexOf(this.currentDj)++;
+			}
+
+			callback.apply(null, [this.djQueue, this.currentDj, users]);
+
+		});
 	}
 
 	_nextTick() {
@@ -130,8 +157,6 @@ class Timeline {
 				minutes = 0,
 				seconds = duration.split('S')[0];
 			}
-			minutes = 0;
-			seconds = 5;
 			callback({
 				minutes: minutes,
 				seconds: seconds
@@ -141,27 +166,7 @@ class Timeline {
 
 	_getNextSong() {
 
-		User.find({}, (err, users) => {
-
-			var nextInQueue = 0;
-			if(this.currentDj && this.djQueue.length > 1) {
-				nextInQueue = this.djQueue.indexOf(this.currentDj) + 1;
-			}
-			
-			for(var user of users) {
-				var id = user._id.toString();
-				if(user.inQueue && this.djQueue.indexOf(id) == -1) {
-					this.djQueue.push(id);
-				} else if(!user.inQueue && this.djQueue.indexOf(id) > -1) {
-					this.djQueue.splice(this.djQueue.indexOf(id), 1);
-				} else if(!user.inQueue) {
-				}
-			}
-
-			if(nextInQueue == this.currentDj) {
-				nextInQueue = this.djQueue.indexOf(this.currentDj)++;
-			}
-
+		this.updateQueue(() => {
 			if(this.djQueue[0]) {
 				this.currentDj = this.djQueue[nextInQueue] || this.djQueue[0];
 				this._loadFromUsersPlaylist();
@@ -169,7 +174,6 @@ class Timeline {
 				this.currentDj = null;
 				this._loadFromDefaultPlaylist();
 			}
-
 		});
 
 	}

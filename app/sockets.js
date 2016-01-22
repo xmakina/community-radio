@@ -27,7 +27,7 @@ module.exports = () => {
 		});
 
 		// Radio events - passes current song and duration to client on connection
-		if(Timeline.currentDj) {
+		if(Timeline.currentDj && Timeline.playing) {
 			User.findOne({_id: Timeline.currentDj}, (err, user) => {
 				socket.emit('songDetails', {
 					id: Timeline.playing,
@@ -35,7 +35,7 @@ module.exports = () => {
 					dj: user
 				});
 			});
-		} else {
+		} else if(Timeline.playing) {
 			socket.emit('songDetails', {
 				id: Timeline.playing,
 				elapsed: Timeline.elapsed,

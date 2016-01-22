@@ -32,17 +32,14 @@ emitter.on('leavingQueue', (user) => {
 });
 
 emitter.on('queueChange', () => {
-	User.find({
-		inQueue: true
-	}, (err, users) => {
-		users = users.map((user) => {
+	Timeline.updateQueue((djQueue, currentDj, users) => {
+		djQueue = djQueue.map((id) => {
 			return {
-				username: user.username,
-				id: user._id
+				username: users.filter((user) => user._id == id)[0].username,
+				id: id
 			}
 		});
-		var current = Timeline.currentDj;
-		io.of('/radio').emit('queueChange', {users, current});
+		io.of('/radio').emit('queueChange', {djQueue, currentDj});
 	});
 });
 
