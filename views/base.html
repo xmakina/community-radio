@@ -12,7 +12,7 @@
             window._bootstrapData = {
                 guid: '{{user._id}}',
                 activePlaylist: '{{user.activePlaylist}}',
-                inDjQueue: {{user.inQueue}}
+                inDjQueue: {{user.inQueue or 'false'}}
             };
         </script>
         <script src="scripts/libs/modernizr.js"></script>

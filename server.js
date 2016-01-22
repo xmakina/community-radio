@@ -8,7 +8,8 @@ const express = require('express'),
 	flash = require('express-flash'),
 	session = require("express-session"),
 	cookieParser = require('cookie-parser'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	multipart = require('connect-multiparty');
 
 // Get local configs and resources
 const database = require('./app/database'),
@@ -38,6 +39,7 @@ app
 	.use(passport.initialize())
 	.use(passport.session())
 	.use(flash())
+	.use(multipart())
 	.use(require('./app/bootstrap'));
 
 // Map resources

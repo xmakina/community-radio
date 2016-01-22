@@ -14,6 +14,10 @@ const mongoose = require('mongoose'),
 			type: String,
 			required: true
 		},
+		avatar: {
+			type: String,
+			required: false
+		},
 		email: {
 			type: String,
 			required: true,

@@ -55,6 +55,7 @@ module.exports = () => {
 			sessionId = cookieParser.signedCookie(cookieData['connect.sid'], 'itsAMassiveSecret');
 			Session.findOne({_id: sessionId}, (err, session) => {
 				var sessionData = JSON.parse(session.session);
+				if(!sessionData || !sessionData.passport || !sessionData.passport.user) return;
 				session._socketId = socket.id;
 				session.save((err) => {
 					User.findOne({_id: sessionData.passport.user._id}, (err, user) => { // Save to user model so we can access it there for mongoose middleware

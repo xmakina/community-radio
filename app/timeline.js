@@ -61,6 +61,9 @@ class Timeline {
 			
 			this.playing = id;
 
+			if(this.tracker) clearInterval(this.tracker);
+			this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
+			
 			if(this.callbacks.newSong) {
 				User.findOne({_id: this.currentDj}, (err, user) => {
 					for(var callback of this.callbacks.newSong){

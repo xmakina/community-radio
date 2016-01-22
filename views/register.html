@@ -7,7 +7,7 @@
 		{% for message in message %}
 			{% include "alert.html" %}
 		{% endfor %}
-		<form action="/register" method="post" role="form">
+		<form action="/register" method="post" role="form" enctype="multipart/form-data">
 			<div>
 				<div data-react-component="Input" data-react-props="
 						errorMsg: 'Please enter a username',
@@ -15,7 +15,6 @@
 						attributes: {
 							type: 'text',
 							name: 'username',
-							className: 'form-control',
 							id: 'username',
 							placeholder: 'Username'
 						}
@@ -27,7 +26,6 @@
 						attributes: {
 							type: 'text',
 							name: 'email',
-							className: 'form-control',
 							id: 'email',
 							placeholder: 'Email'
 						}
@@ -39,10 +37,16 @@
 							type: 'password',
 							name: 'password',
 							id: 'password',
-							placeholder: 'Password',
-							className: 'form-control'
+							placeholder: 'Password'
 						}
 				"></div>
+<!-- 				<div data-react-component="Input" data-react-props="
+						attributes: {
+							type: 'file',
+							name: 'avatar',
+							id: 'avatar'
+						}
+				"></div> -->
 			</div>
 			<div class="vertical-padding-top">
 					<button class="btn">Register</button>
