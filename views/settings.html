@@ -7,7 +7,7 @@
 		{% for message in message %}
 			{% include "alert.html" %}
 		{% endfor %}
-		<form action="/settings" method="post" role="form">
+		<form action="/settings" method="post" role="form" enctype="multipart/form-data">
 			<input type="hidden" name="_id" value="{{user._id}}" />
 			<div>
 				<div data-react-component="Input" data-react-props="
@@ -44,6 +44,14 @@
 							id: 'password',
 							placeholder: 'Password',
 							className: 'form-control'
+						}
+				"></div>
+				<img src="{{user.avatar}}" />
+				<div data-react-component="Input" data-react-props="
+						attributes: {
+							type: 'file',
+							name: 'avatar',
+							id: 'avatar'
 						}
 				"></div>
 			</div>

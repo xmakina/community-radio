@@ -303,8 +303,6 @@ var Audience = (function (_React$Component) {
 		return _possibleConstructorReturn(this, Object.getPrototypeOf(Audience).call(this, props));
 	}
 
-	// <img src={'images/avatars/'+user.avatar+'.gif'} width="100" title={user.username} />
-
 	_createClass(Audience, [{
 		key: "render",
 		value: function render() {
@@ -315,6 +313,7 @@ var Audience = (function (_React$Component) {
 					return _react2.default.createElement(
 						"li",
 						{ key: index },
+						_react2.default.createElement("img", { src: user.avatar, height: "35" }),
 						_react2.default.createElement(
 							"p",
 							null,
@@ -1148,7 +1147,10 @@ var Room = (function (_React$Component) {
 		value: function _setOverlayDetails(songInfo) {
 			var _this3 = this;
 
-			this.setState({ dj: songInfo.dj ? songInfo.dj.username : null });
+			this.setState({
+				dj: songInfo.dj ? songInfo.dj.username : null,
+				avatar: songInfo.dj && songInfo.dj.avatar ? songInfo.dj.avatar : '/images/avatars/default.jpg'
+			});
 			$.get('/media/details/' + songInfo.id, function (response) {
 				if (response.items[0]) {
 					_this3.setState({ song: response.items[0] });
@@ -1167,6 +1169,7 @@ var Room = (function (_React$Component) {
 				_react2.default.createElement(
 					'section',
 					{ id: 'overlay' },
+					_react2.default.createElement('img', { src: this.state.avatar, height: '80' }),
 					_react2.default.createElement(
 						'h3',
 						null,

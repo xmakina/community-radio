@@ -1,6 +1,7 @@
 const passport = require('passport'),
 	bCrypt = require('bcrypt-nodejs'),
 	User = require('../models/user'),
+	resources = require('../app/resources'),
 	fs = require('fs');
 
 var createHash = (password) => {
@@ -19,46 +20,30 @@ module.exports = {
 	}),
 
 	_register: (req, email, password, done) => {
-
-		if(req.files.avatar) {
-			fs.readFile(req.files.avatar.path, (err, data) => {
-				var newPath = '/Users/simon.staton/Documents/Projects/twogether-radio/assets/images/avatars';
-				console.log(newPath);
-				fs.writeFile(newPath, data, function (err) {
-					console.log("made", err);
-				});
-			});
-		}
-
-
-// { displayImage: 
-//    { fieldName: 'displayImage',
-//      originalFilename: 'bd13b17d633e8ed1e7d48d623d5daefb.jpeg',
-//      path: '/tmp/6rJIyxD3ZFdhZmwbomE_HDIu.jpeg',
-//      headers: 
-//       { 'content-disposition': 'form-data; name="displayImage"; filename="bd13b17d633e8ed1e7d48d623d5daefb.jpeg"',
-//         'content-type': 'image/jpeg' },
-//      size: 18136,
-//      name: 'bd13b17d633e8ed1e7d48d623d5daefb.jpeg',
-//      type: 'image/jpeg' } }
-     
-			process.nextTick(function(){
-				User.findOne({'email': email}, function(err, user){
-					if (err) return done(err);
-					if (user) {
-						return done(null, false, req.flash('message', {type: 'error', message: 'User Already Exists'}));
-					} else {
-						var newUser = new User();
-						newUser.email = email;
-						newUser.password = createHash(password);
-						newUser.username = req.body.username;
-						newUser.save(function(err) {
-							if (err) return done(err);
-							return done(null, newUser);
+		process.nextTick(function(){
+			User.findOne({'email': email}, function(err, user){
+				if (err) return done(err);
+				if (user) {
+					return done(null, false, req.flash('message', {type: 'error', message: 'User Already Exists'}));
+				} else {
+					var newUser = new User();
+					newUser.email = email;
+					newUser.password = createHash(password);
+					newUser.username = req.body.username;
+					if(req.files.avatar) {
+						var avatarPath = '/images/avatars/'+newUser._id+'.'+req.files.avatar.originalFilename.split('.')[1];
+						newUser.avatar = avatarPath;
+						fs.readFile(req.files.avatar.path, (err, data) => {
+							fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
 						});
 					}
-				});
+					newUser.save(function(err) {
+						if (err) return done(err);
+						return done(null, newUser);
+					});
+				}
 			});
+		});
 	},
 
 	login: passport.authenticate('login', {
@@ -103,7 +88,18 @@ module.exports = {
 					}
 					user[key] = req.body[key];
 				}
-				
+
+				if(req.files.avatar) {
+					if(user.avatar) {
+						fs.unlinkSync(resources.dirname+'/assets'+user.avatar);
+					}
+					var avatarPath = '/images/avatars/'+user._id+'.'+req.files.avatar.originalFilename.split('.')[1];
+					user.avatar = avatarPath;
+					fs.readFile(req.files.avatar.path, (err, data) => {
+						fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
+					});
+				}
+
 				user.save((err) => {
 
 					if(err) {

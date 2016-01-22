@@ -121,7 +121,8 @@ module.exports = {
 				var session = JSON.parse(sessions[i].session);
 				if(session.passport && session.passport.user && session.passport.user.username) {
 					users.push({
-						username: session.passport.user.username
+						username: session.passport.user.username,
+						avatar: session.passport.user.avatar
 					});
 				}
 			}

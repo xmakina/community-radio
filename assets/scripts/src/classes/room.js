@@ -34,7 +34,10 @@ class Room extends React.Component {
 	}
 
 	_setOverlayDetails(songInfo) {
-		this.setState({dj: songInfo.dj ? songInfo.dj.username : null});
+		this.setState({
+			dj: songInfo.dj ? songInfo.dj.username : null,
+			avatar: songInfo.dj && songInfo.dj.avatar ? songInfo.dj.avatar : '/images/avatars/default.jpg'
+		});
 		$.get('/media/details/'+songInfo.id, (response) => {
 			if(response.items[0]) {
 				this.setState({song: response.items[0]});
@@ -50,6 +53,7 @@ class Room extends React.Component {
 				<input type="checkbox" className="toggle-overlay" />
 				<section id="overlay">
 
+					<img src={this.state.avatar} height="80" />
 					<h3>Current Dj: {this.state.dj ? this.state.dj : 'Community.dj Bot'}</h3>
 
 					{(() => {

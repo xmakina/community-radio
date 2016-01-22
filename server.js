@@ -48,6 +48,7 @@ resources.nunjucks = nunjucks;
 resources.passport = passport;
 resources.io = io;
 resources.sessionStore = store;
+resources.dirname = __dirname;
 
 // Load app components
 require('./app/nunjucks')();
