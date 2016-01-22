@@ -116,6 +116,8 @@ class Timeline {
 				nextInQueue = this.djQueue.indexOf(this.currentDj)++;
 			}
 
+			this.nextInQueue = nextInQueue;
+
 			callback.apply(null, [this.djQueue, this.currentDj, users]);
 
 		});
@@ -168,7 +170,7 @@ class Timeline {
 
 		this.updateQueue(() => {
 			if(this.djQueue[0]) {
-				this.currentDj = this.djQueue[nextInQueue] || this.djQueue[0];
+				this.currentDj = this.djQueue[this.nextInQueue] || this.djQueue[0];
 				this._loadFromUsersPlaylist();
 			} else {
 				this.currentDj = null;
