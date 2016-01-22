@@ -39,7 +39,9 @@ module.exports = () => {
 
 		// Media
 		.get('/media/details/:id', controllers.youtube.details)
-		.get('/media/search/:keyword', controllers.youtube.search);
+		.get('/media/search/:keyword', controllers.youtube.search)
+
+		.get('/nextSong', controllers.radio.forceNext);
 
 
 	return app;

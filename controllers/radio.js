@@ -47,6 +47,16 @@ module.exports = {
 		});
 	},
 
+	forceNext: (req, res) => {
+		if(req.session && req.session.passport && req.session.passport.user && req.session.passport.user.username == 'simon') {
+			Timeline._getNextSong();
+			res.send(true);
+		} else {
+			res.send('your on not simon');
+		}
+
+	},
+
 	userLeavingRoom: (socket) => {
 		if(!socket.id) return;
 		Session.findOne({
