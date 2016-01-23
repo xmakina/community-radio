@@ -30,7 +30,7 @@ module.exports = {
 					newUser.email = email;
 					newUser.password = createHash(password);
 					newUser.username = req.body.username;
-					if(req.files.avatar) {
+					if(req.files && req.files.avatar) {
 						var avatarPath = '/images/avatars/'+newUser._id+'.'+req.files.avatar.originalFilename.split('.')[1];
 						newUser.avatar = avatarPath;
 						fs.readFile(req.files.avatar.path, (err, data) => {
@@ -89,7 +89,7 @@ module.exports = {
 					user[key] = req.body[key];
 				}
 
-				if(req.files.avatar) {
+				if(req.files && req.files.avatar) {
 					if(user.avatar) {
 						fs.unlinkSync(resources.dirname+'/assets'+user.avatar);
 					}
