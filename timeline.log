@@ -160,3 +160,172 @@
 {"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:28:54.163Z"}
 {"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:29:09.135Z"}
 {"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:29:09.135Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:41:40.601Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:41:40.603Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:41:40.603Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:41:40.603Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:41:40.802Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:41:40.804Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:41:40.808Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:43:21.255Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:43:21.255Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:43:22.119Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:43:22.120Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:43:22.120Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:43:22.120Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:43:22.242Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:43:22.242Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:43:22.243Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:43:54.382Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:43:54.382Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:43:55.615Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:43:55.615Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:43:55.615Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:43:55.615Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:43:55.727Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:43:55.727Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:43:55.729Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:45:33.627Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:45:33.627Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:45:34.553Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:45:34.554Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:45:34.554Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:45:34.554Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:45:34.659Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:45:34.659Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:45:34.660Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:46:33.430Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:46:33.430Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:46:34.203Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:46:34.203Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:46:34.203Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:46:34.203Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:46:34.325Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:46:34.325Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:46:34.327Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:47:34.068Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:47:34.068Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:47:35.075Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:47:35.076Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:47:35.076Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:47:35.076Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:47:35.162Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:47:35.162Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:47:35.170Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:48:20.738Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:48:20.739Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:48:21.673Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:48:21.673Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:48:21.673Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:48:21.673Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:48:21.779Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:48:21.779Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:48:21.780Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:48:27.771Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:48:27.771Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:48:28.390Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:48:28.390Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:48:28.390Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:48:28.390Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:48:28.504Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:48:28.504Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:48:28.508Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:49:39.522Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:49:39.522Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:49:40.227Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:49:40.227Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:49:40.227Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:40.227Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:40.367Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:49:40.367Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:49:40.368Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:49:47.052Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:49:47.052Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:49:47.690Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:49:47.690Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:49:47.691Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:47.691Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:47.819Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:49:47.819Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:49:47.822Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:49:48.969Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:49:48.970Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:49:52.556Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:49:52.556Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:49:52.556Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:52.557Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:49:52.670Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:49:52.670Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:49:52.671Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:51:31.151Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:51:31.151Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:51:31.916Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:51:31.917Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:51:31.917Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:31.917Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:32.040Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:51:32.040Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:51:32.042Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:51:37.973Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:51:37.974Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:51:38.577Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:51:38.577Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:51:38.577Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:38.577Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:38.685Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:51:38.685Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:51:38.687Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:51:50.590Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:51:50.591Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:51:51.269Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:51:51.269Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:51:51.269Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:51.269Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:51:51.363Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:51:51.363Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:51:51.364Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:52:05.058Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:52:05.058Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:52:05.709Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:52:05.710Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:52:05.710Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:05.710Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:05.805Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:52:05.806Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:52:05.807Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:52:10.280Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:52:10.280Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:52:10.880Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:52:10.880Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:52:10.880Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:10.880Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:10.984Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:52:10.985Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:52:10.986Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:52:39.535Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:52:39.535Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:52:40.225Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:52:40.225Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:52:40.225Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:40.226Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:52:40.373Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:52:40.373Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:52:40.375Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:53:18.211Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:53:18.211Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:53:20.440Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:53:20.440Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:53:20.440Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:53:20.440Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:53:20.562Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:53:20.562Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:53:20.564Z"}
+{"level":"info","message":"Running noUsers()","timestamp":"2016-01-23T23:53:30.957Z"}
+{"level":"info","message":"Stopping process","timestamp":"2016-01-23T23:53:30.957Z"}
+{"level":"info","message":"Running hasUsers()","timestamp":"2016-01-23T23:53:31.371Z"}
+{"level":"info","message":"Starting process","timestamp":"2016-01-23T23:53:31.371Z"}
+{"level":"info","message":"Getting song details for qp7KX1h3i_w","timestamp":"2016-01-23T23:53:31.371Z"}
+{"level":"info","message":"Getting song data qp7KX1h3i_w","timestamp":"2016-01-23T23:53:31.371Z"}
+{"level":"info","message":"Got song data qp7KX1h3i_w","timestamp":"2016-01-23T23:53:31.493Z"}
+{"level":"info","message":"Got song details for qp7KX1h3i_w and setting up interval","timestamp":"2016-01-23T23:53:31.493Z"}
+{"level":"info","message":"Firing socket.io newSong callback","timestamp":"2016-01-23T23:53:31.494Z"}

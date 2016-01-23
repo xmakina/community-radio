@@ -871,10 +871,12 @@ var PlaylistForm = (function (_React$Component) {
 	}, {
 		key: 'removeSong',
 		value: function removeSong(song) {
-			var songs = this.state.songs;
-			songs.splice(songs.findIndex(function (data) {
-				return data.id.videoId == song.id || song.id.videoId;
-			}), 1);
+			var songs = this.state.songs,
+			    songId = song.id.videoId || song.id,
+			    index = songs.findIndex(function (data) {
+				return data.id.videoId == songId || data.id == songId;
+			});
+			songs.splice(index, 1);
 			this.setState({ songs: songs });
 		}
 	}, {
