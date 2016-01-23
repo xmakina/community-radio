@@ -12,6 +12,8 @@ const Session = require('../models/session'),
 
 module.exports = {
 
+	inRoom: 0,
+
 	joinQueue: (req, res) => {
 		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
 			if(!user.activePlaylist) {
@@ -58,6 +60,10 @@ module.exports = {
 	},
 
 	userLeavingRoom: (socket) => {
+		this.inRoom--;
+		if(this.inRoom === 0) {
+			Timeline.noUsers();
+		}
 		if(!socket.id) return;
 		Session.findOne({
 			_socketId: socket.id
@@ -86,6 +92,10 @@ module.exports = {
 	},
 
 	userEnteringRoom: (socket) => {
+		if(Timeline.running) {
+			Timeline.hasUsers();
+		}
+		this.inRoom++;
 		if(!socket.id) return;
 		Session.findOne({
 			_socketId: socket.id
@@ -125,12 +135,6 @@ module.exports = {
 						avatar: session.passport.user.avatar
 					});
 				}
-			}
-
-			if(users.length === 0) {
-				Timeline.noUsers();
-			} else {
-				Timeline.hasUsers();
 			}
 
 			res.send(users);
