@@ -85,6 +85,7 @@ class Timeline {
 	}
 
 	stopProcess() {
+		if(!this.running) return;
 		this.running = false;
 		clearInterval(this.tracker);
 		this.elapsed = 0;
@@ -92,6 +93,7 @@ class Timeline {
 	}
 
 	startProcess() {
+		if(this.running) return;
 		this.running = true;
 		this.playSong(this.defaultPlaylist[0]);
 		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
