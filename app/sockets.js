@@ -54,6 +54,7 @@ module.exports = () => {
 			var cookieData = cookie.parse(handshake.headers.cookie),
 			sessionId = cookieParser.signedCookie(cookieData['connect.sid'], 'itsAMassiveSecret');
 			Session.findOne({_id: sessionId}, (err, session) => {
+				if(!session) return;
 				var sessionData = JSON.parse(session.session);
 				if(!sessionData || !sessionData.passport || !sessionData.passport.user) return;
 				session._socketId = socket.id;
