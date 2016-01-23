@@ -12,11 +12,6 @@ const emitter = new TheEmitter();
 
 emitter.on('socketConnect', (socket) => {
 	emitter.emit('queueChange');
-	require('../controllers/radio').userEnteringRoom(socket);
-});
-
-emitter.on('socketDisconnect', (socket) => {
-	require('../controllers/radio').userLeavingRoom(socket);
 });
 
 emitter.on('newSong', (id, dj) => {
@@ -29,18 +24,6 @@ emitter.on('joiningQueue', (user) => {
 
 emitter.on('leavingQueue', (user) => {
 	emitter.emit('queueChange');
-});
-
-emitter.on('queueChange', () => {
-	Timeline.updateQueue((djQueue, currentDj, users) => {
-		djQueue = djQueue.map((id) => {
-			return {
-				username: users.filter((user) => user._id == id)[0].username,
-				id: id
-			}
-		});
-		io.of('/radio').emit('queueChange', {djQueue, currentDj});
-	});
 });
 
 module.exports = emitter;

@@ -10,7 +10,7 @@ const Session = require('../models/session'),
 	sessionStore = resources.sessionStore,
 	io = resources.io;
 
-module.exports = {
+const Radio = {
 
 	inRoom: 0,
 
@@ -59,9 +59,9 @@ module.exports = {
 
 	},
 
-	userLeavingRoom: (socket) => {
-		this.inRoom--;
-		if(this.inRoom === 0) {
+	userLeavingRoom: (socket, context) => {
+		context.inRoom--;
+		if(context.inRoom === 0) {
 			Timeline.noUsers();
 		}
 		if(!socket.id) return;
@@ -91,11 +91,11 @@ module.exports = {
 		});
 	},
 
-	userEnteringRoom: (socket) => {
+	userEnteringRoom: (socket, context) => {
 		if(!Timeline.running) {
 			Timeline.hasUsers();
 		}
-		this.inRoom++;
+		context.inRoom++;
 		if(!socket.id) return;
 		Session.findOne({
 			_socketId: socket.id
@@ -144,3 +144,13 @@ module.exports = {
 	}
 
 };
+
+Events.on('socketConnect', (socket) => {
+	Radio.userEnteringRoom(socket, Radio);
+});
+
+Events.on('socketDisconnect', (socket) => {
+	Radio.userLeavingRoom(socket, Radio);
+});
+
+module.exports = Radio;

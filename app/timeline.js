@@ -1,7 +1,13 @@
 "use strict";
 
 const request = require('request'),
-	User = require('../models/user');
+	User = require('../models/user'),
+	Events = require('./events'),
+	winston = require('winston'),
+	io = require('./resources').io;
+
+winston.add(winston.transports.File, { filename: 'timeline.log' , timestamp: true });
+winston.remove(winston.transports.Console);
 
 class Timeline {
 
@@ -51,6 +57,7 @@ class Timeline {
 	playSong(id) {
 
 		this.startsAt = new Date();
+		winston.log('info', 'Getting song details for '+id);
 		this._getSongLength(id, (data) => {
 
 			this.endsAt = new Date();
@@ -61,12 +68,14 @@ class Timeline {
 			
 			this.playing = id;
 
+			winston.log('info', 'Got song details for '+id+' and setting up interval');
 			if(this.tracker) clearInterval(this.tracker);
 			this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
 			
 			if(this.callbacks.newSong) {
 				User.findOne({_id: this.currentDj}, (err, user) => {
 					for(var callback of this.callbacks.newSong){
+						winston.log('info', 'Firing socket.io newSong callback');
 						callback(id, user);
 					}
 				});
@@ -77,15 +86,19 @@ class Timeline {
 	}
 
 	noUsers() {
+		winston.log('info', 'Running noUsers()');
 		if(this.running) this.stopProcess();
 	}
 
 	hasUsers() {
+		winston.log('info', 'Running hasUsers()');
 		if(!this.running) this.startProcess();
 	}
 
 	stopProcess() {
 		if(!this.running) return;
+
+		winston.log('info', 'Stopping process');
 		this.running = false;
 		clearInterval(this.tracker);
 		this.elapsed = 0;
@@ -94,6 +107,7 @@ class Timeline {
 
 	startProcess() {
 		if(this.running) return;
+		winston.log('info', 'Starting process');
 		this.running = true;
 		this.playSong(this.defaultPlaylist[0]);
 		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
@@ -132,6 +146,7 @@ class Timeline {
 		if(!this.playing) return;
 		var now = new Date();
 		if(now.getTime() > this.endsAt.getTime()) {
+			winston.log('info', 'Inside tick and song has ended so _getNextSong()');
 			this._getNextSong();
 		} else {
 			this.elapsed = Math.abs((this.startsAt.getTime() - now.getTime()) / 1000);
@@ -141,8 +156,11 @@ class Timeline {
 	_getVideoData(id, callback) {
 		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails,status&key='+this.opts.youtubeApiKey,
 			self = this;
+
+		winston.log('info', 'Getting song data '+id);
 		request(url, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
+				winston.log('info', 'Got song data '+id);
 				var data = JSON.parse(body);
 				if(!data.items[0] || !data.items[0].status || !data.items[0].status.embeddable) {
 					self._getNextSong();
@@ -186,6 +204,7 @@ class Timeline {
 	}
 
 	_loadFromDefaultPlaylist() {
+		winston.log('info', 'Loading song from default playlist');
 		this.elapsed = 0;
 		var index = this.defaultPlaylist.indexOf(this.playing),
 			nextSong = this.defaultPlaylist[1 + index];
@@ -194,6 +213,7 @@ class Timeline {
 	}
 
 	_loadFromUsersPlaylist() {
+		winston.log('info', 'Loading song from users playlist');
 		User.findOne({_id: this.currentDj})
 			.populate('activePlaylist')
 			.exec((err, user) => {
@@ -206,6 +226,7 @@ class Timeline {
 					user.save();
 				}
 				this.elapsed = 0;
+				winston.log('info', 'Loading song from users playlist with last song as '+user.lastSong);
 				this.playSong(user.lastSong);
 				this.playing = false;
 			});
@@ -213,4 +234,19 @@ class Timeline {
 
 }
 
-module.exports = new Timeline();
+var TimelineInstance = new Timeline();
+
+
+Events.on('queueChange', () => {
+	TimelineInstance.updateQueue.call(TimelineInstance, (djQueue, currentDj, users) => {
+		djQueue = djQueue.map((id) => {
+			return {
+				username: users.filter((user) => user._id == id)[0].username,
+				id: id
+			}
+		});
+		io.of('/radio').emit('queueChange', {djQueue, currentDj});
+	});
+});
+
+module.exports = TimelineInstance;
