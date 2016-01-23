@@ -92,7 +92,7 @@ module.exports = {
 	},
 
 	userEnteringRoom: (socket) => {
-		if(Timeline.running) {
+		if(!Timeline.running) {
 			Timeline.hasUsers();
 		}
 		this.inRoom++;
