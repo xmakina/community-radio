@@ -2,7 +2,6 @@ const passport = require('passport'),
 	bCrypt = require('bcrypt-nodejs'),
 	User = require('../models/user'),
 	resources = require('../app/resources'),
-	nodemailer = require('nodemailer'),
 	fs = require('fs'),
 	crypto = require('crypto');
 

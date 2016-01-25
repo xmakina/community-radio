@@ -9,7 +9,8 @@ const express = require('express'),
 	session = require("express-session"),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
-	multipart = require('connect-multiparty');
+	multipart = require('connect-multiparty'),
+	nodemailer = require('nodemailer');
 
 // Get local configs and resources
 const database = require('./app/database'),
@@ -60,8 +61,8 @@ require('./app/api')();
 // Connect to mongodb
 mongoose.connect(database.url);
 
-if(!process.env.PORT) process.env.PORT = 3000;
-if(!process.env.HOSTNAME) process.env.HOSTNAME = 'localhost';
+if(!process.env.PORT) process.env.PORT = 80;
+if(!process.env.HOSTNAME) process.env.HOSTNAME = 'community.dj';
 
 // Start listening
 const server = http.listen(process.env.PORT, process.env.HOSTNAME, () => {
