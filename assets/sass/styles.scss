@@ -13,22 +13,10 @@
 @import 'classes/forms';
 @import 'classes/columns';
 @import 'classes/boxes';
+@import 'classes/alert';
 
 @import 'singletons/volume';
 @import 'singletons/room';
 @import 'singletons/playlists';
 @import 'singletons/header';
-
-body {
-	background: url(../images/background.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-.page-logo {
-	width: 35%;
-	display: block;
-	margin: 0 auto 30px;
-}
+@import 'singletons/global';

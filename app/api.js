@@ -23,6 +23,7 @@ module.exports = () => {
 		// Auth layer api
 		.post('/register', controllers.user.register)
 		.post('/login', controllers.user.login)
+		.post('/forgot-password', controllers.user.recover)
 		.post('/settings', isAuthenticated, controllers.user.update)
 		.get('/logout', isAuthenticated, controllers.user.logout)
 

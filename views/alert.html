@@ -1,12 +1,11 @@
 {%if message.type == 'error' %}
-	<div class="alert alert-danger" role="alert"> <!-- store these in a partial -->
-		<span class="glyphicon glyphicon-exclamation-sign"></span>
-		{{message.message}}
+	<div class="animated bounceInDown alert alert-error" role="alert">
+		{{message.message}} <button type="button" onClick="javascript: event.target.parentNode.parentNode.removeChild(event.target.parentNode);" class="fa fa-times"></button>
 	</div>
 {% endif %}
 
 {%if message.type == 'message' %}
-	<div class="alert alert-info" role="alert">
-		{{message.message}}
+	<div class="animated bounceInDown alert alert-info" role="alert">
+		{{message.message}} <button type="button" onClick="javascript: event.target.parentNode.parentNode.removeChild(event.target.parentNode);" class="fa fa-times"></button>
 	</div>
 {% endif %}

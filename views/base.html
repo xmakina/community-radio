@@ -8,6 +8,7 @@
         <title>Community Radio - Get tuned in</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="style/styles.css" />
+        <link type="text/css" rel="stylesheet" href="style/animate.min.css">
         <script>
             window._bootstrapData = {
                 guid: '{{user._id}}',
@@ -27,31 +28,32 @@
         <![endif]-->
     </head>
     <body>
+        {% if isRadio %}
 
-        <header>
-            <a href="/" class="header-logo"><img src="images/logo.png" /></a>
-            <ul class="header-navigation">
-                {% if user %}
-                    {% if isRadio %}
-                    <li>
-                        <div data-react-component="Playlists" id="playlistsWrapper"></div>
-                    </li>
+            <header>
+                <a href="/" class="header-logo"><img src="images/logo.png" /></a>
+                <ul class="header-navigation">
+                    {% if user %}
+                        {% if isRadio %}
+                        <li>
+                            <div data-react-component="Playlists" id="playlistsWrapper"></div>
+                        </li>
+                        {% endif %}
+                        <li><a href="/settings">Settings</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                        <li><a href="/">Login</a></li>
+                        <li><a href="/register">Register</a></li>
                     {% endif %}
-                    <li><a href="/settings">Settings</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                {% else %}
-                    <li><a href="/">Login</a></li>
-                    <li><a href="/register">Register</a></li>
+                </ul>
+                {% if isRadio %}
+                    <div data-react-component="Controls" id="controls"></div>
                 {% endif %}
-            </ul>
-            {% if isRadio %}
-                <div data-react-component="Controls" id="controls"></div>
-            {% endif %}
-        </header>
+            </header>
 
-        <section>
-            {% block content %}{% endblock %}
-        </section>
+        {% endif %}
+
+        {% block content %}{% endblock %}
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>

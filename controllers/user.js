@@ -2,7 +2,9 @@ const passport = require('passport'),
 	bCrypt = require('bcrypt-nodejs'),
 	User = require('../models/user'),
 	resources = require('../app/resources'),
-	fs = require('fs');
+	nodemailer = require('nodemailer'),
+	fs = require('fs'),
+	crypto = require('crypto');
 
 var createHash = (password) => {
 		return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
@@ -21,21 +23,30 @@ module.exports = {
 
 	_register: (req, email, password, done) => {
 		process.nextTick(function(){
-			User.findOne({'email': email}, function(err, user){
+			User.findOne({$and: [
+			{ $or: [{email: email}, {username: req.body.username}] },
+		]}, function(err, user){
 				if (err) return done(err);
 				if (user) {
-					return done(null, false, req.flash('message', {type: 'error', message: 'User Already Exists'}));
+					return done(null, false, req.flash('message', {type: 'error', message: 'Username or email address already in use.'}));
 				} else {
 					var newUser = new User();
 					newUser.email = email;
 					newUser.password = createHash(password);
 					newUser.username = req.body.username;
 					if(req.files && req.files.avatar) {
-						var avatarPath = '/images/avatars/'+newUser._id+'.'+req.files.avatar.originalFilename.split('.')[1];
-						newUser.avatar = avatarPath;
-						fs.readFile(req.files.avatar.path, (err, data) => {
-							fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
-						});
+						var fileType = req.files.avatar.originalFilename.split('.')[1];
+						if(fileType) {
+							fileType = fileType.toLowerCase();
+							if(fileType !== 'png' || fileType !== 'jpeg' || fileType !== 'jpg' || fileType !== 'gif') {
+								return done(null, false, req.flash('message', {type: 'error', message: 'We only accept jpg, png or gif for avatar images'}));
+							}
+							var avatarPath = '/images/avatars/'+newUser._id+'.'+fileType;
+							newUser.avatar = avatarPath;
+							fs.readFile(req.files.avatar.path, (err, data) => {
+								fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
+							});
+						}
 					}
 					newUser.save(function(err) {
 						if (err) return done(err);
@@ -53,17 +64,57 @@ module.exports = {
 	}),
 
 	_login: (req, email, password, done) => { 
-		User.findOne({'email' : email}, function(err, user){
+		User.findOne({$and: [
+			{ $or: [{email: email}, {username: email}] },
+		]}, function(err, user){
 			if (err) return done(err);
 			if (!user){
-				return done(null, false, req.flash('message', {type: 'error', message: 'User Not found.'}));				 
+				return done(null, false, req.flash('message', {type: 'error', message: 'User not found, is this the correct email or username?'}));				 
 			}
 			if (!isValidPassword(user, password)){
-				return done(null, false, req.flash('message', {type: 'error', message: 'Invalid Password'}));
+				return done(null, false, req.flash('message', {type: 'error', message: 'Incorrect password, pease try again or reset your password'}));
 			}
 			return done(null, user);
-			}
-		);
+		});
+	},
+
+	recover: (req, res) => {
+
+		// crypto.randomBytes(20, function(err, buf) { 
+		// 	var token = buf.toString('hex');
+		// 	User.findOne({ email: req.body.email }, function(err, user){
+		// 		if (!user) {
+		// 			req.flash('message', {type: 'error', message: 'User not found, is this the correct email or username?'}
+		// 			res.send(false);
+		// 		}
+		// 		user.resetPasswordToken = token;
+		// 		user.resetPasswordExpires = Date.now() + 3600000;
+		// 		user.save(function(err) {
+		// 			done(err, token, user);
+		// 			var smtpTransport = nodemailer.createTransport('SMTP', {
+		// 				service: 'SendGrid',
+		// 				auth: {
+		// 					user: '!!! YOUR SENDGRID USERNAME !!!',
+		// 					pass: '!!! YOUR SENDGRID PASSWORD !!!'
+		// 				}
+		// 			});
+		// 			var mailOptions = {
+		// 				to: user.email,
+		// 				from: 'passwordreset@demo.com',
+		// 				subject: 'Node.js Password Reset',
+		// 				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+		// 				'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+		// 				'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+		// 				'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+		// 			};
+		// 				smtpTransport.sendMail(mailOptions, function(err) {
+		// 				req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+		// 				done(err, 'done');
+		// 			});
+		// 		});
+		// 	});
+		// });
+		res.send();
 	},
 
 	logout: (req, res) => {

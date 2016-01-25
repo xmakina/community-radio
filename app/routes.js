@@ -6,7 +6,8 @@ const isAuthenticated = (req, res, next) => {
 		if (!req.isAuthenticated()) return next();
 		res.redirect('/');
 	},
-	app = require('./resources').app;
+	app = require('./resources').app,
+	User = require('../models/user');
 
 module.exports = () => {
 
@@ -30,12 +31,29 @@ module.exports = () => {
 				message: req.flash('message')
 			});
 		})
+		.get('/forgot-password', isUnauthenticated, (req, res) => {
+			res.render('forgot-password.html', {
+				user: req.user,
+				message: req.flash('message')
+			});
+		})
 		.get('/settings', isAuthenticated, (req, res) => {
 			res.render('settings.html', {
 				message: req.flash('message'),
 				user: req.user
 			});
 		})
+		// .get('/reset/:token', isUnauthenticated, function(req, res) {
+		// User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+		// if (!user) {
+		// req.flash('error', 'Password reset token is invalid or has expired.');
+		// return res.redirect('/forgot');
+		// }
+		// res.render('reset', {
+		// user: req.user
+		// });
+		// });
+		// });
 
 	return app;
 

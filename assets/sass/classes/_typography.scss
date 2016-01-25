@@ -29,6 +29,7 @@ h1, h2, h3, h4 {
 
 a, button {
 	@extend %text;
+	@extend .animate-all;
 	color: $white;
 	&:hover {
 		color: #3C3C3C;

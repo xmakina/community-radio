@@ -92,6 +92,13 @@ button {
 	}
 }
 
+.central-padding {
+	padding: 10% 0;
+	&-small {
+		padding: 5% 0;
+	}
+}
+
 .float-right {
 	float: right;
 }

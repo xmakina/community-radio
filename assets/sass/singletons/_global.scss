@@ -1,0 +1,17 @@
+body {
+	background: url(../images/background.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.large-logo {
+	width: 60%;
+	margin: 0 auto 10px;
+	display: block;
+}
+
+p.sub-heading {
+	margin-bottom: 40px;
+}

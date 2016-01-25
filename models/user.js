@@ -25,6 +25,12 @@ const mongoose = require('mongoose'),
 			trim: true,
 			unique: true
 		},
+		resetPasswordToken: {
+			type: String
+		},
+		resetPasswordExpires: {
+			type: Date
+		},
 		playlists: [{
 			type: ObjectId,
 			ref: 'Playlist'

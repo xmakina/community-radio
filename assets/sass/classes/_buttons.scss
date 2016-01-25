@@ -5,7 +5,7 @@
 	color: #fff;
 	text-transform: uppercase;
 	display: inline-block;
-	padding: 20px 45px;
+	padding: 15px 40px;
 	line-height: 20px;
 	font-size: 16px;
 	font-weight: 600;
@@ -14,8 +14,9 @@
 	box-sizing: border-box;
 	&:hover {
 		background: none;
-		border: 2px solid $orange;
+		border: 2px solid $white;
 		color: $orange;
+		background: $white;
 	}
 }
 
@@ -24,8 +25,13 @@
 	@extend %button;
 	&-secondary {
 		@extend %button;
-		background: $white;
-		color: $black;
-		border-color: $white;
+		background: $black;
+		color: $white;
+		border-color: $black;
+		&:hover {
+			background: $white;
+			color: $black;
+			border-color: $white;
+		}
 	}
 }

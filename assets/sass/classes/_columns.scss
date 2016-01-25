@@ -17,6 +17,13 @@
 		position: relative;
 	}
 
+	&-narrow {
+		@include span-columns(5);
+		@media #{$tablet} {
+			@include span-columns(12);
+		}
+	}
+
 	&1 {
 		@include span-columns(12);
 	}

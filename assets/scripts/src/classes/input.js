@@ -15,6 +15,19 @@ class Input extends React.Component {
 			valid: true
 		};
 
+		if(this.props.attributes.autoComplete == 'off') {
+			setTimeout(() => {
+				this.setState({
+					value: '',
+					valid: true
+				});
+			}, 200);
+		}
+
+		if(this.props.confirmational) {
+			this.relationalInput = document.getElementById(this.props.confirmational);
+		}
+
 	}
 
 	componentWillReceiveProps(props){
@@ -62,6 +75,11 @@ class Input extends React.Component {
 		} else if(this.props.required && value.length === 0){
 			isValid = false;
 		}
+		if(this.props.confirmational && this.relationalInput) {
+			if(this.relationalInput.value !== value) {
+				isValid = false;
+			}
+		}
 		this.setState({valid: isValid});
 		return isValid;
 	}
@@ -69,7 +87,6 @@ class Input extends React.Component {
 	handleChange(event){
 		if(this.props.tag == 'select') $(ReactDOM.findDOMNode(this.refs['form-element'])).blur();
 		this.setState({value: event.target.value});
-		this.validate(event.target.value);
 		if(this.props.onChange) {
 			this.props.onChange(event);
 		}
@@ -82,6 +99,7 @@ class Input extends React.Component {
 	}
 
 	handleBlur(event){
+		this.validate(event.target.value);
 		if(!this.isOldie || !this.props.attributes.placeholder || this.props.attributes.type != 'text') return;
 		if(this.state.value == ''){
 			this.setState({value: this.props.attributes.placeholder});
@@ -97,7 +115,7 @@ class Input extends React.Component {
 						<legend>{this.props.legend}</legend>
 						<p className="small-margin">{this.props.description}</p>
 						{this.props.options.map(_.bind(function(option, i) {
-							return <label htmlFor={'radio-button-'+i+'-'+this.props.attributes.name}><input id={'radio-button-'+i+'-'+this.props.attributes.name} key={'input-option-'+i} type={this.props.attributes.type} name={this.props.attributes.name} value={option.value} onChange={this.handleChange.bind(this)} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} />{option.label}</label>
+							return <label htmlFor={'radio-button-'+i+'-'+this.props.attributes.name}><input autoComplete={this.props.attributes.autoComplete} id={'radio-button-'+i+'-'+this.props.attributes.name} key={'input-option-'+i} type={this.props.attributes.type} name={this.props.attributes.name} value={option.value} onChange={this.handleChange.bind(this)} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} />{option.label}</label>
 						}, this))}
 						{(function(){
 							if(!self.state.valid){
@@ -109,7 +127,7 @@ class Input extends React.Component {
 		} else if(this.props.tag == 'select'){
 			return (
 				<div className="input-wrapper">
-					<select ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} >
+					<select ref="form-element" {...this.props.attributes} autoComplete={this.props.attributes.autoComplete} onChange={this.handleChange.bind(this)} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} >
 						<option disabled>{this.props.attributes.placeholder}</option>
 						{this.props.options.map(_.bind(function(option, i) {
 							return <option key={'input-option-'+i} value={option.value}>{option.label}</option>
@@ -125,10 +143,10 @@ class Input extends React.Component {
 		} else {
 			return (
 				<div className="input-wrapper">
-					<this.props.tag ref="form-element" {...this.props.attributes} onChange={this.handleChange.bind(this)} value={this.state.value} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} />
+					<this.props.tag ref="form-element" {...this.props.attributes} autoComplete={this.props.attributes.autoComplete} onChange={this.handleChange.bind(this)} value={this.state.value} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} className={this.state.valid ? this.props.attributes.className : this.props.attributes.className+' error'} />
 						{(function(){
 							if(!self.state.valid){
-								return <span className="error-msg">{self.props.errorMsg}</span>
+								return <span className="error-msg animated bounceIn">{self.props.errorMsg}</span>
 							}
 						})()}
 				</div>
@@ -139,12 +157,14 @@ class Input extends React.Component {
 
 Input.defaultProps = {
 	tag: 'input',
+	confirmational: null,
 	attributes: {
 		type: 'text',
 		placeholder: null,
 		name: 'input',
 		id: 'input',
-		class: ''
+		className: '',
+		autoComplete: 'true'
 	},
 	validation: null,
 	parameter: null,
@@ -162,7 +182,9 @@ Input.propTypes = {
 		]),
 		name: React.PropTypes.string,
 		id: React.PropTypes.string,
+		autoComplete: React.PropTypes.string
 	}),
+	confirmational: React.PropTypes.string,
 	parameter: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.bool
