@@ -1,5 +1,8 @@
 'use strict';
 
+// Load config
+require('dotenv').config();
+
 // Get dependencies
 const express = require('express'),
 	nunjucks = require('nunjucks'),
@@ -61,8 +64,13 @@ require('./app/api')();
 // Connect to mongodb
 mongoose.connect(database.url);
 
-if(!process.env.PORT) process.env.PORT = 80;
-if(!process.env.HOSTNAME) process.env.HOSTNAME = 'community.dj';
+if(process.env.NODE_ENV === 'production') {
+	process.env.PORT = 80;
+	process.env.HOSTNAME = 'community.dj';
+} else {
+	process.env.PORT = 3000;
+	process.env.HOSTNAME = 'localhost';
+}
 
 // Start listening
 const server = http.listen(process.env.PORT, process.env.HOSTNAME, () => {

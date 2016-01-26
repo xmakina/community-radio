@@ -43,6 +43,13 @@ module.exports = () => {
 				user: req.user
 			});
 		})
+		.get('/reset/:token', isUnauthenticated, (req, res) => {
+			// Get user from database by token, flash error if not found 
+			// Create some form of fallback for the user
+			// Update user by token - auto update password? then email pasword
+			// Update inline with password form field, needs another api endpoint - emailing might be easier and cleaners
+			res.send(true);
+		});
 		// .get('/reset/:token', isUnauthenticated, function(req, res) {
 		// User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 		// if (!user) {
