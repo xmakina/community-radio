@@ -64,14 +64,6 @@ require('./app/api')();
 // Connect to mongodb
 mongoose.connect(database.url);
 
-if(process.env.NODE_ENV === 'production') {
-	process.env.PORT = 80;
-	process.env.HOSTNAME = 'community.dj';
-} else {
-	process.env.PORT = 3000;
-	process.env.HOSTNAME = 'localhost';
-}
-
 // Start listening
 const server = http.listen(process.env.PORT, process.env.HOSTNAME, () => {
 	console.log('http://%s:%s', server.address().address, server.address().port);
