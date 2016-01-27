@@ -1,7 +1,7 @@
 {
-  "name": "twogether-radio",
+  "name": "community.dj",
   "version": "1.0.0",
-  "description": "Twogether radio, share your music or listen to someone elses.",
+  "description": "A community jukebox",
   "main": "server.js",
   "engines": {
     "node": "5.2.0",

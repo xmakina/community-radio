@@ -23,6 +23,16 @@ class Player extends React.Component {
 			if(!this.made) this.makePlayer(data.id, data.elapsed);
 		});
 
+		// Polling fallback
+		setTimeout(() => {
+			if(!this.made) {
+				$.get('/radio/song', (data) => {
+					console.log(data);
+					if(!this.made) this.makePlayer(data.id, data.elapsed);
+				});
+			}
+		}, 3000);
+
 	}
 
 	changeVideo(videoId) {
@@ -56,10 +66,13 @@ class Player extends React.Component {
 		});
 
 		setTimeout(() => {
-			if(this.player.getPlayerState() == 1) {
+			if(this.player.getPlayerState() !== 1) {
+				console.log('state is not playing');
 				$.get('/radio/song', (data) => {
-					console.log("video stopped playing", data);
+					console.log(data); // elapsed is wrong
 					this.player.loadVideoById(data.id);
+					this.player.playVideo();
+					console.log(this.player);
 					this.player.seekTo(data.elapsed);
 				});
 			}

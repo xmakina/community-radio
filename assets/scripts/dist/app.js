@@ -926,6 +926,16 @@ var Player = (function (_React$Component) {
 			if (!_this.made) _this.makePlayer(data.id, data.elapsed);
 		});
 
+		// Polling fallback
+		setTimeout(function () {
+			if (!_this.made) {
+				$.get('/radio/song', function (data) {
+					console.log(data);
+					if (!_this.made) _this.makePlayer(data.id, data.elapsed);
+				});
+			}
+		}, 3000);
+
 		return _this;
 	}
 
@@ -964,10 +974,13 @@ var Player = (function (_React$Component) {
 			});
 
 			setTimeout(function () {
-				if (_this2.player.getPlayerState() == 1) {
+				if (_this2.player.getPlayerState() !== 1) {
+					console.log('state is not playing');
 					$.get('/radio/song', function (data) {
-						console.log("video stopped playing", data);
+						console.log(data); // elapsed is wrong
 						_this2.player.loadVideoById(data.id);
+						_this2.player.playVideo();
+						console.log(_this2.player);
 						_this2.player.seekTo(data.elapsed);
 					});
 				}

@@ -20,7 +20,7 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
-			"qp7KX1h3i_w",
+			'49Gz0Jfp-jI',
 			"lpy-TVzE4vg",
 			"0ok0glLJsr4",
 			"52Gg9CqhbP8",
@@ -56,17 +56,21 @@ class Timeline {
 
 	playSong(id) {
 
+		this.playing = false;
 		this.startsAt = new Date();
 		winston.log('info', 'Getting song details for '+id);
 		this._getSongLength(id, (data) => {
-
+			
 			this.endsAt = new Date();
+			this.elapsed = 0;
 
 			var now = new Date();
 			this.endsAt = new Date(now.getTime() + (data.seconds*1000));
 			this.endsAt = new Date(this.endsAt.getTime() + (data.minutes*60000));
 			
 			this.playing = id;
+
+			winston.log('info', 'Now playing, starts at '+this.startsAt+' and ends at '+this.endsAt);
 
 			winston.log('info', 'Got song details for '+id+' and setting up interval');
 			if(this.tracker) clearInterval(this.tracker);
@@ -97,12 +101,11 @@ class Timeline {
 
 	stopProcess() {
 		if(!this.running) return;
-
 		winston.log('info', 'Stopping process');
 		this.running = false;
-		clearInterval(this.tracker);
 		this.elapsed = 0;
 		this.playing = false;
+		clearInterval(this.tracker);
 	}
 
 	startProcess() {
@@ -146,6 +149,7 @@ class Timeline {
 		if(!this.playing) return;
 		var now = new Date();
 		if(now.getTime() > this.endsAt.getTime()) {
+			this.elapsed = 0;
 			winston.log('info', 'Inside tick and song has ended so _getNextSong()');
 			this._getNextSong();
 		} else {
@@ -205,11 +209,9 @@ class Timeline {
 
 	_loadFromDefaultPlaylist() {
 		winston.log('info', 'Loading song from default playlist');
-		this.elapsed = 0;
 		var index = this.defaultPlaylist.indexOf(this.playing),
 			nextSong = this.defaultPlaylist[1 + index];
 		this.playSong(nextSong);
-		this.playing = false;
 	}
 
 	_loadFromUsersPlaylist() {
@@ -225,10 +227,8 @@ class Timeline {
 					user.lastSong = songs[1 + songs.indexOf(user.lastSong)] || songs[0];
 					user.save();
 				}
-				this.elapsed = 0;
 				winston.log('info', 'Loading song from users playlist with last song as '+user.lastSong);
 				this.playSong(user.lastSong);
-				this.playing = false;
 			});
 	}
 
