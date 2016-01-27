@@ -394,13 +394,17 @@ var AvatarUpload = (function (_React$Component) {
 			valid: true
 		};
 
+		if (_this.props.value) {
+			_this.state.hasImage = true;
+		}
+
 		return _this;
 	}
 
 	_createClass(AvatarUpload, [{
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(props) {
-			this.setState({ value: props.attributes.value });
+			this.setState({ value: props.value });
 		}
 	}, {
 		key: 'onClick',
@@ -418,7 +422,10 @@ var AvatarUpload = (function (_React$Component) {
 					_this2.refs.preview.src = e.target.result;
 				};
 				reader.readAsDataURL(this.refs.input.files[0]);
-				this.setState({ hasImage: true });
+				this.setState({
+					hasImage: true,
+					value: e.target.value
+				});
 			} else {
 				removeImage();
 			}
@@ -426,8 +433,16 @@ var AvatarUpload = (function (_React$Component) {
 	}, {
 		key: 'removeImage',
 		value: function removeImage() {
-			$(this.refs.input).replaceWith($(this.refs.input).clone());
-			this.setState({ hasImage: false });
+			var _this3 = this;
+
+			$.ajax({
+				method: 'delete',
+				url: '/removeAvatar',
+				success: function success() {
+					$(_this3.refs.input).replaceWith($(_this3.refs.input).clone());
+					_this3.setState({ hasImage: false });
+				}
+			});
 		}
 	}, {
 		key: 'render',
@@ -454,7 +469,7 @@ var AvatarUpload = (function (_React$Component) {
 				_react2.default.createElement(
 					'div',
 					{ style: { display: this.state.hasImage ? 'block' : 'none' } },
-					_react2.default.createElement('img', { ref: 'preview', src: '#' }),
+					_react2.default.createElement('img', { ref: 'preview', src: this.props.value }),
 					_react2.default.createElement(
 						'button',
 						{ type: 'button', onClick: this.removeImage.bind(this), className: 'remove' },
@@ -633,7 +648,7 @@ var Input = (function (_React$Component) {
 			valid: true
 		};
 
-		if (_this.props.attributes.autoComplete == 'off') {
+		if (_this.props.attributes.autoComplete == 'off' && (!_this.props.attributes.value || _this.props.attributes.value == '')) {
 			setTimeout(function () {
 				_this.setState({
 					value: '',

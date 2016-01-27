@@ -37,7 +37,7 @@ module.exports = {
 						var fileType = req.files.avatar.originalFilename.split('.')[1];
 						if(fileType) {
 							fileType = fileType.toLowerCase();
-							if(fileType !== 'png' || fileType !== 'jpeg' || fileType !== 'jpg' || fileType !== 'gif') {
+							if(fileType !== 'png' && fileType !== 'jpeg' && fileType !== 'jpg' && fileType !== 'gif') {
 								return done(null, false, req.flash('message', {type: 'error', message: 'We only accept jpg, png or gif for avatar images'}));
 							}
 							var avatarPath = '/images/avatars/'+newUser._id+'.'+fileType;
@@ -140,14 +140,19 @@ module.exports = {
 				}
 
 				if(req.files && req.files.avatar) {
-					if(user.avatar) {
-						fs.unlinkSync(resources.dirname+'/assets'+user.avatar);
+					var fileType = req.files.avatar.originalFilename.split('.')[1];
+					if(fileType) {
+						fileType = fileType.toLowerCase();
+						if(fileType !== 'png' && fileType !== 'jpeg' && fileType !== 'jpg' && fileType !== 'gif') {
+							return done(null, false, req.flash('message', {type: 'error', message: 'We only accept jpg, png or gif for avatar images'}));
+						}
+						if(user.avatar) fs.unlinkSync(resources.dirname+'/assets'+user.avatar);
+						var avatarPath = '/images/avatars/'+user._id+'.'+fileType;
+						user.avatar = avatarPath;
+						fs.readFile(req.files.avatar.path, (err, data) => {
+							fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
+						});
 					}
-					var avatarPath = '/images/avatars/'+user._id+'.'+req.files.avatar.originalFilename.split('.')[1];
-					user.avatar = avatarPath;
-					fs.readFile(req.files.avatar.path, (err, data) => {
-						fs.writeFile(resources.dirname+'/assets'+avatarPath, data);
-					});
 				}
 
 				user.save((err) => {
@@ -164,6 +169,33 @@ module.exports = {
 						res.redirect('/settings');
 					});
 
+				});
+			}
+		});
+	},
+
+	removeAvatar: (req,res) => {
+		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
+			if(err) {
+				req.flash('message', {type: 'error', message: 'User Not found.'});
+				res.status(400);
+				res.send(err);
+			} else if(!user) {
+				res.status(400);
+				res.send('no user');
+			} else {
+				if(user.avatar) fs.unlinkSync(resources.dirname+'/assets'+user.avatar);
+				user.avatar = null;
+				user.save((err) => {
+					if(err) {
+						req.flash('message', {type: 'error', message: 'Unable to save user'});
+						res.status(400);
+						res.send(err);
+					}
+					req.login(user, function(err) {
+						req.flash('message', {type: 'message', message: 'User updated.'});
+						res.send(true);
+					});
 				});
 			}
 		});

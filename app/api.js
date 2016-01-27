@@ -26,6 +26,7 @@ module.exports = () => {
 		.post('/forgot-password', controllers.user.recover)
 		.post('/settings', isAuthenticated, controllers.user.update)
 		.get('/logout', isAuthenticated, controllers.user.logout)
+		.delete('/removeAvatar', isAuthenticated, controllers.user.removeAvatar)
 
 		// Radio api
 		.get('/radio/listening', controllers.radio.listening)

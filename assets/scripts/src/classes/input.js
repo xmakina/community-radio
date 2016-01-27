@@ -15,7 +15,7 @@ class Input extends React.Component {
 			valid: true
 		};
 
-		if(this.props.attributes.autoComplete == 'off') {
+		if(this.props.attributes.autoComplete == 'off' && (!this.props.attributes.value || this.props.attributes.value == '')) {
 			setTimeout(() => {
 				this.setState({
 					value: '',
