@@ -1,0 +1,55 @@
+.sidebar-nav {
+  background: #3c3933;
+  font-family: Arial, Helvetics, sans-serif;
+  width: 240px;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+  position:fixed;
+  left: -240px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;  
+  h3 {
+    color: #cbbfad;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 20px;
+    margin: 0;
+    background: #282522;    
+    height: 16px;
+  }
+  a {
+    display: block; /* drops the nav vertically*/
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-top: 1px solid #56544e;
+    border-bottom: 1px solid #312e2a;
+    padding: 14px;
+    &:hover {
+      background:#00A287;
+    }
+    &:active {
+      background: #454f5c;
+      color: #fff;
+    }
+  }
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;  
+}
+
+body.sidebar-nav-open {
+  left: 240px;
+  .sidebar-nav {
+    left: 0;
+  }
+}

@@ -65,6 +65,7 @@ class Timeline {
 			this.elapsed = 0;
 
 			var now = new Date();
+			winston.log('info', 'Song length is '+data.second+'seconds and '+data.minutes+' minutes');
 			this.endsAt = new Date(now.getTime() + (data.seconds*1000));
 			this.endsAt = new Date(this.endsAt.getTime() + (data.minutes*60000));
 			
@@ -177,6 +178,7 @@ class Timeline {
 
 	_getSongLength(id, callback) {
 		this._getVideoData(id, function(data) {
+			winston.log('info', 'Duration is '+data.items[0].contentDetails.duration);
 			var duration = data.items[0].contentDetails.duration.replace('PT', ''),
 				minutes, seconds;
 			if(duration.split('M')[1]) {

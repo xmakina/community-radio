@@ -62,6 +62,11 @@ $('form').submit(function (e) {
 	}
 });
 
+$('#open-sidebar-nav').click(function (e) {
+	e.preventDefault();
+	_dom2.default.$body.toggleClass('sidebar-nav-open');
+});
+
 },{"./classes/Playlists":2,"./classes/avatarUpload":4,"./classes/controls":5,"./classes/input":6,"./classes/player":7,"./classes/queueList":9,"./classes/room":10,"./utils/dom":14,"react-dom-parser":44}],2:[function(require,module,exports){
 'use strict';
 

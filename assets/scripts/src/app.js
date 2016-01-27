@@ -30,3 +30,8 @@ $('form').submit((e) => {
 		});
 	}
 });
+
+$('#open-sidebar-nav').click((e) => {
+	e.preventDefault();
+	dom.$body.toggleClass('sidebar-nav-open');
+});

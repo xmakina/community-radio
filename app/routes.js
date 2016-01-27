@@ -16,7 +16,7 @@ module.exports = () => {
 			if(!req.isAuthenticated()){
 				res.render('login.html');
 			} else {
-				res.render('home.html', {
+				res.render('home-new.html', {
 					isRadio: true
 				});
 			}
