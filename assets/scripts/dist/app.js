@@ -297,7 +297,7 @@ Playlists.defaultProps = {};
 exports.default = Playlists;
 
 },{"../utils/dom":14,"./playlistForm":8,"react":174}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -305,7 +305,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -327,18 +327,19 @@ var Audience = (function (_React$Component) {
 	}
 
 	_createClass(Audience, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				"ul",
-				{ className: "align-left" },
+				'ul',
+				{ className: 'align-left' },
 				this.props.listening.map(function (user, index) {
+					if (!user.avatar) user.avatar = '/images/avatars/default.jpg';
 					return _react2.default.createElement(
-						"li",
+						'li',
 						{ key: index },
-						_react2.default.createElement("img", { src: user.avatar, height: "35" }),
+						_react2.default.createElement('img', { src: user.avatar, height: '35' }),
 						_react2.default.createElement(
-							"p",
+							'p',
 							null,
 							user.username
 						)

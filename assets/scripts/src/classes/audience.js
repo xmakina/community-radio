@@ -11,6 +11,7 @@ class Audience extends React.Component {
 		return (
 			<ul className="align-left">
 				{this.props.listening.map(function(user, index){
+					if(!user.avatar) user.avatar = '/images/avatars/default.jpg';
 					return (				
 						<li key={index}>
 							<img src={user.avatar} height="35" />

@@ -15,9 +15,7 @@ const mongoose = require('mongoose'),
 			required: true
 		},
 		avatar: {
-			type: String,
-			required: false,
-			default: '/images/avatars/default.jpg'
+			type: String
 		},
 		email: {
 			type: String,
