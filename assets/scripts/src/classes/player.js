@@ -45,15 +45,6 @@ class Player extends React.Component {
 						event.target.playVideo();
 						this.setState({loaded: true});
 						if(Cookies.cookies.volume) this.player.setVolume(Cookies.cookies.volume);
-						setTimeout(() => {
-							if(this.player.getPlayerState() == 1) {
-								$.get('/radio/song', (data) => {
-									console.log("video stopped playing", data);
-									this.player.loadVideoById(data.id);
-									this.player.seekTo(data.elapsed);
-								});
-							}
-						}, 2500);
 					}
 				},
 				playerVars: { 
@@ -64,6 +55,16 @@ class Player extends React.Component {
 			});
 		});
 
+		setTimeout(() => {
+			if(this.player.getPlayerState() == 1) {
+				$.get('/radio/song', (data) => {
+					console.log("video stopped playing", data);
+					this.player.loadVideoById(data.id);
+					this.player.seekTo(data.elapsed);
+				});
+			}
+		}, 2500);
+		
 	}
 
 	render(){

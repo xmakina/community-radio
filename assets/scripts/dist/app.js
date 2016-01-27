@@ -953,15 +953,6 @@ var Player = (function (_React$Component) {
 							event.target.playVideo();
 							_this2.setState({ loaded: true });
 							if (_cookies2.default.cookies.volume) _this2.player.setVolume(_cookies2.default.cookies.volume);
-							setTimeout(function () {
-								if (_this2.player.getPlayerState() == 1) {
-									$.get('/radio/song', function (data) {
-										console.log("video stopped playing", data);
-										_this2.player.loadVideoById(data.id);
-										_this2.player.seekTo(data.elapsed);
-									});
-								}
-							}, 2500);
 						}
 					},
 					playerVars: {
@@ -971,6 +962,16 @@ var Player = (function (_React$Component) {
 					}
 				});
 			});
+
+			setTimeout(function () {
+				if (_this2.player.getPlayerState() == 1) {
+					$.get('/radio/song', function (data) {
+						console.log("video stopped playing", data);
+						_this2.player.loadVideoById(data.id);
+						_this2.player.seekTo(data.elapsed);
+					});
+				}
+			}, 2500);
 		}
 	}, {
 		key: 'render',
