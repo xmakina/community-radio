@@ -1,5 +1,17 @@
 'use strict';
 
+// Functionality for making rooms
+// 
+// 1. rooms are stored in mogodb
+// 2. rooms have an owner who can set the default playlist for a room
+// 3. rooms have a visibility - public, private, invite only
+// 4. rooms will kick up a new timeline instance
+// 5. need socket events to be only for a certain room (namespaces or rooms?)
+
+// Design for rooms index
+// 
+// 1. 
+
 // Load config
 require('dotenv').config();
 

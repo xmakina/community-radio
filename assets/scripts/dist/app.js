@@ -914,6 +914,10 @@ var Player = (function (_React$Component) {
 
 		_this.socket = io(window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/radio');
 
+		_this.state = {
+			loaded: true
+		};
+
 		_this.socket.on('newSong', function (info) {
 			_this.changeVideo(info.id);
 		});
@@ -947,7 +951,17 @@ var Player = (function (_React$Component) {
 						onReady: function onReady(event) {
 							event.target.seekTo(elapsed || 0);
 							event.target.playVideo();
+							_this2.setState({ loaded: true });
 							if (_cookies2.default.cookies.volume) _this2.player.setVolume(_cookies2.default.cookies.volume);
+							setTimeout(function () {
+								if (_this2.player.getPlayerState() == 1) {
+									$.get('/radio/song', function (data) {
+										console.log("video stopped playing", data);
+										_this2.player.loadVideoById(data.id);
+										_this2.player.seekTo(data.elapsed);
+									});
+								}
+							}, 2500);
 						}
 					},
 					playerVars: {
@@ -961,7 +975,7 @@ var Player = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement('div', { id: 'player' });
+			return _react2.default.createElement('div', { id: 'player', style: { display: this.state.loaded ? 'block' : 'none' } });
 		}
 	}]);
 

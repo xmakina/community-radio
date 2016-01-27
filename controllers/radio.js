@@ -14,6 +14,14 @@ const Radio = {
 
 	inRoom: 0,
 
+	getSong: (req, res) => {
+		res.send({
+			id: Timeline.playing,
+			elapsed: Timeline.elapsed,
+			dj: Timeline.currentDj
+		});
+	},
+
 	joinQueue: (req, res) => {
 		User.findOne({_id: req.session.passport.user._id}, (err, user) => {
 			if(!user.activePlaylist) {

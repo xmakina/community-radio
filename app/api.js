@@ -32,6 +32,7 @@ module.exports = () => {
 		.get('/radio/listening', controllers.radio.listening)
 		.post('/radio/join', controllers.radio.joinQueue)
 		.get('/radio/leave', controllers.radio.leaveQueue)
+		.get('/radio/song', controllers.radio.getSong)
 
 		// Playlist api
 		.get('/playlists/:guid', controllers.playlists.list)

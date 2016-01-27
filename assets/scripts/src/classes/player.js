@@ -11,6 +11,10 @@ class Player extends React.Component {
 		
 		this.socket = io(window.location.href.split("/")[0]+'//'+window.location.href.split("/")[2]+'/radio');
 
+		this.state = {
+			loaded: true
+		};
+
 		this.socket.on('newSong', (info) => {
 			this.changeVideo(info.id);
 		});
@@ -39,7 +43,17 @@ class Player extends React.Component {
 					onReady: (event) => {
 						event.target.seekTo(elapsed || 0);
 						event.target.playVideo();
+						this.setState({loaded: true});
 						if(Cookies.cookies.volume) this.player.setVolume(Cookies.cookies.volume);
+						setTimeout(() => {
+							if(this.player.getPlayerState() == 1) {
+								$.get('/radio/song', (data) => {
+									console.log("video stopped playing", data);
+									this.player.loadVideoById(data.id);
+									this.player.seekTo(data.elapsed);
+								});
+							}
+						}, 2500);
 					}
 				},
 				playerVars: { 
@@ -54,7 +68,7 @@ class Player extends React.Component {
 
 	render(){
 		return (
-			<div id="player"></div>
+			<div id="player" style={{display: this.state.loaded ? 'block' : 'none'}}></div>
 		);
 	}
 

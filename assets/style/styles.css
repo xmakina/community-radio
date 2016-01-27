@@ -836,7 +836,8 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }
+  background-size: cover;
+  background-color: #434343; }
 
 .large-logo {
   width: 60%;
