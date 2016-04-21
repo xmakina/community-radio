@@ -3,6 +3,12 @@ A live music lobby that rotates between peoples song suggestions, anyone can lis
 
 This app is using node, mongodb (mongoose), react, browserify, babel, sass and gulp, the project will auto build sass and javascript when changes are made and the server will auto reload when node src is changed.
 
+## Setup
+	Set the environment variables
+	PORT=3000
+	GOOGLE_API= // API key from https://console.developers.google.com
+
+
 ## Running the app:
 	
 	//Ensure node is up to date for harmony support
