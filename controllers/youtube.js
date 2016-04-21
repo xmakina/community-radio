@@ -1,7 +1,7 @@
 "use strict";
 
 const request = require('request'),
-	apiKey = 'AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU';
+	apiKey = process.env.GOOGLE_API;
 
 module.exports = {
 

@@ -16,7 +16,7 @@ class Timeline {
 		if(!opts) opts = {};
 		this.opts = Object.assign({}, opts, {
 			refreshInterval: 1000,
-			youtubeApiKey: 'AIzaSyABtT6HgNEXwI2tJwN7C43QXfyV9Km7fkU'
+			youtubeApiKey: process.env.GOOGLE_API
 		});
 
 		this.defaultPlaylist = [
