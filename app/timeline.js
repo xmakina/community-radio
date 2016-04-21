@@ -113,7 +113,7 @@ class Timeline {
 		if(this.running) return;
 		winston.log('info', 'Starting process');
 		this.running = true;
-		this._getNextSong();
+		this.playSong(this.defaultPlaylist[0]);
 		this.tracker = setInterval(this._nextTick.bind(this), this.opts.refreshInterval);
 	}
 
