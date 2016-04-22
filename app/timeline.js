@@ -20,6 +20,7 @@ class Timeline {
 		});
 
 		this.defaultPlaylist = [
+			'OJ2l8rKOyTA',
 			'49Gz0Jfp-jI',
 			"lpy-TVzE4vg",
 			"0ok0glLJsr4",
