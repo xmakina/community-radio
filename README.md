@@ -7,6 +7,7 @@ This app is using node, mongodb (mongoose), react, browserify, babel, sass and g
 	Set the environment variables
 	PORT=3000
 	GOOGLE_API= // API key from https://console.developers.google.com
+	MONGODB_URI= // Your MongoDB URI
 
 
 ## Running the app:
