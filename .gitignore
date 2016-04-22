@@ -2,3 +2,4 @@ node_modules/*
 .sass-cache/*
 timeline.log
 .env
+assets/images/avatars/
