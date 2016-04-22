@@ -1,3 +1,3 @@
 module.exports = {
-	url: 'mongodb://localhost/community-dj'
+	url: process.env.MONGODB_URI
 }
