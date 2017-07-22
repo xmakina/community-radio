@@ -4,7 +4,7 @@
   "description": "A community jukebox",
   "main": "server.js",
   "engines": {
-    "node": "5.2.0",
+    "node": "5.1.1",
     "npm": "3.5.3"
   },
   "repository": {
